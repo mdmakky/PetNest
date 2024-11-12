@@ -1,0 +1,23 @@
+{
+  "name": "petnest",
+  "version": "1.0.0",
+  "description": "A one-stop platform for buying and selling pets, connecting users with trusted veterinarians, and providing resources and community support for pet care.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DurjoyGH/PetNest.git"
+  },
+  "author": "Durjoy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DurjoyGH/PetNest/issues"
+  },
+  "homepage": "https://github.com/DurjoyGH/PetNest#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
