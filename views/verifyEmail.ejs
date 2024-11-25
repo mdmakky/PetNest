@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetNest</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="login-container">
+    <form method="post" action="/verifyEmail" class="login-form" id="verifyForm">
+      <h2>A verification code send on your email</h2>
+      <div class="input-group">
+        <label for="token">Enter code</label>
+        <input type="text" id="token" name="token" required>
+      </div>
+      <button type="submit">Continue</button>
+    </form>
+  </div>
+
+
+  <script>
+    const verifyForm = document.querySelector("#verifyForm");
+    verifyForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(verifyForm);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const response = await fetch("/verifyEmail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            
+
+            if (result.success) {
+                Swal.fire({
+                    title: "Success!",
+                    text: result.message,
+                    icon: "success",
+                    confirmButtonText: "Continue",
+                }).then(() => {
+                    window.location.href = result.redirectUrl;
+                });
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: result.message,
+                    icon: "error",
+                    confirmButtonText: "Try Again",
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                title: "Oops!",
+                text: "Something went wrong. Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+        }
+    });
+</script>
+</body>
+</html>

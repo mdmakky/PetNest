@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetNest</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="login-container">
+    <form method="post" action="/login" class="login-form" id="loginForm">
+      <h2>Login</h2>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <p class="forgot-link">Forgot password? <a href="forgotPassword">Click here!</a></p>
+      <button type="submit">Login</button>
+      <p class="register-link">Don't have an account? <a href="register">Register</a></p>
+    </form>
+  </div>
+
+
+  <script>
+    const loginForm = document.querySelector("#loginForm");
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(loginForm);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const response = await fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.status === 403) {
+              Swal.fire({
+                  title: "Email Verification Required",
+                  text: result.message,
+                  icon: "warning",
+                  confirmButtonText: "Go to Verify",
+              }).then(() => {
+                  window.location.href = result.redirectUrl;
+              });
+            }
+
+            else if (result.success) {
+                Swal.fire({
+                    title: "Success!",
+                    text: result.message,
+                    icon: "success",
+                    confirmButtonText: "Continue",
+                }).then(() => {
+                    window.location.href = result.redirectUrl;
+                });
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: result.message,
+                    icon: "error",
+                    confirmButtonText: "Try Again",
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                title: "Oops!",
+                text: "Something went wrong. Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+        }
+    });
+</script>
+</body>
+</html>
