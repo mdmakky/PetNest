@@ -8,6 +8,7 @@ const passport = require("passport");
 const path = require('path');
 
 const authController = require("./controllers/authController")
+const userController = require("./controllers/userController")
 
 const app = express();
 
@@ -42,8 +43,10 @@ app.get('/authCode', authController.getauthCode)
 app.post('/authCode', authController.postauthCode)
 app.get('/resetPassword', authController.getresetPassword)
 app.post('/resetPassword', authController.postresetPassword)
-
-
+app.get('/profile', userController.getProfile)
+app.get('/editProfile', userController.getEditProfile)
+app.post('/editProfile', userController.postEditProfile)
+app.post('/removeProfilePic', userController.removeProfilePic)
 
 
 const PORT = 3300;

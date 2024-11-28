@@ -57,7 +57,7 @@ exports.postLogin = async (req, res, next) => {
                 return res.status(500).json({ success: false, message: "Login failed. Please try again." });
             }
 
-            res.status(200).json({ success: true, message: "Login successful!", redirectUrl: "/welcome" });
+            res.status(200).json({ success: true, message: "Login successful!", redirectUrl: "/profile" });
         });
     })(req, res, next);
 };

@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     gender: String,
     password: String,
     profileImage: String,
+    nid: String,
     profileComplete: {
         type: Boolean,
         default: false

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetNest</title>
+  <link rel="stylesheet" href="css/style4.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <div class="login-container">
+    <form method="post" action="/editProfile" class="login-form" id="editProfileForm" enctype="multipart/form-data">
+      <h2>Update Profile</h2>
+      <div class="profile-pic-section">
+        <img 
+          src="<%= userImage || '/images/user.png' %>" 
+          alt="Profile Picture" 
+          class="profile-pic-preview">
+        <div class="pic-buttons">
+          <input type="file" id="profilePic" name="profileImage" accept="image/*">
+          <button type="button" class="remove-pic-btn" onclick="removeProfilePic()">Remove Photo</button>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <div class="input-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" value="<%= userName %>" name="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="input-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" value="<%= userAddress %>" name="address" placeholder="Enter your address" required>
+        </div>
+      </div>
+      <div class="form-section">
+        <div class="input-group">
+          <label for="phone">Phone Number</label>
+          <input type="text" id="phone" value="<%= userPhone %>" name="phone" placeholder="+88XXXXXXXXXX" required>
+        </div>
+        <div class="input-group">
+            <label for="nid">NID</label>
+            <input type="text" id="nid" name="nid">
+          </div>
+      </div>
+      <div class="form-section">
+        <div class="input-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" value="<%= userDOB %>" name="dob" required>
+        </div>
+        <div class="input-group">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select your gender</option>
+            <option value="Male" <%= userGender === 'Male' ? 'selected' : '' %>>Male</option>
+            <option value="Female" <%= userGender === 'Female' ? 'selected' : '' %>>Female</option>
+            <option value="Other" <%= userGender === 'Other' ? 'selected' : '' %>>Other</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit">Update</button>
+    </form>
+  </div>
+
+  <script>
+    function removeProfilePic() {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "This will remove your profile picture.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#007bff',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              const response = await fetch('/removeProfilePic', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId: '<%= userId %>' }),
+              });
+      
+              const data = await response.json();
+      
+              if (data.success) {
+                document.querySelector('.profile-pic-preview').src = '/images/user.png';
+                Swal.fire('Removed!', 'Your profile picture has been removed.', 'success');
+              } else {
+                Swal.fire('Error!', 'Could not remove profile picture. Please try again.', 'error');
+              }
+            } catch (error) {
+              Swal.fire('Error!', 'Could not connect to the server.', 'error');
+            }
+          }
+        });
+      }
+
+      document.getElementById("editProfileForm").addEventListener("submit", async function (e) {
+        e.preventDefault(); // Prevent default form submission
+    
+        const form = e.target;
+        const formData = new FormData(form);
+    
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+          });
+    
+          const data = await response.json();
+    
+          if (data.success) {
+            Swal.fire({
+              title: "Success!",
+              text: data.message,
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              // Redirect to profile page after success
+              window.location.href = "/profile";
+            });
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: data.message,
+              icon: "error",
+              confirmButtonText: "Try Again",
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: "Error",
+            text: "Failed to update profile. Please try again later.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+          console.error("Error:", error);
+        }
+      });
+      
+  </script>
+</body>
+
+</html>

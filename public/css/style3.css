@@ -1,0 +1,86 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Container Styling */
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #E3FDFD;
+  padding: 20px;
+}
+
+/* Card Styling */
+.profile-card {
+  background: #CBF1F5;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #333;
+}
+
+/* Profile Picture Styling */
+.profile-pic {
+  margin-bottom: 20px;
+}
+
+.profile-pic img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #71C9CE;
+  object-fit: cover;
+}
+
+/* Profile Details Styling */
+.profile-details h2 {
+  margin-bottom: 10px;
+  font-size: 1.8em;
+}
+
+.profile-details p {
+  margin-bottom: 8px;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+/* Button Styling */
+.edit-profile-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  background: #2575fc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.edit-profile-btn:hover {
+  background: #6a11cb;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 15px;
+  }
+
+  .profile-details h2 {
+    font-size: 1.5em;
+  }
+
+  .edit-profile-btn {
+    width: 100%;
+  }
+}
