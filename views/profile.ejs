@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PetNest</title>
-  <link rel="stylesheet" href="css/style3.css">
-</head>
-<body>
-  <div class="profile-container">
-    <div class="profile-card">
-      <div class="profile-pic">
-      <img src="<%= userImage || '/images/user.png' %>"  alt="Profile Picture" >
-      </div>
-      <div class="profile-details">
-        <h2><%= userName %></h2>
-        <p><strong>Gender:</strong> <%= userGender %> </p>
-        <p><strong>Address:</strong> <%= userAddress %> </p>
-        <p><strong>Date of Birth:</strong> <%= userDOB %> </p>
-        <p><strong>Phone:</strong> <%= userPhone %> </p>
-        <p><strong>Email:</strong> <%= userEmail %> </p>
-        <button class="edit-profile-btn"  onclick="window.location.href='/editProfile'">Edit Profile</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PetNest</title>
+    <link rel="stylesheet" href="css/style3.css" />
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+  </head>
+  <body>
+    <div class="profile-container">
+      <div class="profile-card">
+        <div class="profile-pic">
+          <img
+            src="<%= userImage || '/images/user.png' %>"
+            alt="Profile Picture"
+          />
+        </div>
+        <div class="profile-details">
+          <h2><%= userName %></h2>
+          <div class="personal-info">
+            <p><strong>Gender:</strong> <%= userGender %></p>
+            <p><strong>Address:</strong> <%= userAddress %></p>
+            <p><strong>Date of Birth:</strong> <%= userDOB %></p>
+            <p><strong>Phone:</strong> <%= userPhone %></p>
+            <p><strong>Email:</strong> <%= userEmail %></p>
+          </div>
+
+          <button
+            class="edit-profile-btn"
+            onclick="window.location.href='/editProfile'"
+          >
+            Edit Profile
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
