@@ -6,66 +6,55 @@ const { uploadImageToCloudinary } = require('../utils/cloudinary');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-exports.getProfile = (req, res) => {
-    if (!req.isAuthenticated()) {
-        return res.redirect("/login");
-    }
+exports.getProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
 
-    User.findById(req.user._id).then(function (foundUser) {
-        if (foundUser) {
-            res.render("profile", { 
-                userName: foundUser.name,
-                userAddress: foundUser.address,
-                userPhone: foundUser.phone,
-                userEmail: foundUser.email,
-                userDOB: foundUser.dob,
-                userGender: foundUser.gender,
-                userImage: foundUser.profileImage,
-            });
-        } else {
-            res.status(404).send("User not found");
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
         }
-    }).catch(function (err) {
-        console.log(err);
-        res.status(500).send("Internal Server Error");
-    });
+
+        res.status(200).json({
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            address: user.address,
+            dob: user.dob,
+            gender: user.gender,
+            profileImage: user.profileImage,
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
 };
 
 
 exports.getEditProfile = (req, res) => {
-    if (!req.isAuthenticated()) {
-        return res.redirect("/login");
-    }
-
-    User.findById(req.user._id).then(function (foundUser) {
-        if (foundUser) {
-            res.render("editProfile", { 
-                userName: foundUser.name,
-                userAddress: foundUser.address,
-                userPhone: foundUser.phone,
-                userDOB: foundUser.dob,
-                userGender: foundUser.gender,
-                userImage: foundUser.profileImage,
-                userId: req.user._id
-            });
-        } else {
-            res.status(404).send("User not found");
-        }
-    }).catch(function (err) {
-        console.log(err);
-        res.status(500).send("Internal Server Error");
-    });
+    User.findById(req.user.id)
+        .then(function (foundUser) {
+            if (foundUser) {
+                res.render("editProfile", {
+                    userName: foundUser.name,
+                    userAddress: foundUser.address,
+                    userPhone: foundUser.phone,
+                    userDOB: foundUser.dob,
+                    userGender: foundUser.gender,
+                    userImage: foundUser.profileImage,
+                    userId: req.user.id,
+                });
+            } else {
+                res.status(404).send("User not found");
+            }
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.status(500).send("Internal Server Error");
+        });
 };
 
 exports.postEditProfile = [
   upload.single('profileImage'),
   async (req, res) => {
-      if (!req.isAuthenticated()) {
-          return res.json({
-              success: false,
-              message: "You are not authenticated. Please log in.",
-          });
-      }
 
       const { name, address, phone, nid, dob, gender } = req.body;
 
@@ -80,7 +69,7 @@ exports.postEditProfile = [
       try {
           let profileImageUrl;
           if (req.file) {
-              profileImageUrl = await uploadImageToCloudinary(req.file.buffer, req.user._id); // Pass buffer and optional file name
+              profileImageUrl = await uploadImageToCloudinary(req.file.buffer, req.user._id);
           }
 
           const user = await User.findById(req.user._id);

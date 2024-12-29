@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController')
+const authenticateJWT = require('../utils/authentication');
 
-router.get('/profile', userController.getProfile)
+router.get('/profile', authenticateJWT, userController.getProfile);
 
-router.get('/editProfile', userController.getEditProfile)
+router.get('/editProfile', authenticateJWT, userController.getEditProfile)
 
-router.post('/editProfile', userController.postEditProfile)
+router.post('/editProfile', authenticateJWT, userController.postEditProfile)
 
 router.post('/removeProfilePic', userController.removeProfilePic)
 

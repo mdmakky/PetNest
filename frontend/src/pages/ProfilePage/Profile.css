@@ -1,0 +1,122 @@
+/* Overall page layout */
+.profile-page {
+  display: flex;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  flex-wrap: wrap;
+}
+
+.profile-main {
+  margin-left: 250px; /* Adjust based on sidebar width */
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .profile-main {
+    margin-left: 0; /* Remove sidebar offset for smaller screens */
+    padding: 1rem;
+  }
+}
+
+/* Card Container */
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.profile-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%; /* Ensure full width for smaller screens */
+  text-align: center;
+}
+
+/* Profile Picture */
+.profile-pic {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.profile-pic img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00bcd4;
+}
+
+@media (max-width: 768px) {
+  .profile-pic img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Profile Details */
+.profile-details h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .profile-details h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.profile-info {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.profile-info span {
+  font-weight: 600;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .profile-info {
+    font-size: 0.9rem;
+  }
+}
+
+/* Edit Button */
+.edit-profile-btn {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background-color: #00bcd4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-profile-btn:hover {
+  background-color: #008c9e;
+}
+
+@media (max-width: 768px) {
+  .edit-profile-btn {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Sidebar Adjustment for Smaller Screens */
+@media (max-width: 768px) {
+  .profile-page {
+    flex-direction: column; /* Stack sidebar and profile */
+  }
+}

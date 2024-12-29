@@ -7,7 +7,8 @@ const requiredEnvVars = [
     'CLOUD_NAME',
     'API_KEY',
     'API_SECRET',
-    'PORT'
+    'PORT',
+    'JWT_SECRET'
 ];
 
 requiredEnvVars.forEach((varName) => {
@@ -24,5 +25,6 @@ module.exports = {
     cloudName: process.env.CLOUD_NAME,
     apiKey: process.env.API_KEY,
     apiSecret: process.env.API_SECRET,
-    port: process.env.PORT
+    port: process.env.PORT,
+    JWT_SECRET: process.env.JWT_SECRET
 };

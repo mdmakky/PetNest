@@ -7,7 +7,7 @@ import './Login.css';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const Login = () => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/authentication/login", { // Change to /api/user/login
+      const response = await fetch("http://localhost:3000/api/authentication/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,8 +24,8 @@ const Login = () => {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
+      const result = await response.json()
+      
       if (response.status === 403) {
         toast.warning(result.message, {
           position: "top-right",
@@ -35,6 +35,8 @@ const Login = () => {
           },
         });
       } else if (result.success) {
+        localStorage.setItem('token', result.token);
+
         toast.success(result.message, {
           position: "top-right",
           autoClose: 3000,

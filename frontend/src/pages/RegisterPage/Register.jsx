@@ -47,7 +47,7 @@ const Register = () => {
     }
 
     if (formData.password.length < 8) {
-      toast.error("Passwords must be 8 character long.", {
+      toast.error("Passwords must be 8 characters long.", {
         position: "top-right",
         autoClose: 5000,
       });
@@ -76,12 +76,15 @@ const Register = () => {
           },
         });
       } else if (result.success) {
+        // Store the JWT token after successful registration
+        localStorage.setItem("token", result.token);  // Storing token in localStorage
+
         toast.success(result.message, {
           position: "top-right",
           autoClose: 3000,
           onClose: () => {
             if (result.redirectUrl) {
-              window.location.href = result.redirectUrl;
+              window.location.href = result.redirectUrl; // Optionally redirect after registration
             }
           },
         });
