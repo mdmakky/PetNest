@@ -73,8 +73,6 @@ exports.postLogin = async (req, res, next) => {
 
     const token = generateToken(user);
 
-    console.log("Token Login Page: ", token)
-
     res.status(200).json({
       success: true,
       message: 'Login successful!',
