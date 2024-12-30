@@ -1,14 +1,13 @@
-const bcrypt = require('bcryptjs');
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const generateToken = require('../config/token');
-const User = require('../models/User');
+const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const generateToken = require("../config/token");
+const User = require("../models/User");
 const { gmail, appPassword } = require("../config/env");
 
 exports.getLogin = (req, res) => {
   res.render("login");
 };
-
 
 exports.postLogin = async (req, res, next) => {
   try {
@@ -19,7 +18,7 @@ exports.postLogin = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'User not found. Please register first.',
+        message: "User not found. Please register first.",
       });
     }
 
@@ -28,7 +27,7 @@ exports.postLogin = async (req, res, next) => {
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid email or password',
+        message: "Invalid email or password",
       });
     }
 
@@ -40,10 +39,10 @@ exports.postLogin = async (req, res, next) => {
       await user.save();
 
       const transporter = nodemailer.createTransport({
-        host: 'smtp.example.com',
+        host: "smtp.example.com",
         port: 587,
         secure: false,
-        service: 'gmail',
+        service: "gmail",
         auth: {
           user: gmail,
           pass: appPassword,
@@ -52,11 +51,11 @@ exports.postLogin = async (req, res, next) => {
 
       const mailOptions = {
         from: {
-          name: 'PetNest',
+          name: "PetNest",
           address: gmail,
         },
         to: user.email,
-        subject: 'Email Verification',
+        subject: "Email Verification",
         text: `Please verify your email address by using the following token:\n\n
                 ${verificationToken}\n\n
                 This token is valid for 5 minutes.`,
@@ -66,8 +65,8 @@ exports.postLogin = async (req, res, next) => {
 
       return res.status(403).json({
         success: false,
-        message: 'Please verify your email before login',
-        redirectUrl: '/verifyEmail',
+        message: "Please verify your email before login",
+        redirectUrl: "/verifyEmail",
       });
     }
 
@@ -75,15 +74,15 @@ exports.postLogin = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: 'Login successful!',
+      message: "Login successful!",
       token,
-      redirectUrl: '/profile',
+      redirectUrl: "/profile",
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
       success: false,
-      message: 'Something went wrong. Please try again.',
+      message: "Something went wrong. Please try again.",
     });
   }
 };
@@ -93,7 +92,16 @@ exports.getRegister = (req, res) => {
 };
 
 exports.postRegister = async (req, res) => {
-  const { name, address, phone, email, dob, gender, password, confirmPassword } = req.body;
+  const {
+    name,
+    address,
+    phone,
+    email,
+    dob,
+    gender,
+    password,
+    confirmPassword,
+  } = req.body;
 
   if (password !== confirmPassword) {
     return res.status(400).json({
@@ -112,7 +120,6 @@ exports.postRegister = async (req, res) => {
   }
 
   try {
-
     const user = new User({
       name,
       address,
@@ -133,10 +140,10 @@ exports.postRegister = async (req, res) => {
     await user.save();
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.example.com',
+      host: "smtp.example.com",
       port: 587,
       secure: false,
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: gmail,
         pass: appPassword,
@@ -182,12 +189,10 @@ exports.postVerifyEmail = async (req, res) => {
     });
 
     if (!user) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          message: "Verification token is invalid or has been expired",
-        });
+      return res.status(401).json({
+        success: false,
+        message: "Verification token is invalid or has been expired",
+      });
     }
 
     user.isVerified = true;
@@ -196,22 +201,18 @@ exports.postVerifyEmail = async (req, res) => {
 
     await user.save();
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message:
-          "Congratulations! Your email has been verified! You can now login!",
-        redirectUrl: "/login",
-      });
+    res.status(200).json({
+      success: true,
+      message:
+        "Congratulations! Your email has been verified! You can now login!",
+      redirectUrl: "/login",
+    });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message: "Something went wrong. Please try again later.",
-      });
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong. Please try again later.",
+    });
   }
 };
 
@@ -264,13 +265,11 @@ exports.postForgotPassword = async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Check your email",
-        redirectUrl: "/authentication",
-      });
+    res.status(200).json({
+      success: true,
+      message: "Check your email",
+      redirectUrl: "/authentication",
+    });
   } catch (err) {
     console.log(err);
     res.redirect("/forgotPassword");
@@ -280,7 +279,6 @@ exports.postForgotPassword = async (req, res) => {
 exports.getAuthCode = (req, res) => {
   res.render("authCode");
 };
-
 
 exports.postAuthCode = async (req, res) => {
   const { token } = req.body;
@@ -309,17 +307,15 @@ exports.postAuthCode = async (req, res) => {
 
 exports.getResetPassword = (req, res) => {
   const { token } = req.query;
-  res.render("resetPassword", { token }); 
+  res.render("resetPassword", { token });
 };
 
 exports.postResetPassword = async (req, res) => {
-  const { token } = req.query; 
+  const { token } = req.query;
   const { password } = req.body;
 
   if (!token) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Code is missing" });
+    return res.status(400).json({ success: false, message: "Code is missing" });
   }
 
   try {
@@ -334,20 +330,19 @@ exports.postResetPassword = async (req, res) => {
         .json({ success: false, message: "Invalid or expired token" });
     }
 
-    user.setPassword(password, async (err) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({ success: false, message: "Something went wrong. Please try again later."});
-        }
+    user.password = password;
 
-        user.resetPasswordToken = undefined;
-        user.resetPasswordExpires = undefined;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
 
-        await user.save();
+    await user.save();
 
-        res.status(200).json({ success: true, message: "Congratulations! Your password has been reset! You can now login!", redirectUrl: "/login" });
+    res.status(200).json({
+      success: true,
+      message:
+        "Congratulations! Your password has been reset! You can now login!",
+      redirectUrl: "/login",
     });
-
   } catch (error) {
     console.error("Error in resetting password:", error);
     res.status(500).json({ success: false, message: "Server error" });

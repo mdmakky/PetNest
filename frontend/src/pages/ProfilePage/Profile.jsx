@@ -57,12 +57,6 @@ const Profile = () => {
               <p className="profile-info">
                 <span>Email:</span> {userData.email || 'N/A'}
               </p>
-              <button
-                className="edit-profile-btn"
-                onClick={() => (window.location.href = '/editProfile')}
-              >
-                Edit Profile
-              </button>
             </div>
           </div>
         </div>

@@ -53,59 +53,62 @@ exports.getEditProfile = (req, res) => {
 };
 
 exports.postEditProfile = [
-  upload.single('profileImage'),
-  async (req, res) => {
+    upload.single('profileImage'),
+    async (req, res) => {
+        const { name, address, phone, nid, dob, gender } = req.body;
+  
+        if (!req.user || !req.user.id) {
+            return res.status(401).json({ success: false, message: 'User not authenticated' });
+        }
+  
+        const phoneRegex = /^(?:\+88|88)?(01[3-9]\d{8})$/;
+        if (!phoneRegex.test(phone)) {
+            return res.json({ success: false, message: 'Invalid phone number' });
+        }
+  
+        try {
+            let profileImageUrl;
 
-      const { name, address, phone, nid, dob, gender } = req.body;
-
-      const phoneRegex = /^(?:\+88|88)?(01[3-9]\d{8})$/;
-      if (!phoneRegex.test(phone)) {
-          return res.json({
-              success: false,
-              message: "Invalid phone number",
-          });
-      }
-
-      try {
-          let profileImageUrl;
-          if (req.file) {
-              profileImageUrl = await uploadImageToCloudinary(req.file.buffer, req.user._id);
-          }
-
-          const user = await User.findById(req.user._id);
-
-          if (user) {
-              user.name = name;
-              user.address = address;
-              user.phone = phone;
-              user.nid = nid;
-              user.dob = dob;
-              user.gender = gender;
-              if (profileImageUrl) {
-                  user.profileImage = profileImageUrl;
-              }
-              user.profileComplete = true;
-              await user.save();
-
-              return res.json({
-                  success: true,
-                  message: "Profile updated successfully!",
-              });
-          } else {
-              return res.status(404).json({
-                  success: false,
-                  message: "User not found.",
-              });
-          }
-      } catch (err) {
-          console.error(err);
-          return res.json({
-              success: false,
-              message: "An error occurred while updating your profile.",
-          });
-      }
-  },
+            if (req.file) {
+                profileImageUrl = await uploadImageToCloudinary(req.file.buffer, req.user.id);
+            }
+  
+            const user = await User.findById(req.user.id);
+  
+            if (user) {
+                user.name = name;
+                user.address = address;
+                user.phone = phone;
+                user.nid = nid;
+                user.dob = dob;
+                user.gender = gender;
+                if (profileImageUrl) {
+                    user.profileImage = profileImageUrl;
+                }
+                user.profileComplete = true;
+                await user.save();
+  
+                return res.json({
+                    success: true,
+                    message: 'Profile updated successfully!',
+                });
+            } else {
+                console.log('User not found with ID:', req.user.id);
+                return res.status(404).json({
+                    success: false,
+                    message: 'User not found.',
+                });
+            }
+        } catch (err) {
+            console.error('Error in updating profile:', err);
+            return res.status(500).json({
+                success: false,
+                message: 'An error occurred while updating your profile.',
+            });
+        }
+    },
 ];
+  
 
 exports.removeProfilePic = async (req, res) => {
   const { userId } = req.body;

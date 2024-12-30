@@ -8,6 +8,7 @@ import Authentication from "./pages/AuthenticationPage/Authentication";
 import ResetPassword from "./pages/ResetPasswordPage/ResetPassword";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
 import Profile from "./pages/ProfilePage/Profile";
+import EditProfile from "./pages/EditProfilePage/EditProfile";
 
 const RouterConfig = () => {
   return (
@@ -21,6 +22,7 @@ const RouterConfig = () => {
         <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/verifyEmail" element={<VerifyEmail />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     </Router>
   );
