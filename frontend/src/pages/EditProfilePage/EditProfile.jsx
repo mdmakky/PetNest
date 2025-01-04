@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../../components/SideBar/SideBar';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CircularProgress } from "@mui/material";
 import './EditProfile.css';
 
 const EditProfile = () => {
@@ -16,6 +17,8 @@ const EditProfile = () => {
   });
 
   const [previewImage, setPreviewImage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -61,6 +64,8 @@ const EditProfile = () => {
     try {
       const token = localStorage.getItem('token');
       const userId = userData.userId;
+
+      setLoadingMore(true);
   
       const response = await fetch('http://localhost:3000/api/user/removeProfilePic', {
         method: 'POST',
@@ -84,11 +89,16 @@ const EditProfile = () => {
       console.error('Error deleting profile image:', error);
       toast.error('An error occurred. Please try again.');
     }
+    finally {
+      setLoadingMore(false);
+    }
   };
   
   
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+
+    setLoading(true);
 
     const formData = new FormData();
     formData.append('name', userData.name);
@@ -135,6 +145,8 @@ const EditProfile = () => {
         position: 'top-right',
         autoClose: 3000,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -152,7 +164,7 @@ const EditProfile = () => {
                   <input type="file" accept="image/*" onChange={handleImageChange} hidden />
                 </label>
                 <button type="button" className="delete-btn" onClick={handleDeleteImage}>
-                  Delete Photo
+                  {loadingMore ? <CircularProgress size={24} color="white" /> : "Delete Photo"}
                 </button>
               </div>
             </div>
@@ -211,7 +223,7 @@ const EditProfile = () => {
               />
 
               <button type="submit" className="save-btn">
-                Save Changes
+                {loading ? <CircularProgress size={24} color="white" /> : "Save Changes"}
               </button>
             </div>
           </form>

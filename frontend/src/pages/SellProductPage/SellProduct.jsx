@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SideBar from '../../components/SideBar/SideBar';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CircularProgress } from "@mui/material";
 import './SellProduct.css';
 
 const SellProduct = () => {
@@ -16,6 +17,7 @@ const SellProduct = () => {
   });
 
   const [previewImage, setPreviewImage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,27 +35,31 @@ const SellProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!productData.photo || !productData.name || !productData.category || !productData.subCategory || !productData.quantity || !productData.price || !productData.description) {
-      toast.error('All fields are required!', {
+    if (!productData.photo) {
+      toast.error('Product photo is required!', {
         position: 'top-right',
         autoClose: 3000,
       });
       return;
     }
+    
+    setLoading(true);
 
     const formData = new FormData();
-    formData.append('photo', productData.photo);
-    formData.append('name', productData.name);
+    formData.append('productName', productData.name);
     formData.append('category', productData.category);
     formData.append('subCategory', productData.subCategory);
     formData.append('quantity', productData.quantity);
     formData.append('price', productData.price);
     formData.append('description', productData.description);
+  
+    if (productData.photo && typeof productData.photo !== 'string') {
+      formData.append('productImage', productData.photo);
+    }
 
     try {
       const token = localStorage.getItem('token');
-
-      const response = await fetch('http://localhost:3000/api/products/add', {
+      const response = await fetch('http://localhost:3000/api/product/addProduct', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,13 +68,13 @@ const SellProduct = () => {
       });
 
       const result = await response.json();
-
+  
       if (result.success) {
         toast.success(result.message, {
           position: 'top-right',
           autoClose: 3000,
           onClose: () => {
-            window.location.href = '/products';
+            window.location.href = '/profile';
           },
         });
       } else {
@@ -78,14 +84,17 @@ const SellProduct = () => {
         });
       }
     } catch (err) {
-      console.error('Error:', err);
+      console.error('Error during submission:', err);
       toast.error('Something went wrong. Please try again later.', {
         position: 'top-right',
         autoClose: 3000,
       });
-    }
+    }  finally {
+        setLoading(false);
+      }
   };
-
+  
+  
   return (
     <div className="add-product-page">
       <SideBar />
@@ -97,7 +106,7 @@ const SellProduct = () => {
               <div className="image-buttons">
                 <label className="upload-product-btn">
                   Upload Photo
-                  <input type="file" accept="image/*" onChange={handleImageChange} hidden  required/>
+                  <input type="file" accept="image/*" onChange={handleImageChange} hidden/>
                 </label>
               </div>
             </div>
@@ -208,8 +217,8 @@ const SellProduct = () => {
                 required
               ></textarea>
 
-              <button type="submit" className="product-btn">
-                Add Product
+              <button type="submit" className="product-btn" disabled={loading}>
+                {loading ? <CircularProgress size={24} color="white" /> : "Add Product"}
               </button>
             </div>
           </form>

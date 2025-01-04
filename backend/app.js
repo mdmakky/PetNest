@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 require('dotenv').config();
 
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/user', userRoutes);
 app.use('/api/authentication', authRoutes);
+app.use('/api/product', productRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
