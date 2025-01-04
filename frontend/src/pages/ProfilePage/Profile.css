@@ -1,4 +1,3 @@
-/* Overall page layout */
 .profile-page {
   display: flex;
   background-color: #f9f9f9;
@@ -7,7 +6,7 @@
 }
 
 .profile-main {
-  margin-left: 250px; /* Adjust based on sidebar width */
+  margin-left: 250px;
   padding: 2rem;
   display: flex;
   justify-content: center;
@@ -17,12 +16,11 @@
 
 @media (max-width: 768px) {
   .profile-main {
-    margin-left: 0; /* Remove sidebar offset for smaller screens */
+    margin-left: 0;
     padding: 1rem;
   }
 }
 
-/* Card Container */
 .profile-container {
   display: flex;
   justify-content: center;
@@ -36,11 +34,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 2rem;
   max-width: 600px;
-  width: 100%; /* Ensure full width for smaller screens */
+  width: 100%;
   text-align: center;
 }
 
-/* Profile Picture */
 .profile-pic {
   display: flex;
   justify-content: center;
@@ -62,7 +59,6 @@
   }
 }
 
-/* Profile Details */
 .profile-details h2 {
   font-size: 1.8rem;
   margin-bottom: 1rem;
@@ -92,7 +88,6 @@
   }
 }
 
-/* Edit Button */
 .edit-profile-btn {
   margin-top: 1rem;
   padding: 0.7rem 1.5rem;
@@ -114,9 +109,8 @@
   }
 }
 
-/* Sidebar Adjustment for Smaller Screens */
 @media (max-width: 768px) {
   .profile-page {
-    flex-direction: column; /* Stack sidebar and profile */
+    flex-direction: column;
   }
 }

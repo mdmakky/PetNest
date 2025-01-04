@@ -10,12 +10,14 @@ import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
 import Profile from "./pages/ProfilePage/Profile";
 import EditProfile from "./pages/EditProfilePage/EditProfile";
 import SellProduct from "./pages/SellProductPage/SellProduct";
+import Home from "./pages/HomePage/Home";
 
 const RouterConfig = () => {
   return (
     <Router>
       <CustomToastContainer />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />

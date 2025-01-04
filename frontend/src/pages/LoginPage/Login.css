@@ -1,9 +1,6 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-image: linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url("../images/background.webp");
-  background-size: cover;
-  background-position: center;
   color: #fff;
 }
 
@@ -13,6 +10,9 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: 20px;
+  background-image: linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url("../images/background.webp");
+  background-size: cover;
+  background-position: center;
 }
 
 .login-form {
