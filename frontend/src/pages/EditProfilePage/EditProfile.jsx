@@ -57,11 +57,36 @@ const EditProfile = () => {
     }
   };
 
-  const handleDeleteImage = () => {
-    setPreviewImage('/images/user.png');
-    setUserData({ ...userData, profileImage: '' });
+  const handleDeleteImage = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const userId = userData.userId;
+  
+      const response = await fetch('http://localhost:3000/api/user/removeProfilePic', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        toast.success('Profile picture removed successfully!');
+        setPreviewImage('/images/user.png');
+        setUserData({ ...userData, profileImage: '' });
+      } else {
+        toast.error(result.message || 'Failed to remove profile image.');
+      }
+    } catch (error) {
+      console.error('Error deleting profile image:', error);
+      toast.error('An error occurred. Please try again.');
+    }
   };
-
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 

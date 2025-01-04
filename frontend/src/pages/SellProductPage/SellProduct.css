@@ -1,0 +1,137 @@
+.add-product-page {
+    display: flex;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .add-product-main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .add-product-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    margin-left: 20%;
+  }
+  
+  .add-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .add-product-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .add-product-pic img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+  }
+  
+  .image-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .upload-product-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .upload-product-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .product-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+  }
+  
+  .product-form-fields label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  
+  .product-form-fields input,
+  .product-form-fields select,
+  .product-form-fields textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  .product-form-fields input:focus,
+  .product-form-fields select:focus,
+  .product-form-fields textarea:focus {
+    border-color: #4CAF50;
+  }
+  
+  textarea {
+    resize: none;
+    height: 100px;
+  }
+  
+  .product-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .product-btn:hover {
+    background-color: #45a049;
+  }
+  
+  @media (max-width: 768px) {
+    .add-product-container {
+      padding: 15px;
+      margin-left: 0;
+    }
+  
+    .add-product-pic img {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .product-form-fields {
+      gap: 12px;
+    }
+  
+    .product-btn {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  

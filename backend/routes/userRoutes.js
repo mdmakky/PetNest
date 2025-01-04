@@ -9,6 +9,6 @@ router.get('/editProfile', authenticateJWT, userController.getEditProfile)
 
 router.post('/editProfile', authenticateJWT, userController.postEditProfile)
 
-router.post('/removeProfilePic', userController.removeProfilePic)
+router.post('/removeProfilePic', authenticateJWT, userController.removeProfilePic)
 
 module.exports = router;

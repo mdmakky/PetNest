@@ -147,16 +147,16 @@
 .save-btn {
   margin-top: 1rem;
   padding: 0.7rem 1.5rem;
-  background-color: #00bcd4;
-  color: #fff;
+  color: white;
+  background-color: #007bff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .save-btn:hover {
-  background-color: #008c9e;
+  background-color: #0056b3;
 }
 
 @media (max-width: 768px) {

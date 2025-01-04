@@ -22,6 +22,7 @@ exports.getProfile = async (req, res) => {
             dob: user.dob,
             gender: user.gender,
             profileImage: user.profileImage,
+            userId: user.id,
         });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
@@ -111,33 +112,33 @@ exports.postEditProfile = [
   
 
 exports.removeProfilePic = async (req, res) => {
-  const { userId } = req.body;
-
-  try {
+    const { userId } = req.body;
+  
+    try {
       const user = await User.findById(userId);
-
+  
       if (!user) {
-          return res.status(404).json({ success: false, message: "User not found" });
+        return res.status(404).json({ success: false, message: "User not found" });
       }
-
+  
       if (user.profileImage) {
-
-          const publicId = user.profileImage.split('/').pop().split('.')[0];
-
-          await cloudinary.uploader.destroy(`petnest/${publicId}`)
-              .catch((err) => {
-                  console.error("Error deleting from Cloudinary:", err);
-              });
-
-          user.profileImage = null;
-          await user.save();
-
-          return res.json({ success: true, message: "Profile picture removed successfully" });
+        const publicId = user.profileImage.split('/').pop().split('.')[0];
+  
+        await cloudinary.uploader.destroy(`petnest/${publicId}`)
+          .catch((err) => {
+            console.error("Error deleting from Cloudinary:", err);
+          });
+  
+        user.profileImage = null;
+        await user.save();
+  
+        return res.json({ success: true, message: "Profile picture removed successfully" });
       } else {
-          return res.json({ success: false, message: "No profile picture to remove" });
+        return res.json({ success: false, message: "No profile picture to remove" });
       }
-  } catch (error) {
+    } catch (error) {
       console.error("Error removing profile picture:", error);
       res.status(500).json({ success: false, message: "An error occurred" });
-  }
-};
+    }
+  };
+  

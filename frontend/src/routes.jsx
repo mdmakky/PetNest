@@ -9,6 +9,7 @@ import ResetPassword from "./pages/ResetPasswordPage/ResetPassword";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
 import Profile from "./pages/ProfilePage/Profile";
 import EditProfile from "./pages/EditProfilePage/EditProfile";
+import SellProduct from "./pages/SellProductPage/SellProduct";
 
 const RouterConfig = () => {
   return (
@@ -23,6 +24,7 @@ const RouterConfig = () => {
         <Route path="/verifyEmail" element={<VerifyEmail />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/sellProduct" element={<SellProduct />} />
       </Routes>
     </Router>
   );

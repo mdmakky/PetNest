@@ -26,7 +26,7 @@ const Sidebar = () => {
             <Link to="/editProfile">Update Profile</Link>
           </li>
           <li>
-            <Link to="/sell-product">Sell Product</Link>
+            <Link to="/sellProduct">Sell Product</Link>
           </li>
         </ul>
       </nav>
