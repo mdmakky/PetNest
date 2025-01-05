@@ -1,37 +1,72 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./SideBar.css";
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+const SideBar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
-    <div className={`sidebar ${isOpen ? "open" : ""}`}>
-      <button className="toggle-button" onClick={toggleSidebar}>
-        ☰
-      </button>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/editProfile">Update Profile</Link>
-          </li>
-          <li>
-            <Link to="/sellProduct">Sell Product</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav className="navbar">
+      <div className="navbar-container">
+        <Link to="/" className="logo-container">
+          <img src="../images/logo.webp" alt="PetNest Logo" className="logo" />
+          <h1 className="logo-text">PetNest</h1>
+        </Link>
+
+        <div className={`menu ${menuOpen ? "open" : ""}`}>
+
+          <Link
+            to="/"
+            className={`menu-link ${location.pathname === "/" ? "active" : ""}`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Dashboard
+          </Link>
+
+          <Link
+            to="/profile"
+            className={`menu-link ${
+              location.pathname === "/profile" ? "active" : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Profile
+          </Link>
+
+          <Link
+            to="/editProfile"
+            className={`menu-link ${
+              location.pathname === "/editProfile" ? "active" : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Update Profile
+          </Link>
+
+          <Link
+            to="/sellProduct"
+            className={`menu-link ${
+              location.pathname === "/sellProduct" ? "active" : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Sell Product
+          </Link>
+
+        </div>
+
+        <div className="hamburger" onClick={toggleMenu}>
+          <div className={`bar ${menuOpen ? "rotate-bar1" : ""}`}></div>
+          <div className={`bar ${menuOpen ? "hide-bar" : ""}`}></div>
+          <div className={`bar ${menuOpen ? "rotate-bar2" : ""}`}></div>
+        </div>
+      </div>
+    </nav>
   );
 };
 
-export default Sidebar;
+export default SideBar;
