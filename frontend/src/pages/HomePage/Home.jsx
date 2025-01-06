@@ -22,13 +22,13 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [noResults, setNoResults] = useState(false); 
+  const [noResults, setNoResults] = useState(false);
   const navigate = useNavigate();
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      setNoResults(false); 
+      setNoResults(false);
 
       const token = localStorage.getItem("token");
 
@@ -60,6 +60,34 @@ const Home = () => {
       toast.error("Error fetching products.");
       setLoading(false);
     }
+  };
+
+  const handleAddToCart = async (productId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:3000/api/cart/addToCart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        toast.success("Product added to cart successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        },2000);
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      toast.error("Unable to add product to cart. Please try again.");
+    }
+
   };
 
   useEffect(() => {
@@ -141,9 +169,11 @@ const Home = () => {
                   variant="contained"
                   color="primary"
                   disabled={product.quantity === 0}
+                  onClick={() => handleAddToCart(product._id)}
                 >
                   {product.quantity > 0 ? "Add to Cart" : "Out of Stock"}
                 </Button>
+
                 <Button
                   variant="outlined"
                   onClick={() => handleDetailsClick(product._id)}
@@ -159,14 +189,14 @@ const Home = () => {
       <div className="pagination">
         <Button
           variant="outlined"
-          disabled={page === 1 || noResults} 
+          disabled={page === 1 || noResults}
           onClick={() => setPage(page - 1)}
         >
           Previous
         </Button>
         <Button
           variant="outlined"
-          disabled={page === totalPages || noResults} 
+          disabled={page === totalPages || noResults}
           onClick={() => setPage(page + 1)}
         >
           Next

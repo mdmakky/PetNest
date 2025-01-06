@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 import "./NavBar.css";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -13,7 +15,6 @@ const NavBar = () => {
 
   const handleLoginLogout = () => {
     const token = localStorage.getItem("token");
-
     if (token) {
       localStorage.removeItem("token");
       navigate("/");
@@ -23,7 +24,44 @@ const NavBar = () => {
     }
   };
 
+  const handleCartClick = () => {
+    navigate("/cart");
+  };
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        try {
+          const response = await fetch("http://localhost:3000/api/cart/getCart", {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+            },
+          });
+          const data = await response.json();
+
+          console.log(data);
+          
+
+          if (data.success) {
+            setCartItems(data.cart.items); 
+          } else {
+            console.error(data.message || "Failed to fetch cart");
+          }
+        } catch (error) {
+          console.error("Error fetching cart:", error);
+        }
+      }
+    };
+
+    fetchCart();
+  }, []); 
+
   const isLoggedIn = localStorage.getItem("token");
+
+  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <nav className="navbar">
@@ -70,7 +108,9 @@ const NavBar = () => {
           </Link>
           <Link
             to="/qa"
-            className={`menu-link ${location.pathname === "/qa" ? "active" : ""}`}
+            className={`menu-link ${
+              location.pathname === "/qa" ? "active" : ""
+            }`}
             onClick={() => setMenuOpen(false)}
           >
             Q/A
@@ -86,9 +126,18 @@ const NavBar = () => {
           </Link>
         </div>
 
-        <button className="login-btn" onClick={handleLoginLogout}>
-          {isLoggedIn ? "Logout" : "Login"}
-        </button>
+        <div className="other-container">
+          <div className="cart-icon" onClick={handleCartClick}>
+            <FaShoppingCart className="cart-icon-img" />
+            <span className="cart-count">{cartItemCount}</span>
+          </div>
+
+          <div className="login-btn">
+            <button className="cart-icon-button" onClick={handleLoginLogout}>
+              {isLoggedIn ? "Logout" : "Login"}
+            </button>
+          </div>
+        </div>
 
         <div className="hamburger" onClick={toggleMenu}>
           <div className={`bar ${menuOpen ? "rotate-bar1" : ""}`}></div>

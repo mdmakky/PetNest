@@ -7,6 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const doctorRoutes = require('./routes/doctorRoutes');
 const detailsRoutes = require('./routes/detailsRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 require('dotenv').config();
 
@@ -30,6 +31,7 @@ app.use('/api/authentication', authRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/doctor', doctorRoutes);
 app.use('/api/details', detailsRoutes);
+app.use('/api/cart', cartRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

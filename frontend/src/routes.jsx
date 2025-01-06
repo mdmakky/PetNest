@@ -14,6 +14,7 @@ import Home from "./pages/HomePage/Home";
 import ConsultDoctor from "./pages/ConsultDoctorPage/ConsultDoctor";
 import UpdateProduct from "./pages/UpdateProductPage/UpdateProdut";
 import Details from "./pages/DetailsPage/Details";
+import Cart from "./pages/CartPage/Cart";
 
 const RouterConfig = () => {
   return (
@@ -33,6 +34,7 @@ const RouterConfig = () => {
         <Route path="/updateProduct" element={<UpdateProduct />} />
         <Route path="/consultDoctor" element={<ConsultDoctor />} />
         <Route path="/details/:id" element={<Details />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
   );
