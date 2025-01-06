@@ -97,3 +97,25 @@
   font-size: 16px;
   border-radius: 5px;
 }
+
+.product-status {
+  margin: 10px 0;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.in-stock {
+  background-color: #28a745;
+  color: white;
+}
+
+.out-of-stock {
+  background-color: #dc3545;
+  color: white;
+}
+
+.no-results-pet-container {
+  text-align: center;
+}
+

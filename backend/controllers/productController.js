@@ -5,19 +5,23 @@ const { uploadImageToCloudinary } = require("../utils/cloudinary");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-
 exports.getProduct = async (req, res) => {
   const { category, search, page = 1, limit = 12 } = req.query;
 
   try {
     const query = {};
 
+    if (req.user && req.user.id) {
+      const userId = req.user.id;
+      query.userId = { $ne: userId };
+    }
+
     if (category) {
       query.category = category;
     }
 
     if (search) {
-      query.productName = { $regex: search, $options: "i" };
+      query.productName = { $regex: search, $options: "i" }; 
     }
 
     const skip = (page - 1) * limit;
@@ -43,6 +47,7 @@ exports.getProduct = async (req, res) => {
     });
   }
 };
+
 
 exports.getUserProduct = async (req, res) => {
   try {
@@ -128,8 +133,6 @@ exports.addProduct = [
 
 exports.updateProduct = async (req, res) => {
   const { productId, productName, category, quantity, price, description } = req.body;
-
-  console.log("Hello", productName);
 
   try {
 

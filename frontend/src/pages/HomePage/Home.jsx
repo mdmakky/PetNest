@@ -12,6 +12,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../../components/NavBar/NavBar";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -20,15 +21,40 @@ const Home = () => {
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [noResults, setNoResults] = useState(false); 
+  const navigate = useNavigate();
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
+      setNoResults(false); 
+
+      const token = localStorage.getItem("token");
+
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
       const response = await fetch(
-        `http://localhost:3000/api/product/getProduct?page=${page}&category=${category}&search=${searchTerm}`
+        `http://localhost:3000/api/product/getProduct?page=${page}&category=${category}&search=${searchTerm}`,
+        { headers }
       );
+
+      if (response.status === 401) {
+        toast.error("Unauthorized. Please log in.");
+        setLoading(false);
+        return;
+      }
+
       const data = await response.json();
-      setProducts(data.products);
+      if (data.success) {
+        setProducts(data.products);
+        setTotalPages(data.totalPages);
+        if (data.products.length === 0) {
+          setNoResults(true);
+        }
+      } else {
+        toast.error("Error fetching products.");
+      }
       setLoading(false);
     } catch (error) {
       toast.error("Error fetching products.");
@@ -40,23 +66,22 @@ const Home = () => {
     fetchProducts();
   }, [page, category, searchTerm]);
 
+  const handleDetailsClick = (productId) => {
+    navigate(`/details/${productId}`);
+  };
+
   return (
     <div>
       <NavBar />
       <div className="filter-container">
         <FormControl size="small" className="category-dropdown">
-          <InputLabel
-            shrink={false}
-          >
-          </InputLabel>
+          <InputLabel shrink={false}></InputLabel>
           <Select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            displayEmpty 
+            displayEmpty
           >
-            <MenuItem value="">
-              All
-            </MenuItem>{" "}
+            <MenuItem value="">All</MenuItem>
             <MenuItem value="Pet">Pet</MenuItem>
             <MenuItem value="Pet Food">Pet Food</MenuItem>
             <MenuItem value="Pet Accessories">Pet Accessories</MenuItem>
@@ -85,7 +110,7 @@ const Home = () => {
         <div className="loading-container">
           <CircularProgress />
         </div>
-      ) : products.length === 0 ? (
+      ) : noResults ? (
         <div className="no-results-pet-container">
           <Typography variant="h6" color="textSecondary">
             No results found.
@@ -102,11 +127,29 @@ const Home = () => {
               />
               <h3>Name: {product.productName}</h3>
               <p>Price: {product.price} Tk</p>
+
+              <p
+                className={`product-status ${
+                  product.quantity > 0 ? "in-stock" : "out-of-stock"
+                }`}
+              >
+                {product.quantity > 0 ? "In Stock" : "Out of Stock"}
+              </p>
+
               <div className="product-actions">
-                <Button variant="contained" color="primary">
-                  Add to Cart
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={product.quantity === 0}
+                >
+                  {product.quantity > 0 ? "Add to Cart" : "Out of Stock"}
                 </Button>
-                <Button variant="outlined">Details</Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleDetailsClick(product._id)}
+                >
+                  Details
+                </Button>
               </div>
             </div>
           ))}
@@ -116,12 +159,16 @@ const Home = () => {
       <div className="pagination">
         <Button
           variant="outlined"
-          disabled={page === 1}
+          disabled={page === 1 || noResults} 
           onClick={() => setPage(page - 1)}
         >
           Previous
         </Button>
-        <Button variant="outlined" onClick={() => setPage(page + 1)}>
+        <Button
+          variant="outlined"
+          disabled={page === totalPages || noResults} 
+          onClick={() => setPage(page + 1)}
+        >
           Next
         </Button>
       </div>
