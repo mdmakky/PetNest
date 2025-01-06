@@ -79,7 +79,7 @@ const Home = () => {
         toast.success("Product added to cart successfully!");
         setTimeout(() => {
           window.location.reload();
-        },2000);
+        }, 2000);
       } else {
         toast.error(result.message);
       }
@@ -87,7 +87,6 @@ const Home = () => {
       console.error("Error adding product to cart:", error);
       toast.error("Unable to add product to cart. Please try again.");
     }
-
   };
 
   useEffect(() => {
@@ -168,8 +167,12 @@ const Home = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  disabled={product.quantity === 0}
-                  onClick={() => handleAddToCart(product._id)}
+                  disabled={product.quantity === 0} 
+                  onClick={
+                    product.quantity > 0
+                      ? () => handleAddToCart(product._id)
+                      : null
+                  }
                 >
                   {product.quantity > 0 ? "Add to Cart" : "Out of Stock"}
                 </Button>
