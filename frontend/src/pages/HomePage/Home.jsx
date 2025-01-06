@@ -86,7 +86,7 @@ const Home = () => {
           <CircularProgress />
         </div>
       ) : products.length === 0 ? (
-        <div className="no-results-container">
+        <div className="no-results-pet-container">
           <Typography variant="h6" color="textSecondary">
             No results found.
           </Typography>
