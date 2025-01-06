@@ -1,3 +1,4 @@
+/* Existing styles */
 .navbar {
   background-color: #393e46;
   color: #fff;
@@ -48,19 +49,19 @@
 }
 
 .menu-link {
-    color:  #00adb5;
-    text-decoration: none;
-    font-size: 1.2rem;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-    position: relative;
+  color: #00adb5;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  position: relative;
 }
 
 .menu-link:hover {
-    color: #ffcb47;
+  color: #ffcb47;
 }
 
 .menu-link:hover::after {
-    width: 100%;
+  width: 100%;
 }
 
 .hamburger {
@@ -130,6 +131,25 @@
   opacity: 0;
 }
 
+.login-btn {
+  background-color: #ccc;
+  color: #393e46;
+  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  display: inline-block;
+  margin-left: 2rem;
+  width: 100px;
+}
+
+.login-btn:hover {
+  background-color: #85817a;
+  color: #fff;
+}
+
 @media (max-width: 768px) {
   .menu {
     display: none;
@@ -151,4 +171,3 @@
     font-size: 20px;
   }
 }
-

@@ -1,13 +1,29 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  const handleLoginLogout = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      localStorage.removeItem("token");
+      navigate("/");
+      window.location.reload();
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const isLoggedIn = localStorage.getItem("token");
 
   return (
     <nav className="navbar">
@@ -69,6 +85,10 @@ const NavBar = () => {
             Profile
           </Link>
         </div>
+
+        <button className="login-btn" onClick={handleLoginLogout}>
+          {isLoggedIn ? "Logout" : "Login"}
+        </button>
 
         <div className="hamburger" onClick={toggleMenu}>
           <div className={`bar ${menuOpen ? "rotate-bar1" : ""}`}></div>

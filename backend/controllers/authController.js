@@ -75,7 +75,7 @@ exports.postLogin = async (req, res, next) => {
       success: true,
       message: "Login successful!",
       token,
-      redirectUrl: "/profile",
+      redirectUrl: "/",
     });
   } catch (err) {
     console.error(err);

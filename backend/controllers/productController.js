@@ -1,6 +1,7 @@
 const Product = require("../models/Product");
 const multer = require("multer");
 const { uploadImageToCloudinary } = require("../utils/cloudinary");
+const jwt = require("jsonwebtoken");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -10,9 +11,20 @@ exports.getProduct = async (req, res) => {
 
   try {
     const query = {};
+    let userId = null;
 
-    if (req.user && req.user.id) {
-      const userId = req.user.id;
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.split(" ")[1];
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        userId = decoded.id;
+      } catch (err) {
+        console.error("Invalid token:", err);
+      }
+    }
+
+    if (userId) {
       query.userId = { $ne: userId };
     }
 
@@ -21,15 +33,12 @@ exports.getProduct = async (req, res) => {
     }
 
     if (search) {
-      query.productName = { $regex: search, $options: "i" }; 
+      query.productName = { $regex: search, $options: "i" };
     }
 
     const skip = (page - 1) * limit;
 
-    const products = await Product.find(query)
-      .skip(skip)
-      .limit(parseInt(limit));
-
+    const products = await Product.find(query).skip(skip).limit(parseInt(limit));
     const totalProducts = await Product.countDocuments(query);
 
     return res.status(200).json({
