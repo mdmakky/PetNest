@@ -71,7 +71,12 @@ exports.postEditProfile = [
             let profileImageUrl;
 
             if (req.file) {
-                profileImageUrl = await uploadImageToCloudinary(req.file.buffer, req.user.id);
+                    profileImageUrl = await uploadImageToCloudinary(
+                    req.file.buffer,
+                    "profile_pics",
+                    `${req.user.id}`,
+                    false 
+                );
             }
   
             const user = await User.findById(req.user.id);

@@ -31,7 +31,7 @@ const SellProduct = () => {
       setProductData({ ...productData, photo: file });
     }
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,6 +40,16 @@ const SellProduct = () => {
         position: "top-right",
         autoClose: 3000,
       });
+
+      return;
+    }
+
+    if (productData.quantity <= 0 || productData.price <= 0) {
+      toast.error("Quantity and price must be positive values!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      
       return;
     }
 
@@ -111,10 +121,10 @@ const SellProduct = () => {
                   <label className="upload-product-btn">
                     Upload Photo
                     <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      hidden
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        hidden
                     />
                   </label>
                 </div>

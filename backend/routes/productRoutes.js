@@ -4,5 +4,6 @@ const productController = require('../controllers/productController')
 const authenticateJWT = require('../utils/authentication');
 
 router.post('/addProduct', authenticateJWT, productController.addProduct);
+router.get('/getProduct', productController.getProduct);
 
 module.exports = router;

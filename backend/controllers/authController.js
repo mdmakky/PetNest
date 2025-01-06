@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const generateToken = require("../config/token");
