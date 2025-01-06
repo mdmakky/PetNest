@@ -26,9 +26,9 @@ const NavBar = () => {
             Home
           </Link>
           <Link
-            to="/consult-doctor"
+            to="/consultDoctor"
             className={`menu-link ${
-              location.pathname === "/consult-doctor" ? "active" : ""
+              location.pathname === "/consultDoctor" ? "active" : ""
             }`}
             onClick={() => setMenuOpen(false)}
           >

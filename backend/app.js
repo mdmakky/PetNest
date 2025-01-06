@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const doctorRoutes = require('./routes/doctorRoutes');
 
 require('dotenv').config();
 
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/user', userRoutes);
 app.use('/api/authentication', authRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/doctor', doctorRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

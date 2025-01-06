@@ -11,6 +11,7 @@ import Profile from "./pages/ProfilePage/Profile";
 import EditProfile from "./pages/EditProfilePage/EditProfile";
 import SellProduct from "./pages/SellProductPage/SellProduct";
 import Home from "./pages/HomePage/Home";
+import ConsultDoctor from "./pages/ConsultDoctorPage/ConsultDoctor";
 
 const RouterConfig = () => {
   return (
@@ -27,6 +28,7 @@ const RouterConfig = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/editProfile" element={<EditProfile />} />
         <Route path="/sellProduct" element={<SellProduct />} />
+        <Route path="/consultDoctor" element={<ConsultDoctor />} />
       </Routes>
     </Router>
   );

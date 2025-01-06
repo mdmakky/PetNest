@@ -100,8 +100,8 @@ const Home = () => {
                 alt={product.productName}
                 className="product-image"
               />
-              <h3>{product.productName}</h3>
-              <p>{product.price} Tk</p>
+              <h3>Name: {product.productName}</h3>
+              <p>Price: {product.price} Tk</p>
               <div className="product-actions">
                 <Button variant="contained" color="primary">
                   Add to Cart
