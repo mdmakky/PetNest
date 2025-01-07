@@ -66,7 +66,6 @@ const Blog = () => {
 
       const result = await response.json();
       if (response.ok) {
-        toast.success("Comment added successfully");
         setCommentData((prevData) => ({
           ...prevData,
           [blogId]: "",
