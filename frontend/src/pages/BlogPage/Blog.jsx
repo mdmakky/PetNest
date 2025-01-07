@@ -21,7 +21,7 @@ const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalBlogs, setTotalBlogs] = useState(0);
   const blogsPerPage = 6;
-  const truncateLength = 150;
+  const truncateLength = 250;
 
   useEffect(() => {
     fetchBlogs();
