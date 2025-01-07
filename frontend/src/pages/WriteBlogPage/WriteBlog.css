@@ -1,0 +1,103 @@
+.add-blog-page {
+    display: flex;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  .add-blog-main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .add-blog-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  .add-blog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .blog-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .blog-form-fields label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  
+  .blog-form-fields input,
+  .blog-form-fields select,
+  .blog-form-fields textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  .blog-form-fields input:focus,
+  .blog-form-fields select:focus,
+  .blog-form-fields textarea:focus {
+    border-color: #4caf50;
+  }
+  
+  textarea {
+    resize: none;
+    height: 100px;
+  }
+  
+  .blog-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .blog-btn:hover {
+    background-color: #333;
+  }
+
+  .blog-h2 {
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .add-blog-container {
+      padding: 15px;
+      margin-left: 0;
+    }
+  
+    .blog-form-fields {
+      gap: 12px;
+    }
+  
+    .blog-btn {
+      font-size: 14px;
+      padding: 10px;
+    }
+      
+  }
+  

@@ -1,0 +1,136 @@
+.blog-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .blogs-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .blogs-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .blogs-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .blog-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .blog-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+  }
+  
+  .writer-avatar {
+    width: 80px !important; 
+    height: 80px !important;
+    margin-right: 15px;
+  }
+  
+  .writer-avatar img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .writer-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .blog-title {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .blog-category {
+    font-size: 1rem;
+    color: #7c7c7c;
+  }
+  
+  .blog-content {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  .comments-section {
+    margin-top: 20px;
+  }
+  
+  .comments-title {
+    font-size: 1.25rem;
+    margin-bottom: 20px !important;
+  }
+
+  .no-comment {
+    margin-bottom: 20px !important;
+    font-size: 1rem !important;
+  }
+  
+  .comment-item {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  
+  .comment-avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .comment-info {
+    flex: 1;
+  }
+  
+  .commenter-name {
+    font-weight: bold;
+  }
+  
+  .comment-time {
+    color: #7c7c7c;
+  }
+  
+  .comment-text {
+    margin-top: 5px;
+    font-size: 1rem;
+  }
+  
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .comment-form .MuiButton-root {
+    align-self: flex-end;
+  }
+  
+  @media (max-width: 600px) {
+    .comment-form .MuiTextField-root {
+      width: 100%;
+    }
+  
+    .comment-form .MuiButton-root {
+      width: 100%;
+    }
+  }
+  

@@ -40,7 +40,7 @@ const Home = () => {
       );
 
       if (response.status === 401) {
-        toast.error("Unauthorized. Please log in.");
+        toast.error("Please log in first.");
         setLoading(false);
         return;
       }
@@ -81,7 +81,7 @@ const Home = () => {
           window.location.reload();
         }, 2000);
       } else {
-        toast.error(result.message);
+        toast.error("Please login first.");
       }
     } catch (error) {
       console.error("Error adding product to cart:", error);
@@ -180,6 +180,12 @@ const Home = () => {
                 <Button
                   variant="outlined"
                   onClick={() => handleDetailsClick(product._id)}
+                  sx={{
+                    '&:hover': {
+                      backgroundColor: 'transparent', 
+                      color: 'primary.main',
+                    },
+                  }}
                 >
                   Details
                 </Button>
@@ -194,6 +200,12 @@ const Home = () => {
           variant="outlined"
           disabled={page === 1 || noResults}
           onClick={() => setPage(page - 1)}
+          sx={{
+            '&:hover': {
+              backgroundColor: 'transparent', 
+              color: 'primary.main',
+            },
+          }}
         >
           Previous
         </Button>
@@ -201,6 +213,12 @@ const Home = () => {
           variant="outlined"
           disabled={page === totalPages || noResults}
           onClick={() => setPage(page + 1)}
+          sx={{
+            '&:hover': {
+              backgroundColor: 'transparent', 
+              color: 'primary.main',
+            },
+          }}
         >
           Next
         </Button>

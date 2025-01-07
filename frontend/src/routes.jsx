@@ -15,6 +15,8 @@ import ConsultDoctor from "./pages/ConsultDoctorPage/ConsultDoctor";
 import UpdateProduct from "./pages/UpdateProductPage/UpdateProdut";
 import Details from "./pages/DetailsPage/Details";
 import Cart from "./pages/CartPage/Cart";
+import Blog from "./pages/BlogPage/Blog";
+import WriteBlog from "./pages/WriteBlogPage/WriteBlog";
 
 const RouterConfig = () => {
   return (
@@ -35,6 +37,8 @@ const RouterConfig = () => {
         <Route path="/consultDoctor" element={<ConsultDoctor />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/writeBlog" element={<WriteBlog />} />
       </Routes>
     </Router>
   );

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { toast } from "react-toastify";
 import "./NavBar.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,6 +30,15 @@ const NavBar = () => {
     navigate("/cart");
   };
 
+  const handleProfileClick = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please login first.");
+    } else {
+      navigate("/profile");
+    }
+  };
+
   useEffect(() => {
     const fetchCart = async () => {
       const token = localStorage.getItem("token");
@@ -42,11 +53,8 @@ const NavBar = () => {
           });
           const data = await response.json();
 
-          console.log(data);
-          
-
           if (data.success) {
-            setCartItems(data.cart.items); 
+            setCartItems(data.cart.items);
           } else {
             console.error(data.message || "Failed to fetch cart");
           }
@@ -57,7 +65,7 @@ const NavBar = () => {
     };
 
     fetchCart();
-  }, []); 
+  }, []);
 
   const isLoggedIn = localStorage.getItem("token");
 
@@ -104,7 +112,7 @@ const NavBar = () => {
             }`}
             onClick={() => setMenuOpen(false)}
           >
-            Blog
+            Blogs
           </Link>
           <Link
             to="/qa"
@@ -115,15 +123,12 @@ const NavBar = () => {
           >
             Q/A
           </Link>
-          <Link
-            to="/profile"
-            className={`menu-link ${
-              location.pathname === "/profile" ? "active" : ""
-            }`}
-            onClick={() => setMenuOpen(false)}
+          <div
+            className={`menu-link ${location.pathname === "/profile" ? "active" : ""}`}
+            onClick={handleProfileClick}
           >
             Profile
-          </Link>
+          </div>
         </div>
 
         <div className="other-container">

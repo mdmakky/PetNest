@@ -28,7 +28,7 @@ const Cart = () => {
         if (data.success) {
           setCart(data.cart);
         } else {
-          toast.error(data.message || "Failed to load cart");
+          toast.error("Please login to show your cart.");
         }
       } catch (error) {
         toast.error("Error fetching cart data.");

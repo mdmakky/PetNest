@@ -87,7 +87,7 @@ const SellProduct = () => {
           position: "top-right",
           autoClose: 3000,
           onClose: () => {
-            window.location.href = "/profile";
+            window.location.href = "/sellProduct";
           },
         });
       } else {
