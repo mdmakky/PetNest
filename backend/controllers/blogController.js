@@ -65,7 +65,7 @@ exports.addComment = async (req, res) => {
     if (!req.user || !req.user.id) {
       return res
         .status(401)
-        .json({ success: false, message: "Please login first" });
+        .json({ success: false, message: "Please login first." });
     }
 
     const userId = req.user.id;

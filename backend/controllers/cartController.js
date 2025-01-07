@@ -68,23 +68,19 @@ exports.getCart = async (req, res) => {
 exports.removeToCart = async (req, res) => {
     try {
         const { productId } = req.body;
-        const userId = req.user.id; // Assuming the user ID is extracted from the JWT token in middleware
+        const userId = req.user.id; 
     
-        // Find the user's cart
         const cart = await Cart.findOne({ userId });
     
         if (!cart) {
           return res.status(404).json({ success: false, message: "Cart not found" });
         }
     
-        // Remove the product from the cart items array
         const updatedItems = cart.items.filter(item => item.productId.toString() !== productId);
     
-        // Update the cart
         cart.items = updatedItems;
         await cart.save();
-    
-        // Return the updated cart
+
         res.json({ success: true, cart });
       } catch (error) {
         console.error(error);

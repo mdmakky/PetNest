@@ -75,7 +75,7 @@ const Details = () => {
         setRating(0);
         toast.success("Review added successfully!");
       } else {
-        toast.error(result.message);
+        toast.error("Please login first.");
       }
     } catch (error) {
       console.error("Error adding review:", error);

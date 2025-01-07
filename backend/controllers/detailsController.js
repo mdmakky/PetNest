@@ -31,6 +31,13 @@ exports.getProductById = async (req, res) => {
 exports.addReview = async (req, res) => {
   try {
     const { productId, rating, reviewText } = req.body;
+
+    if (!req.user || !req.user.id) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Please login first." });
+    }
+
     const userId = req.user.id; 
 
     const user = await User.findById(userId).select("name profileImage");

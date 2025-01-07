@@ -73,7 +73,7 @@ const Blog = () => {
         }));
         fetchBlogs();
       } else {
-        toast.error(result.message || "Failed to add comment");
+        toast.error("Please login first.");
       }
     } catch (error) {
       console.error("Error adding comment:", error);
