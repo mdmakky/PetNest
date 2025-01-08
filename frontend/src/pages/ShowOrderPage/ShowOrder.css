@@ -1,0 +1,55 @@
+.orders-page {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  .orders-content {
+    margin-left: 240px;
+    padding: 20px;
+    flex-grow: 1;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .order-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: box-shadow 0.3s;
+  }
+  
+  .order-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .order-card .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .order-card button {
+    margin-top: 10px;
+  }
+
+  .myOrder {
+    color: #333;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 600px) {
+    .orders-content {
+      margin-left: 0;
+    }
+  }
+  

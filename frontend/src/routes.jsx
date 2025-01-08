@@ -18,6 +18,7 @@ import Cart from "./pages/CartPage/Cart";
 import Blog from "./pages/BlogPage/Blog";
 import WriteBlog from "./pages/WriteBlogPage/WriteBlog";
 import CheckOut from "./pages/CheckOutPage/CheckOut";
+import ShowOrder from "./pages/ShowOrderPage/ShowOrder";
 
 const RouterConfig = () => {
   return (
@@ -41,6 +42,7 @@ const RouterConfig = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/writeBlog" element={<WriteBlog />} />
         <Route path="/checkOut" element={<CheckOut />} />
+        <Route path="/showOrder" element={<ShowOrder />} />
       </Routes>
     </Router>
   );

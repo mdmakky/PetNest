@@ -78,6 +78,16 @@ const SideBar = () => {
             Write Blog
           </Link>
 
+          <Link
+            to="/showOrder"
+            className={`menu-link ${
+              location.pathname === "/showOrder" ? "active" : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+          Your Orders
+          </Link>
+
         </div>
 
         <div className="hamburger" onClick={toggleMenu}>
