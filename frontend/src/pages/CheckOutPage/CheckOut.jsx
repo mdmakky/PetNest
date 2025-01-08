@@ -129,8 +129,11 @@ const CheckOut = () => {
         <div className="checkout-section">
           <h3>Product Details</h3>
           <p>Name: {product.productName}</p>
+          <p>Category: {product.category}</p>
           <p>Price: Tk {product.price}</p>
-          <p>Seller: {sellerData.name}</p> 
+          <p>Seller: {sellerData.name}</p>
+          <p>Seller Address: {sellerData.address}</p>
+          <p>Payment: {sellerData.phone}</p>  
         </div>
 
         <div className="checkout-section">

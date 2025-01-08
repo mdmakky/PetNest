@@ -14,7 +14,7 @@ const authenticateJWT = (req, res, next) => {
     next();
   } catch (err) {
     console.error('JWT verification error:', err.message);
-    return res.status(401).json({ message: 'Token invalid or expired' });
+    return res.status(401).json({ message: 'Please login first.' });
   }
 };
 

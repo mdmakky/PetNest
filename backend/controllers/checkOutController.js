@@ -32,5 +32,5 @@ exports.confirm = async (req, res) => {
       console.error("Error creating order:", error);
       res.status(500).json({ success: false, message: error.message || "Error creating order" });
     }
-  };
+};
   
