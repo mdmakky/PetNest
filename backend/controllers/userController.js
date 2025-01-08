@@ -145,5 +145,18 @@ exports.removeProfilePic = async (req, res) => {
       console.error("Error removing profile picture:", error);
       res.status(500).json({ success: false, message: "An error occurred" });
     }
-  };
+};
+
+exports.getUserById = async(req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (user) {
+          res.json({ success: true, user });
+        } else {
+          res.status(404).json({ success: false, message: "User not found" });
+        }
+      } catch (error) {
+        res.status(500).json({ success: false, message: "Error fetching user" });
+      }
+}
   

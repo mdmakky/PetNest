@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress, Button, TextField, Rating } from "@mui/material";
@@ -8,6 +8,7 @@ import "./Details.css";
 
 const Details = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [seller, setSeller] = useState(null);
@@ -83,6 +84,19 @@ const Details = () => {
     }
   };
 
+  const handleBuyNow = () => {
+    if (product && seller) {
+      navigate("/checkOut", {
+        state: {
+          product,
+          seller,
+        },
+      });
+    } else {
+      toast.error("Product or seller information is missing.");
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="loading-container">
@@ -107,7 +121,11 @@ const Details = () => {
             <p>Quantity: {product.quantity}</p>
             <p>Category: {product.category}</p>
             {product.quantity > 0 ? (
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleBuyNow}
+              >
                 Buy Now
               </Button>
             ) : (

@@ -59,8 +59,8 @@ const Cart = () => {
         setCart(data.cart);
         toast.success("Product removed from cart!");
         setTimeout(() => {
-            window.location.reload();
-          },2000);
+          window.location.reload();
+        }, 2000);
       } else {
         toast.error(data.message);
       }
@@ -70,64 +70,78 @@ const Cart = () => {
   };
 
   const handleBuyNow = (productId) => {
-    navigate(`/checkout/${productId}`);
+    const selectedProduct = cart.items.find(item => item.productId._id === productId);
+    if (selectedProduct) {
+      navigate(`/checkOut`, {
+        state: {
+          product: selectedProduct.productId,
+          sellerId: selectedProduct.productId.userId,
+          initialQuantity: selectedProduct.quantity
+        }
+      });
+    } else {
+      toast.error("Product not found in cart.");
+    }
   };
-
   return (
     <div>
-        <NavBar />
+      <NavBar />
 
-        <div className="cart-container">
-      <Typography variant="h4" gutterBottom className="cart-header">
-        Your Cart
-      </Typography>
+      <div className="cart-container">
+        <Typography variant="h4" gutterBottom className="cart-header">
+          Your Cart
+        </Typography>
 
-      {loading ? (
-        <div className="loading-spinner">
-          <CircularProgress />
-        </div>
-      ) : (
-        <div>
-          {cart && cart.items.length > 0 ? (
-            cart.items.map((item) => (
-              <div className="cart-item" key={item.productId._id}>
-                <img
-                  src={item.productId.productImage}
-                  alt={item.productId.productName}
-                />
-                <div className="cart-item-details">
-                  <Typography variant="h6">{item.productId.productName}</Typography>
-                  <p>Price: {item.productId.price} Tk</p>
-                  <p>Quantity: {item.quantity}</p>
-                </div>
-                <div className="cart-item-actions">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleBuyNow(item.productId._id)}
-                  >
-                    Buy Now
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={() => handleRemoveFromCart(item.productId._id)}
-                  >
-                    Remove
-                  </Button>
-                </div>
+        {loading ? (
+          <div className="loading-spinner">
+            <CircularProgress />
+          </div>
+        ) : (
+          <div>
+            {cart && cart.items.length > 0 ? (
+              <div>
+                {cart.items.map((item) => (
+                  <div className="cart-item" key={item.productId._id}>
+                    <img
+                      src={item.productId.productImage}
+                      alt={item.productId.productName}
+                      className="cart-item-image"
+                    />
+                    <div className="cart-item-details">
+                      <Typography variant="h6">{item.productId.productName}</Typography>
+                      <p>Price: {item.productId.price} Tk</p>
+                      <p>Quantity: {item.quantity}</p>
+                    </div>
+                    <div className="cart-item-actions">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() =>
+                          handleBuyNow(item.productId._id, item.quantity) 
+                        }
+                      >
+                        Buy Now
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => handleRemoveFromCart(item.productId._id)}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))
-          ) : (
-            <Typography variant="h6" color="textSecondary" className="cart-empty-message">
-              Your cart is empty.
-            </Typography>
-          )}
-        </div>
-      )}
+            ) : (
+              <Typography variant="h6" color="textSecondary" className="cart-empty-message">
+                Your cart is empty.
+              </Typography>
+            )}
+          </div>
+        )}
+      </div>
     </div>
-    </div>
-    
   );
 };
 

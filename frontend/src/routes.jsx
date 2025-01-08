@@ -17,6 +17,7 @@ import Details from "./pages/DetailsPage/Details";
 import Cart from "./pages/CartPage/Cart";
 import Blog from "./pages/BlogPage/Blog";
 import WriteBlog from "./pages/WriteBlogPage/WriteBlog";
+import CheckOut from "./pages/CheckOutPage/CheckOut";
 
 const RouterConfig = () => {
   return (
@@ -39,6 +40,7 @@ const RouterConfig = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/writeBlog" element={<WriteBlog />} />
+        <Route path="/checkOut" element={<CheckOut />} />
       </Routes>
     </Router>
   );
