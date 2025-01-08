@@ -61,7 +61,7 @@
   width: 150px;
 }
 .delete-btn {
-  background-color: #e74c3c;
+  background-color: red;
   color: white;
   padding: 10px;
   border: none;
