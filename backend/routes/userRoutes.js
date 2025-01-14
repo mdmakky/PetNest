@@ -7,8 +7,6 @@ router.get('/profile', authenticateJWT, userController.getProfile);
 
 router.get('/getUserById/:id', authenticateJWT, userController.getUserById);
 
-router.get('/editProfile', authenticateJWT, userController.getEditProfile)
-
 router.post('/editProfile', authenticateJWT, userController.postEditProfile)
 
 router.post('/removeProfilePic', authenticateJWT, userController.removeProfilePic)

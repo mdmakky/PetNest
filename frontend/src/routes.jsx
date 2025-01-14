@@ -8,7 +8,6 @@ import Authentication from "./pages/AuthenticationPage/Authentication";
 import ResetPassword from "./pages/ResetPasswordPage/ResetPassword";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
 import Profile from "./pages/ProfilePage/Profile";
-import EditProfile from "./pages/EditProfilePage/EditProfile";
 import SellProduct from "./pages/SellProductPage/SellProduct";
 import Home from "./pages/HomePage/Home";
 import ConsultDoctor from "./pages/ConsultDoctorPage/ConsultDoctor";
@@ -35,7 +34,6 @@ const RouterConfig = () => {
         <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/verifyEmail" element={<VerifyEmail />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/editProfile" element={<EditProfile />} />
         <Route path="/sellProduct" element={<SellProduct />} />
         <Route path="/updateProduct" element={<UpdateProduct />} />
         <Route path="/consultDoctor" element={<ConsultDoctor />} />

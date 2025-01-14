@@ -38,16 +38,6 @@ const SideBar = () => {
           </Link>
 
           <Link
-            to="/editProfile"
-            className={`menu-link ${
-              location.pathname === "/editProfile" ? "active" : ""
-            }`}
-            onClick={() => setMenuOpen(false)}
-          >
-            Update Profile
-          </Link>
-
-          <Link
             to="/sellProduct"
             className={`menu-link ${
               location.pathname === "/sellProduct" ? "active" : ""

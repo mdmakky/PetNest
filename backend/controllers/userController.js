@@ -29,30 +29,6 @@ exports.getProfile = async (req, res) => {
     }
 };
 
-
-exports.getEditProfile = (req, res) => {
-    User.findById(req.user.id)
-        .then(function (foundUser) {
-            if (foundUser) {
-                res.render("editProfile", {
-                    userName: foundUser.name,
-                    userAddress: foundUser.address,
-                    userPhone: foundUser.phone,
-                    userDOB: foundUser.dob,
-                    userGender: foundUser.gender,
-                    userImage: foundUser.profileImage,
-                    userId: req.user.id,
-                });
-            } else {
-                res.status(404).send("User not found");
-            }
-        })
-        .catch(function (err) {
-            console.log(err);
-            res.status(500).send("Internal Server Error");
-        });
-};
-
 exports.postEditProfile = [
     upload.single('profileImage'),
     async (req, res) => {
