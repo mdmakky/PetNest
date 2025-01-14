@@ -88,6 +88,17 @@ const SideBar = () => {
           Your Orders
           </Link>
 
+          <Link
+            to="/giveAdopt"
+            className={`menu-link ${
+              location.pathname === "/giveAdopt" ? "active" : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+          Give Adopt
+          </Link>
+
+
         </div>
 
         <div className="hamburger" onClick={toggleMenu}>

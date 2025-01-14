@@ -69,6 +69,7 @@
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
+  border: 2px solid #6e726e;
 }
 
 .product-actions {

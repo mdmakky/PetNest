@@ -87,6 +87,7 @@ const NavBar = () => {
           >
             Home
           </Link>
+
           <Link
             to="/consultDoctor"
             className={`menu-link ${
@@ -96,6 +97,7 @@ const NavBar = () => {
           >
             Consult Doctor
           </Link>
+
           <Link
             to="/adoption"
             className={`menu-link ${
@@ -105,6 +107,7 @@ const NavBar = () => {
           >
             Adoption
           </Link>
+
           <Link
             to="/blog"
             className={`menu-link ${
@@ -114,6 +117,7 @@ const NavBar = () => {
           >
             Blogs
           </Link>
+
           <Link
             to="/qa"
             className={`menu-link ${
@@ -123,6 +127,7 @@ const NavBar = () => {
           >
             Q/A
           </Link>
+          
           <div
             className={`menu-link ${location.pathname === "/profile" ? "active" : ""}`}
             onClick={handleProfileClick}

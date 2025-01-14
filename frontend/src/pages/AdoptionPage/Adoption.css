@@ -1,0 +1,71 @@
+.adoption-filter-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .adoption-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .adoption-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+  }
+  
+  .adoption-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .adoption-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    border: 2px solid #6e726e;
+  }
+  
+  .no-adoptions-message {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  .adoption-pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .adoption-pagination button {
+    margin: 0 10px;
+  }
+
+  .adoption-card h6 {
+    margin: 10px 0;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  .adoption-card p {
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  

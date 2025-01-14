@@ -11,6 +11,7 @@ const cartRoutes = require('./routes/cartRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const checkOutRoutes = require('./routes/checkOutRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const adoptionRoutes = require('./routes/adoptionRoutes');
 
 require('dotenv').config();
 
@@ -38,6 +39,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/checkOut', checkOutRoutes);
 app.use('/api/order', orderRoutes);
+app.use('/api/adoption', adoptionRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
