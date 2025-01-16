@@ -20,6 +20,7 @@ import CheckOut from "./pages/CheckOutPage/CheckOut";
 import ShowOrder from "./pages/ShowOrderPage/ShowOrder";
 import GiveAdopt from "./pages/GiveAdoptPage/GiveAdopt";
 import Adoption from "./pages/AdoptionPage/Adoption";
+import ManageAdopt from "./pages/ManageAdopt/ManageAdopt";
 
 const RouterConfig = () => {
   return (
@@ -44,7 +45,8 @@ const RouterConfig = () => {
         <Route path="/checkOut" element={<CheckOut />} />
         <Route path="/showOrder" element={<ShowOrder />} />
         <Route path="/giveAdopt" element={<GiveAdopt />} />
-        <Route path="adoption" element={<Adoption />} />
+        <Route path="/adoption" element={<Adoption />} />
+        <Route path="/manageAdopt" element={<ManageAdopt />} />
       </Routes>
     </Router>
   );

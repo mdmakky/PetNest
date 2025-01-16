@@ -241,6 +241,14 @@ const Profile = () => {
                   onChange={handleInputChange}
                 />
 
+                <label>Email:</label>
+                <input
+                  type="text"
+                  name="nid"
+                  value={userData.email || ""}
+                  disabled
+                />
+
                 <button type="submit" className="save-btn">
                   {loading ? (
                     <CircularProgress size={24} color="white" />

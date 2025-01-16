@@ -88,6 +88,16 @@ const SideBar = () => {
           Give Adopt
           </Link>
 
+          <Link
+            to="/manageAdopt"
+            className={`menu-link ${
+              location.pathname === "/manageAdopt" ? "active" : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+          Manage Adopt
+          </Link>
+
 
         </div>
 
