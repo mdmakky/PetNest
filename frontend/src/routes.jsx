@@ -21,6 +21,7 @@ import ShowOrder from "./pages/ShowOrderPage/ShowOrder";
 import GiveAdopt from "./pages/GiveAdoptPage/GiveAdopt";
 import Adoption from "./pages/AdoptionPage/Adoption";
 import ManageAdopt from "./pages/ManageAdopt/ManageAdopt";
+import QuestionAnswer from "./pages/QuestionAnswerPage/QuestionAnswer";
 
 const RouterConfig = () => {
   return (
@@ -47,6 +48,7 @@ const RouterConfig = () => {
         <Route path="/giveAdopt" element={<GiveAdopt />} />
         <Route path="/adoption" element={<Adoption />} />
         <Route path="/manageAdopt" element={<ManageAdopt />} />
+        <Route path="/qa" element={<QuestionAnswer />} />
       </Routes>
     </Router>
   );

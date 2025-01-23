@@ -1,0 +1,159 @@
+.qa-page {
+  padding: 20px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.qa-page h2{
+  color: #333;
+}
+
+.qa-page p {
+  color: #333;
+}
+
+.head {
+  color: #333;
+  font-size: x-large;
+}
+
+.no-answers {
+  font-style: italic;
+  color: gray;
+  margin-top: 0;
+}
+
+.ask-question-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.ask-question-section button {
+  align-self: flex-end;
+}
+
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.question-container {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.question-header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-direction: column;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.question-header span {
+  font-size: 14px;
+  color: #555;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #999;
+}
+
+.answers-list {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.answer-container {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.answer-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.answer-header span {
+  font-size: 14px;
+  color: #555;
+}
+
+.qa-actions {
+  display: flex;
+  justify-content: flex-start; 
+  gap: 10px; 
+  margin-top: 10px;
+}
+
+.qa-actions .MuiIconButton-root {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.add-answer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  gap: 10px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+
+
+@media (max-width: 768px) {
+  .ask-question-section {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .question-header, .answer-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timestamp {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+
+  .add-answer-section {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
