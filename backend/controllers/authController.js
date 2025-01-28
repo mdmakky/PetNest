@@ -76,6 +76,7 @@ exports.postLogin = async (req, res, next) => {
       message: "Login successful!",
       token,
       redirectUrl: "/",
+      userId: user._id
     });
   } catch (err) {
     console.error(err);

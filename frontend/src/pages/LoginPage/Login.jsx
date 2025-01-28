@@ -25,6 +25,8 @@ const Login = () => {
       });
 
       const result = await response.json()
+      console.log(result);
+      
       
       if (response.status === 403) {
         toast.warning(result.message, {
@@ -36,6 +38,7 @@ const Login = () => {
         });
       } else if (result.success) {
         localStorage.setItem('token', result.token);
+        localStorage.setItem('userId', result.userId); 
 
         toast.success(result.message, {
           position: "top-right",

@@ -49,42 +49,72 @@ exports.addAnswer = async (req, res) => {
 };
 
 exports.like = async (req, res) => {
-    const { questionId, answerId } = req.params;
+  const { questionId, answerId } = req.params;
+  const userId = req.user.id;
 
-    try {
-      const question = await QA.findById(questionId);
-      if (!question) return res.status(404).json({ error: 'Question not found' });
-  
-      const answer = question.answers.id(answerId);
-      if (!answer) return res.status(404).json({ error: 'Answer not found' });
-  
+  try {
+    const question = await QA.findById(questionId);
+    if (!question) return res.status(404).json({ error: 'Question not found' });
+
+    const answer = question.answers.id(answerId);
+    if (!answer) return res.status(404).json({ error: 'Answer not found' });
+
+    const likedIndex = answer.likedBy.indexOf(userId);
+    const dislikedIndex = answer.dislikedBy.indexOf(userId);
+
+    if (likedIndex !== -1) {
+      answer.likedBy.splice(likedIndex, 1);
+      answer.likes -= 1;
+    } else {
+      answer.likedBy.push(userId);
       answer.likes += 1;
-      await question.save();
-  
-      res.status(200).json({ message: 'Like added', answer });
-    } catch (error) {
-      res.status(500).json({ error: 'Server error', details: error.message });
+
+      if (dislikedIndex !== -1) {
+        answer.dislikedBy.splice(dislikedIndex, 1);
+        answer.dislikes -= 1;
+      }
     }
-}
+
+    await question.save();
+    res.status(200).json({ message: 'Like toggled', answer });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error', details: error.message });
+  }
+};
 
 exports.dislike = async (req, res) => {
-    const { questionId, answerId } = req.params;
+  const { questionId, answerId } = req.params;
+  const userId = req.user.id;
 
-    try {
-      const question = await QA.findById(questionId);
-      if (!question) return res.status(404).json({ error: 'Question not found' });
-  
-      const answer = question.answers.id(answerId);
-      if (!answer) return res.status(404).json({ error: 'Answer not found' });
-  
+  try {
+    const question = await QA.findById(questionId);
+    if (!question) return res.status(404).json({ error: 'Question not found' });
+
+    const answer = question.answers.id(answerId);
+    if (!answer) return res.status(404).json({ error: 'Answer not found' });
+
+    const dislikedIndex = answer.dislikedBy.indexOf(userId);
+    const likedIndex = answer.likedBy.indexOf(userId);
+
+    if (dislikedIndex !== -1) {
+      answer.dislikedBy.splice(dislikedIndex, 1);
+      answer.dislikes -= 1;
+    } else {
+      answer.dislikedBy.push(userId);
       answer.dislikes += 1;
-      await question.save();
-  
-      res.status(200).json({ message: 'Dislike added', answer });
-    } catch (error) {
-      res.status(500).json({ error: 'Server error', details: error.message });
+
+      if (likedIndex !== -1) {
+        answer.likedBy.splice(likedIndex, 1);
+        answer.likes -= 1;
+      }
     }
-}
+
+    await question.save();
+    res.status(200).json({ message: 'Dislike toggled', answer });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error', details: error.message });
+  }
+};
 
   
   

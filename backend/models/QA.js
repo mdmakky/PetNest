@@ -21,8 +21,20 @@ const answerSchema = new mongoose.Schema(
     },
     dislikes: {
       type: Number,
-      default: 0, 
+      default: 0,
     },
+    likedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    dislikedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   { timestamps: true }
 );
