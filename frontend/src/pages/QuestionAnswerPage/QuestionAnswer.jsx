@@ -17,23 +17,20 @@ const QuestionAnswer = () => {
     fetchQuestions();
   }, [currentPage]);
 
+  useEffect(() => {
+    fetchQuestions();
+  }, [currentPage]);
   const fetchQuestions = async () => {
-    setLoading(true);
-
     try {
       const response = await fetch("http://localhost:3000/api/qa/getQuestions");
       const data = await response.json();
       setQuestions(data);
     } catch (error) {
       console.error("Error fetching questions:", error);
-    } finally {
-      setLoading(false);
     }
   };
-
   const handleAskQuestion = async () => {
     if (!newQuestion.trim()) return;
-
     try {
       const response = await fetch("http://localhost:3000/api/qa/addQuestion", {
         method: "POST",
@@ -43,7 +40,6 @@ const QuestionAnswer = () => {
         },
         body: JSON.stringify({ question: newQuestion }),
       });
-
       if (response.ok) {
         setNewQuestion("");
         fetchQuestions();
@@ -54,10 +50,8 @@ const QuestionAnswer = () => {
       console.error("Error:", error);
     }
   };
-
   const handleAddAnswer = async (questionId, answerText) => {
     if (!answerText.trim()) return;
-
     try {
       const response = await fetch(
         `http://localhost:3000/api/qa/${questionId}/answers`,
@@ -70,7 +64,6 @@ const QuestionAnswer = () => {
           body: JSON.stringify({ answerText }),
         }
       );
-
       if (response.ok) {
         setAnswers({ ...answers, [questionId]: "" });
         fetchQuestions();
@@ -83,6 +76,38 @@ const QuestionAnswer = () => {
   };
 
   const handleLike = async (questionId, answerId) => {
+    const updatedAnswers = questions.map((question) =>
+      question._id === questionId
+        ? {
+            ...question,
+            answers: question.answers.map((answer) =>
+              answer._id === answerId
+                ? {
+                    ...answer,
+                    likes: isLiked(answer)
+                      ? answer.likes - 1
+                      : answer.likes + 1,
+                    likedBy: isLiked(answer)
+                      ? answer.likedBy.filter(
+                          (id) => id !== localStorage.getItem("userId")
+                        )
+                      : [...answer.likedBy, localStorage.getItem("userId")],
+                    dislikes: isDisliked(answer)
+                      ? answer.dislikes - 1
+                      : answer.dislikes,
+                    dislikedBy: isDisliked(answer)
+                      ? answer.dislikedBy.filter(
+                          (id) => id !== localStorage.getItem("userId")
+                        )
+                      : answer.dislikedBy,
+                  }
+                : answer
+            ),
+          }
+        : question
+    );
+    setQuestions(updatedAnswers);
+
     try {
       const response = await fetch(
         `http://localhost:3000/api/qa/${questionId}/${answerId}/like`,
@@ -94,15 +119,46 @@ const QuestionAnswer = () => {
         }
       );
 
-      if (response.ok) {
-        fetchQuestions();
+      if (!response.ok) {
+        throw new Error("Failed to like the answer");
       }
     } catch (error) {
       console.error("Error adding like:", error);
+      setQuestions(questions);
     }
   };
 
   const handleDislike = async (questionId, answerId) => {
+    const updatedAnswers = questions.map((question) =>
+      question._id === questionId
+        ? {
+            ...question,
+            answers: question.answers.map((answer) =>
+              answer._id === answerId
+                ? {
+                    ...answer,
+                    dislikes: isDisliked(answer)
+                      ? answer.dislikes - 1
+                      : answer.dislikes + 1,
+                    dislikedBy: isDisliked(answer)
+                      ? answer.dislikedBy.filter(
+                          (id) => id !== localStorage.getItem("userId")
+                        )
+                      : [...answer.dislikedBy, localStorage.getItem("userId")],
+                    likes: isLiked(answer) ? answer.likes - 1 : answer.likes,
+                    likedBy: isLiked(answer)
+                      ? answer.likedBy.filter(
+                          (id) => id !== localStorage.getItem("userId")
+                        )
+                      : answer.likedBy,
+                  }
+                : answer
+            ),
+          }
+        : question
+    );
+    setQuestions(updatedAnswers);
+
     try {
       const response = await fetch(
         `http://localhost:3000/api/qa/${questionId}/${answerId}/dislike`,
@@ -114,11 +170,12 @@ const QuestionAnswer = () => {
         }
       );
 
-      if (response.ok) {
-        fetchQuestions();
+      if (!response.ok) {
+        throw new Error("Failed to dislike the answer");
       }
     } catch (error) {
       console.error("Error adding dislike:", error);
+      setQuestions(questions);
     }
   };
 
@@ -185,7 +242,10 @@ const QuestionAnswer = () => {
                   {question.answers.length > 0 ? (
                     <>
                       {question.answers
-                        .slice(0, question.showMore ? question.answers.length : 5)
+                        .slice(
+                          0,
+                          question.showMore ? question.answers.length : 5
+                        )
                         .map((answer) => (
                           <div key={answer._id} className="answer-container">
                             <div className="answer-header">
@@ -205,10 +265,19 @@ const QuestionAnswer = () => {
                             <p>{answer.answerText}</p>
                             <div className="qa-actions">
                               <IconButton
-                                color={isLiked(answer) ? "primary" : "default"} 
+                                color={isLiked(answer) ? "primary" : "default"}
                                 onClick={() =>
                                   handleLike(question._id, answer._id)
                                 }
+                                disableRipple
+                                sx={{
+                                  transition:
+                                    "transform 0.2s ease, background-color 0.2s ease",
+                                  "&:hover": {
+                                    backgroundColor: "transparent",
+                                    transform: "scale(1.2)",
+                                  },
+                                }}
                               >
                                 <ThumbUpIcon /> {answer.likes || 0}
                               </IconButton>
@@ -216,10 +285,19 @@ const QuestionAnswer = () => {
                               <IconButton
                                 color={
                                   isDisliked(answer) ? "secondary" : "default"
-                                } 
+                                }
                                 onClick={() =>
                                   handleDislike(question._id, answer._id)
                                 }
+                                disableRipple
+                                sx={{
+                                  transition:
+                                    "transform 0.2s ease, background-color 0.2s ease",
+                                  "&:hover": {
+                                    backgroundColor: "transparent",
+                                    transform: "scale(1.2)",
+                                  },
+                                }}
                               >
                                 <ThumbDownIcon /> {answer.dislikes || 0}
                               </IconButton>
@@ -277,6 +355,12 @@ const QuestionAnswer = () => {
             variant="outlined"
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
+            sx={{
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: "primary.main",
+              },
+            }}
           >
             Previous
           </Button>
@@ -284,6 +368,12 @@ const QuestionAnswer = () => {
             variant="outlined"
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
+            sx={{
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: "primary.main",
+              },
+            }}
           >
             Next
           </Button>
