@@ -8,7 +8,8 @@ const requiredEnvVars = [
     'API_KEY',
     'API_SECRET',
     'PORT',
-    'JWT_SECRET'
+    'JWT_SECRET',
+    'GEMINI_API_KEY'
 ];
 
 requiredEnvVars.forEach((varName) => {
@@ -26,5 +27,6 @@ module.exports = {
     apiKey: process.env.API_KEY,
     apiSecret: process.env.API_SECRET,
     port: process.env.PORT,
-    JWT_SECRET: process.env.JWT_SECRET
+    JWT_SECRET: process.env.JWT_SECRET,
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY
 };

@@ -13,7 +13,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../../components/NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
+import { FaComment } from "react-icons/fa";
 import "./Home.css";
+import Chatbot from "../ChatBotPage/ChatBot";
+
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -23,6 +26,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [noResults, setNoResults] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false); 
   const navigate = useNavigate();
 
   const fetchProducts = async () => {
@@ -223,6 +227,19 @@ const Home = () => {
           Next
         </Button>
       </div>
+
+      <div className="message-icon-container">
+        <div className="message-text">Ask Meowster!</div>
+        <div
+          className={`message-icon ${showChatbot ? "chat-open" : ""}`}
+          onClick={() => setShowChatbot(!showChatbot)}
+        >
+          <FaComment size={30} />
+        </div>
+      </div>
+      
+      {showChatbot && <Chatbot onClose={() => setShowChatbot(false)} />}
+
     </div>
   );
 };

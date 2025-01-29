@@ -13,6 +13,7 @@ const checkOutRoutes = require('./routes/checkOutRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const adoptionRoutes = require('./routes/adoptionRoutes');
 const qaRoutes = require('./routes/qaRoutes');
+const chatBotRoutes = require('./routes/chatBotRoutes');
 
 require('dotenv').config();
 
@@ -42,6 +43,7 @@ app.use('/api/checkOut', checkOutRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/adoption', adoptionRoutes);
 app.use('/api/qa', qaRoutes);
+app.use('/api/chatBot', chatBotRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
