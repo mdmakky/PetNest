@@ -22,6 +22,8 @@ import GiveAdopt from "./pages/GiveAdoptPage/GiveAdopt";
 import Adoption from "./pages/AdoptionPage/Adoption";
 import ManageAdopt from "./pages/ManageAdopt/ManageAdopt";
 import QuestionAnswer from "./pages/QuestionAnswerPage/QuestionAnswer";
+import AdminHome from "./pages/AdminPage/AdminHomePage/AdminHome";
+import AdminLogin from "./pages/AdminPage/AdminLoginPage/AdminLogin";
 
 const RouterConfig = () => {
   return (
@@ -49,6 +51,8 @@ const RouterConfig = () => {
         <Route path="/adoption" element={<Adoption />} />
         <Route path="/manageAdopt" element={<ManageAdopt />} />
         <Route path="/qa" element={<QuestionAnswer />} />
+        <Route path="/adminHome" element={<AdminHome />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
       </Routes>
     </Router>
   );
