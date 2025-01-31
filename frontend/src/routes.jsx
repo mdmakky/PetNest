@@ -24,6 +24,7 @@ import ManageAdopt from "./pages/ManageAdopt/ManageAdopt";
 import QuestionAnswer from "./pages/QuestionAnswerPage/QuestionAnswer";
 import AdminHome from "./pages/AdminPage/AdminHomePage/AdminHome";
 import AdminLogin from "./pages/AdminPage/AdminLoginPage/AdminLogin";
+import HandleBlog from "./pages/AdminPage/HandleBlogPage/HandleBlog";
 
 const RouterConfig = () => {
   return (
@@ -53,6 +54,7 @@ const RouterConfig = () => {
         <Route path="/qa" element={<QuestionAnswer />} />
         <Route path="/adminHome" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
+        <Route path="/handleBlog" element={<HandleBlog />} />
       </Routes>
     </Router>
   );

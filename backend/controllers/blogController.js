@@ -38,14 +38,14 @@ exports.getBlogs = async (req, res) => {
   const skip = (page - 1) * limit;
 
   try {
-    const blogs = await Blog.find()
+    const blogs = await Blog.find({accept: true})
       .populate("userId", "name email profileImage")
       .populate("comments.userId", "name email profileImage")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
-    const totalBlogs = await Blog.countDocuments();
+    const totalBlogs =  await Blog.countDocuments({ accept: true });
 
     res.json({
       blogs,

@@ -15,6 +15,7 @@ const adoptionRoutes = require('./routes/adoptionRoutes');
 const qaRoutes = require('./routes/qaRoutes');
 const chatBotRoutes = require('./routes/chatBotRoutes');
 const adminLoginRoutes = require('./routes/AdminRoutes/adminLoginRoutes');
+const adminBlogRoutes = require('./routes/AdminRoutes/adminBlogRoutes');
 
 require('dotenv').config();
 
@@ -46,6 +47,7 @@ app.use('/api/adoption', adoptionRoutes);
 app.use('/api/qa', qaRoutes);
 app.use('/api/chatBot', chatBotRoutes);
 app.use('/api/admin/adminAuthentication', adminLoginRoutes);
+app.use('/api/admin/adminBlog', adminBlogRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

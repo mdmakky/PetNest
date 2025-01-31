@@ -39,7 +39,7 @@ const Blog = () => {
       console.log(result)
 
       if (response.ok) {
-        toast.success("Blog added successfully");
+        toast.success("Blog added successfully! Wait for the approval!");
         setBlogData({
           title: "",
           content: "",

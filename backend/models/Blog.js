@@ -50,6 +50,10 @@ const blogSchema = new mongoose.Schema(
       required: true,
     },
     comments: [commentSchema],
+    accept: {
+      type: Boolean,
+      default: false
+    }
   },
   { timestamps: true }
 );
