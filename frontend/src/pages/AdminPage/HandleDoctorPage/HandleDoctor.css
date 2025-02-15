@@ -1,0 +1,91 @@
+.handle-doctor-container {
+  padding: 20px;
+}
+
+.handle-doctor-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30px !important;
+}
+
+.handle-doctor-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.handle-doctor-doctor-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.handle-doctor-doctor-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.handle-doctor-doctor-card:hover {
+  transform: scale(1.05);
+}
+
+.handle-doctor-doctor-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 5%;
+  object-fit: cover;
+  border: 2px solid #54595f;
+}
+
+.handle-doctor-doctor-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.handle-doctor-doctor-info h3 {
+  font-size: 20px;
+  color: #333;
+}
+
+.handle-doctor-doctor-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.handle-doctor-doctor-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.handle-doctor-doctor-actions button {
+  padding: 8px 16px;
+}
+
+.handle-doctor-accept-btn {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+.handle-doctor-accept-btn:hover {
+  background-color: #276c36;
+}
+
+.handle-doctor-decline-btn {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.handle-doctor-decline-btn:hover {
+  background-color: #62000a;
+}

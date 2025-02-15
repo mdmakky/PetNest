@@ -25,6 +25,7 @@ import QuestionAnswer from "./pages/QuestionAnswerPage/QuestionAnswer";
 import AdminHome from "./pages/AdminPage/AdminHomePage/AdminHome";
 import AdminLogin from "./pages/AdminPage/AdminLoginPage/AdminLogin";
 import HandleBlog from "./pages/AdminPage/HandleBlogPage/HandleBlog";
+import HandleDoctor from "./pages/AdminPage/HandleDoctorPage/HandleDoctor";
 
 const RouterConfig = () => {
   return (
@@ -55,6 +56,7 @@ const RouterConfig = () => {
         <Route path="/adminHome" element={<AdminHome />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route path="/handleBlog" element={<HandleBlog />} />
+        <Route path="/handleDoctor" element={<HandleDoctor />} />
       </Routes>
     </Router>
   );
