@@ -225,7 +225,7 @@ const ConsultDoctor = () => {
                   <strong>Hospital:</strong> {doctor.hospital}
                 </p>
                 <p>
-                  <strong>District:</strong> {doctor.districtName}
+                  <strong>District:</strong> {doctor.district}
                 </p>
                 <p>
                   <strong>Address:</strong> {doctor.address}
