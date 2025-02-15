@@ -243,7 +243,7 @@ const ConsultDoctor = () => {
         </div>
       )}
 
-      <div className="doctor-form-container">
+      <div ref={formRef} className="doctor-form-container">
         <Typography variant="h5">Join with us as a Doctor!</Typography>
         <form onSubmit={handleSubmit}>
           <TextField
