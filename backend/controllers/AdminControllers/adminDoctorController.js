@@ -10,8 +10,6 @@ exports.getDoctors = async (req, res) => {
   
       const total = await Doctor.countDocuments({ approved: false });
   
-      console.log("Sending Doctors Data:", { doctors, total });
-  
       res.json({ doctors, total });
     } catch (error) {
       console.error("Error fetching doctors:", error);
