@@ -65,50 +65,34 @@ const CheckOut = () => {
 
   const handleConfirmOrder = async () => {
     const token = localStorage.getItem("token");
+  
     try {
-      const response = await fetch("http://localhost:3000/api/checkOut/confirm", {
+      const response = await fetch("http://localhost:3000/api/payment/makePayment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({
+          amount: totalCost,
+          productName: product.productName,
+          category: product.category,
           productId: product._id,
-          sellerId: sellerData._id,
-          quantity,
-          totalCost,
-          purchaseDate,
-          deliveryDate,
         }),
       });
-
+  
       const result = await response.json();
-      if (result.success) {
-        const removeResponse = await fetch("http://localhost:3000/api/cart/removeToCart", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ productId: product._id }),
-        });
-
-        const removeData = await removeResponse.json();
-
-        if (removeData.success) {
-          toast.success("Order confirmed successfully!");
-          navigate("/cart"); 
-        } else {
-          toast.error(removeData.message || "Failed to remove the product from cart.");
-        }
+  
+      if (result.url) {
+        window.location.href = result.url;
       } else {
-        toast.error(result.message || "Failed to confirm the order.");
+        console.error("Failed to initiate payment");
       }
     } catch (error) {
-      console.error("Error confirming order:", error);
-      toast.error("Failed to confirm the order.");
+      console.error("Payment Error:", error);
     }
   };
+  
 
   const handleClose = () => {
     navigate(-1); 
