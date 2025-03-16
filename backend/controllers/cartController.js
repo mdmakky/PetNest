@@ -76,6 +76,7 @@ exports.removeToCart = async (req, res) => {
           return res.status(404).json({ success: false, message: "Cart not found" });
         }
     
+    
         const updatedItems = cart.items.filter(item => item.productId.toString() !== productId);
     
         cart.items = updatedItems;

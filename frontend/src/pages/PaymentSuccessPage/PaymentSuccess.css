@@ -3,6 +3,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-image: linear-gradient(rgba(0, 0, 50, 0.5), rgba(0, 0, 50, 0.5)), url("../images/background.webp");
+  background-size: cover;
+  background-position: center;
+  min-height: 110vh;
 }
 
 .success-card {

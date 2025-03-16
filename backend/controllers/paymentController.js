@@ -1,5 +1,8 @@
 const SSLCommerzPayment = require("sslcommerz-lts");
 const User = require("../models/User");
+const Cart = require("../models/Cart");
+const Product = require("../models/Product");
+const mongoose = require("mongoose");
 const { STORE_ID, STORE_PASSWORD, SSLCOMMERZ_SANDBOX } = require("../config/env");
 
 const store_id = STORE_ID;
@@ -15,7 +18,7 @@ exports.makePayment = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const { amount, productName, category, productId } = req.body;
+    const { amount, productName, category } = req.body;
 
     if (!amount || !productName || !category) {
       return res.status(400).json({ error: "Amount, product name, and category are required" });
@@ -66,5 +69,65 @@ exports.makePayment = async (req, res) => {
   } catch (error) {
     console.error("Payment Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+exports.completeOrder = async (req, res) => {
+  try {
+    const { productId, quantity } = req.body;
+    const userId = req.user.id;
+
+    const cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).json({ success: false, message: "Cart not found" });
+    }
+
+    let productFound = false;
+    let updatedCartItems = cart.items.map((item) => {
+      if (item.productId.toString() === productId) {
+        productFound = true;
+
+        if (item.quantity > quantity) {
+          item.quantity -= quantity; 
+        } else {
+          return null; 
+        }
+      }
+      return item;
+    }).filter(Boolean);
+
+    if (!productFound) {
+      return res.status(404).json({ success: false, message: "Product not found in cart" });
+    }
+
+    cart.items = updatedCartItems; 
+    await cart.save();
+
+    const product = await Product.findOne({ _id: productId });
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found"
+      });
+    }
+
+    product.quantity -= quantity;
+    await product.save();
+
+    res.json({
+      success: true,
+      message: "Order processed successfully",
+      cart,
+      product
+    });
+
+  } catch (error) {
+    console.error("Order completion error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error completing order"
+    });
   }
 };

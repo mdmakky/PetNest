@@ -1,37 +1,173 @@
 import React, { useEffect, useState } from "react";
-import { Button, Typography, CircularProgress } from "@mui/material";
+import { 
+  Button, 
+  Typography, 
+  CircularProgress, 
+  Modal, 
+  TextField, 
+  IconButton 
+} from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
 import "react-toastify/dist/ReactToastify.css";
 import './Cart.css';
 
+const CheckOutModal = ({ 
+  open, 
+  onClose, 
+  product, 
+  seller 
+}) => {
+  const [quantity, setQuantity] = useState(1);
+  const [totalCost, setTotalCost] = useState(product?.price * 1 || 0);
+
+  const handleQuantityChange = (e) => {
+    const maxQuantity = product?.quantity || 1;
+    const inputValue = parseInt(e.target.value);
+    
+    const qty = Math.max(1, Math.min(
+      isNaN(inputValue) ? 1 : inputValue,
+      maxQuantity
+    ));
+    
+    setQuantity(qty);
+    setTotalCost(qty * product.price);
+  };
+
+  const handleConfirmOrder = async () => {
+    const token = localStorage.getItem("token");
+    
+    try {
+      const response = await fetch("http://localhost:3000/api/payment/makePayment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          amount: totalCost,
+          productName: product.productName,
+          category: product.category,
+          productId: product._id,
+        }),
+      });
+  
+      const result = await response.json();
+      
+      if (result.url) {
+        sessionStorage.setItem("purchasedProductId", product._id);
+        sessionStorage.setItem("purchasedQuantity", quantity);
+        window.location.href = result.url;
+      }
+    } catch (error) {
+      console.error("Payment Error:", error);
+    }
+  };
+
+  return (
+    <Modal open={open} onClose={onClose}>
+      <div className="checkout-modal">
+        <div className="modal-header">
+          <Typography variant="h5">Confirm Order</Typography>
+          <IconButton className="close-btn" onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </div>
+
+        <div className="modal-content">
+          {product && (
+            <>
+              <div className="cart-product-info">
+                <img 
+                  src={product.productImage} 
+                  alt={product.productName} 
+                  className="cart-product-image"
+                />
+                <div className="cart-product-details">
+                  <Typography variant="h6">{product.productName}</Typography>
+                  <Typography>Price: ৳{product.price}</Typography>
+                  <Typography>Category: {product.category}</Typography>
+                  <Typography>Seller: {seller?.name || "Unknown"}</Typography>
+                  <Typography>Contact: {seller?.phone || "N/A"}</Typography>
+                </div>
+              </div>
+
+              <TextField
+                label="Quantity"
+                type="number"
+                value={quantity}
+                onChange={handleQuantityChange}
+                fullWidth
+                margin="normal"
+                inputProps={{ 
+                  min: 1,
+                  max: product?.quantity || 1 
+                }}
+              />
+
+              <Typography variant="body2" color="textSecondary" gutterBottom>
+                Available in stock: {product?.quantity || 0}
+              </Typography>
+
+              <Typography variant="h6" gutterBottom>
+                Total: ৳{totalCost}
+              </Typography>
+
+              <div className="cart-action-buttons">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={handleConfirmOrder}
+                  disabled={product?.quantity < 1}
+                >
+                  {product?.quantity > 0 ? "Confirm & Pay" : "Out of Stock"}
+                </Button>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="secondary"
+                  onClick={onClose}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
 const Cart = () => {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [seller, setSeller] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
         const token = localStorage.getItem("token");
+        if (!token) {
+          toast.error("Please login to view cart");
+          navigate("/login");
+          return;
+        }
 
         const response = await fetch("http://localhost:3000/api/cart/getCart", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` }
         });
 
         const data = await response.json();
-
-        if (data.success) {
-          setCart(data.cart);
-        } else {
-          toast.error("Please login to show your cart.");
-        }
+        data.success ? setCart(data.cart) : toast.error(data.message);
       } catch (error) {
-        toast.error("Error fetching cart data.");
+        toast.error("Error loading cart");
       } finally {
         setLoading(false);
       }
@@ -43,46 +179,46 @@ const Cart = () => {
   const handleRemoveFromCart = async (productId) => {
     try {
       const token = localStorage.getItem("token");
-
       const response = await fetch("http://localhost:3000/api/cart/removeToCart", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({ productId }),
       });
 
       const data = await response.json();
-
       if (data.success) {
         setCart(data.cart);
-        toast.success("Product removed from cart!");
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        toast.success("Product removed from cart");
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Error removing product.");
+      toast.error("Error removing product");
     }
   };
 
-  const handleBuyNow = (productId) => {
-    const selectedProduct = cart.items.find(item => item.productId._id === productId);
-    if (selectedProduct) {
-      navigate(`/checkOut`, {
-        state: {
-          product: selectedProduct.productId,
-          sellerId: selectedProduct.productId.userId,
-          initialQuantity: selectedProduct.quantity
-        }
-      });
-    } else {
-      toast.error("Product not found in cart.");
+  const handleBuyNow = async (product) => {
+    setSelectedProduct(product);
+    setCheckoutOpen(true);
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:3000/api/user/getUserById/${product.userId}`, 
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      const data = await response.json();
+      data.user ? setSeller(data.user) : toast.error("Seller info not found");
+    } catch (error) {
+      console.error("Error fetching seller:", error);
+      toast.error("Error loading seller information");
     }
   };
+
   return (
     <div>
       <NavBar />
@@ -97,49 +233,54 @@ const Cart = () => {
             <CircularProgress />
           </div>
         ) : (
-          <div>
-            {cart && cart.items.length > 0 ? (
-              <div>
-                {cart.items.map((item) => (
-                  <div className="cart-item" key={item.productId._id}>
-                    <img
-                      src={item.productId.productImage}
-                      alt={item.productId.productName}
-                      className="cart-item-image"
-                    />
-                    <div className="cart-item-details">
-                      <Typography variant="h6">{item.productId.productName}</Typography>
-                      <p>Price: {item.productId.price} Tk</p>
-                      <p>Quantity: {item.quantity}</p>
-                    </div>
-                    <div className="cart-item-actions">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() =>
-                          handleBuyNow(item.productId._id, item.quantity) 
-                        }
-                      >
-                        Buy Now
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        color="secondary"
-                        onClick={() => handleRemoveFromCart(item.productId._id)}
-                      >
-                        Remove
-                      </Button>
-                    </div>
+          <div className="cart-content">
+            {cart?.items?.length > 0 ? (
+              cart.items.map((item) => (
+                <div className="cart-item" key={item.productId._id}>
+                  <img
+                    src={item.productId.productImage}
+                    alt={item.productId.productName}
+                    className="cart-item-image"
+                  />
+                  <div className="cart-item-info">
+                    <Typography variant="h6">{item.productId.productName}</Typography>
+                    <Typography>Category: {item.productId.category}</Typography>
+                    <Typography>Price: ৳{item.productId.price}</Typography>
+                    <Typography>Quantity: {item.quantity}</Typography>
                   </div>
-                ))}
-              </div>
+                  <div className="cart-item-actions">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleBuyNow(item.productId)}
+                      disabled={item.productId.quantity < 1}
+                    >
+                      {item.productId.quantity > 0 ? "Buy Now" : "Out of Stock"}
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      onClick={() => handleRemoveFromCart(item.productId._id)}
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                </div>
+              ))
             ) : (
-              <Typography variant="h6" color="textSecondary" className="cart-empty-message">
-                Your cart is empty.
+              <Typography variant="h6" className="empty-cart">
+                Your cart is empty
               </Typography>
             )}
           </div>
         )}
+
+        <CheckOutModal
+          open={checkoutOpen}
+          onClose={() => setCheckoutOpen(false)}
+          product={selectedProduct}
+          seller={seller}
+        />
       </div>
     </div>
   );

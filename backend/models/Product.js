@@ -11,9 +11,14 @@ const userProductSchema = new mongoose.Schema({
     productImage: String,
     productName: String,
     category: String,
-    quantity: String,
+    quantity: {
+        type: Number,
+        default: 0,
+        min: [0, "Quantity can't be negative"]
+    },
     price: Number,
     description: String
+
 });
 
 const Product = mongoose.model("Product", userProductSchema);

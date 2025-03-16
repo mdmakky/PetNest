@@ -8,7 +8,6 @@ import "./Details.css";
 
 const Details = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [seller, setSeller] = useState(null);
@@ -84,16 +83,27 @@ const Details = () => {
     }
   };
 
-  const handleBuyNow = () => {
-    if (product && seller) {
-      navigate("/checkOut", {
-        state: {
-          product,
-          seller,
+  const handleAddToCart = async (productId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:3000/api/cart/addToCart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({ productId }),
       });
-    } else {
-      toast.error("Product or seller information is missing.");
+
+      const result = await response.json();
+      if (result.success) {
+        toast.success("Product added to cart successfully!");
+      } else {
+        toast.error("Please login first.");
+      }
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      toast.error("Unable to add product to cart. Please try again.");
     }
   };
 
@@ -124,9 +134,9 @@ const Details = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={handleBuyNow}
+                onClick={() => handleAddToCart(product._id)}
               >
-                Buy Now
+                Add To Cart
               </Button>
             ) : (
               <Button variant="contained" disabled>
