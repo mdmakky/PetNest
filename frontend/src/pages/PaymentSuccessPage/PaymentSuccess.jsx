@@ -8,13 +8,14 @@ const PaymentSuccess = () => {
     const completePurchase = async () => {
       const productId = sessionStorage.getItem("purchasedProductId");
       const quantity = sessionStorage.getItem("purchasedQuantity");
+      const totalCost = sessionStorage.getItem("purchasedTotalCost");
       const token = localStorage.getItem("token");
   
-      if (productId && quantity && token) {
+      if (productId && totalCost && quantity && token) {
         try {
           const response = await axios.post(
             "http://localhost:3000/api/payment/completeOrder",
-            { productId, quantity },
+            { productId, quantity, totalCost },
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -26,6 +27,7 @@ const PaymentSuccess = () => {
           if (response.data.success) {
             sessionStorage.removeItem("purchasedProductId");
             sessionStorage.removeItem("purchasedQuantity");
+            sessionStorage.removeItem("purchasedTotalCost");
           }
         } catch (error) {
           console.error("Order completion failed:", error.response?.data);

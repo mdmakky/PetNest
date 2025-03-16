@@ -1,6 +1,7 @@
 const SSLCommerzPayment = require("sslcommerz-lts");
 const User = require("../models/User");
 const Cart = require("../models/Cart");
+const Order = require("../models/Order");
 const Product = require("../models/Product");
 const mongoose = require("mongoose");
 const { STORE_ID, STORE_PASSWORD, SSLCOMMERZ_SANDBOX } = require("../config/env");
@@ -74,8 +75,10 @@ exports.makePayment = async (req, res) => {
 
 exports.completeOrder = async (req, res) => {
   try {
-    const { productId, quantity } = req.body;
+    const { productId, quantity, totalCost } = req.body;
     const userId = req.user.id;
+
+    console.log(totalCost)
 
     const cart = await Cart.findOne({ userId });
 
@@ -115,6 +118,18 @@ exports.completeOrder = async (req, res) => {
 
     product.quantity -= quantity;
     await product.save();
+
+    const order = new Order({
+      userId: userId,
+      productId: productId,
+      sellerId: product.userId,
+      quantity: quantity,
+      totalCost: totalCost,
+      purchaseDate: new Date(),
+      deliveryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), 
+    });
+
+    await order.save();
 
     res.json({
       success: true,

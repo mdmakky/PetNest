@@ -59,6 +59,7 @@ const CheckOutModal = ({
       if (result.url) {
         sessionStorage.setItem("purchasedProductId", product._id);
         sessionStorage.setItem("purchasedQuantity", quantity);
+        sessionStorage.setItem("purchasedTotalCost", totalCost);
         window.location.href = result.url;
       }
     } catch (error) {
