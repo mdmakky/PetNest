@@ -1,55 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .orders-page {
-    display: flex;
-    min-height: 100vh;
-    background-color: #f9f9f9;
+  display: flex;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+}
+
+.orders-content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.myOrder {
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.myOrder::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px;
+}
+
+.order-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.order-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.order-card .MuiCardContent-root {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-card .MuiAvatar-root {
+  border: 3px solid #4CAF50;
+  padding: 3px;
+  background: white;
+  transition: transform 0.6s ease;
+}
+
+.order-card:hover .MuiAvatar-root {
+  transform: scale(1.05);
+}
+
+.order-card .MuiTypography-h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin: 16px 0;
+  text-align: center;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.order-card .MuiTypography-h6::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px;
+}
+
+.order-card .MuiTypography-body2 {
+  color: #4a4a4a;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-card .MuiButton-root {
+  text-transform: none;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.order-card .MuiButton-containedPrimary {
+  background-color: #4CAF50;
+  border: 2px solid #4CAF50;
+}
+
+.order-card .MuiButton-containedPrimary:hover {
+  background-color: #45a049;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+}
+
+.order-card .MuiButton-containedError {
+  background-color: white;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+}
+
+.order-card .MuiButton-containedError:hover {
+  background-color: #dc3545;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.2);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.status-pending {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.status-delivered {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-cancelled {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+@media (max-width: 768px) {
+  .orders-page {
+    padding: 10px;
   }
-  
+
   .orders-content {
-    margin-left: 240px;
-    padding: 20px;
-    flex-grow: 1;
-  }
-  
-  .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .order-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    transition: box-shadow 0.3s;
-  }
-  
-  .order-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .order-card .MuiCardContent-root {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .order-card button {
-    margin-top: 10px;
+    padding: 15px;
   }
 
   .myOrder {
-    color: #333;
-    font-weight: bold;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
   }
-  
-  @media (max-width: 600px) {
-    .orders-content {
-      margin-left: 0;
-    }
+
+  .order-card .MuiAvatar-root {
+    width: 140px !important;
+    height: 140px !important;
   }
+
+  .order-card .MuiTypography-h6 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .myOrder {
+    font-size: 1.5rem;
+  }
+
+  .order-card .MuiAvatar-root {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  .order-card .MuiTypography-h6 {
+    font-size: 1.1rem;
+  }
+
+  .order-card .MuiTypography-body2 {
+    font-size: 0.9rem;
+  }
+}
   

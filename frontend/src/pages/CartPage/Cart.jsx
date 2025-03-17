@@ -8,6 +8,13 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import CategoryIcon from '@mui/icons-material/Category';
+import PersonIcon from '@mui/icons-material/Person';
+import PhoneIcon from '@mui/icons-material/Phone';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
@@ -242,9 +249,9 @@ const Cart = () => {
   return (
     <div>
       <NavBar />
-
       <div className="cart-container">
         <Typography variant="h4" gutterBottom className="cart-header">
+          <ShoppingCartIcon sx={{ fontSize: 2.5, color: '#4CAF50', mr: 1 }} />
           Your Cart
         </Typography>
 
@@ -266,21 +273,30 @@ const Cart = () => {
                     <Typography variant="h6">
                       {item.productId.productName}
                     </Typography>
-                    <Typography>Category: {item.productId.category}</Typography>
-                    Price:{" "}
-                    {item.productId.discountPrice ? (
-                      <>
-                        <span className="discounted-price">
-                          ৳{item.productId.discountPrice}
-                        </span>
-                        <span className="original-price">
-                          <del>৳{item.productId.price}</del>
-                        </span>
-                      </>
-                    ) : (
-                      <span>৳{item.productId.price}</span>
-                    )}
-                    <Typography>Quantity: {item.quantity}</Typography>
+                    <Typography>
+                      <CategoryIcon sx={{ color: '#4CAF50', mr: 1 }} />
+                      {item.productId.category}
+                    </Typography>
+                    <Typography>
+                      <LocalOfferIcon sx={{ color: '#4CAF50', mr: 1 }} />
+                      Price:{" "}
+                      {item.productId.discountPrice ? (
+                        <>
+                          <span className="discounted-price">
+                            ৳{item.productId.discountPrice}
+                          </span>
+                          <span className="original-price">
+                            <del>৳{item.productId.price}</del>
+                          </span>
+                        </>
+                      ) : (
+                        <span>৳{item.productId.price}</span>
+                      )}
+                    </Typography>
+                    <Typography>
+                      <InventoryIcon sx={{ color: '#4CAF50', mr: 1 }} />
+                      Quantity: {item.quantity}
+                    </Typography>
                   </div>
                   <div className="cart-item-actions">
                     <Button
@@ -288,6 +304,7 @@ const Cart = () => {
                       color="primary"
                       onClick={() => handleBuyNow(item.productId)}
                       disabled={item.productId.quantity < 1}
+                      startIcon={<ShoppingCartIcon />}
                     >
                       {item.productId.quantity > 0 ? "Buy Now" : "Out of Stock"}
                     </Button>
@@ -295,6 +312,7 @@ const Cart = () => {
                       variant="outlined"
                       color="secondary"
                       onClick={() => handleRemoveFromCart(item.productId._id)}
+                      startIcon={<DeleteIcon />}
                     >
                       Remove
                     </Button>
@@ -303,6 +321,7 @@ const Cart = () => {
               ))
             ) : (
               <Typography variant="h6" className="empty-cart">
+                <ShoppingCartIcon sx={{ fontSize: 3, color: '#4CAF50', mb: 2 }} />
                 Your cart is empty
               </Typography>
             )}
