@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SideBar from "../../components/SideBar/SideBar";
+import Footer from "../../components/Footer/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress } from "@mui/material";
@@ -206,6 +207,7 @@ const UpdateProduct = () => {
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

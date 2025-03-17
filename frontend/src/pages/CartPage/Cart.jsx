@@ -11,6 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import './Cart.css';
 
@@ -283,6 +284,7 @@ const Cart = () => {
           seller={seller}
         />
       </div>
+      <Footer/>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Button, TextField, IconButton, CircularProgress } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 import "./QuestionAnswer.css";
 
 const QuestionAnswer = () => {
@@ -379,6 +380,7 @@ const QuestionAnswer = () => {
           </Button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

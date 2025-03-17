@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress, Button, TextField, Rating } from "@mui/material";
 import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 import "./Details.css";
 
 const Details = () => {
@@ -204,6 +205,7 @@ const Details = () => {
           </Button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

@@ -10,6 +10,7 @@ import {
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "../../components/Footer/Footer";
 import "./Adoption.css";
 
 const Adoption = () => {
@@ -133,6 +134,7 @@ const Adoption = () => {
           Next
         </Button>
       </div>
+      <Footer/>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { CircularProgress, Button, Typography, Card, CardContent, Box, Avatar } from "@mui/material";
 import SideBar from "../../components/SideBar/SideBar";
+import Footer from "../../components/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import "./ShowOrder.css";
 
@@ -145,6 +146,7 @@ const ShowOrder = () => {
           )}
         </Box>
       </div>
+      <Footer/>
     </div>
   );
 };

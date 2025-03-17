@@ -12,6 +12,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaComment } from "react-icons/fa";
 import "./Home.css";
@@ -239,6 +240,8 @@ const Home = () => {
       </div>
       
       {showChatbot && <Chatbot onClose={() => setShowChatbot(false)} />}
+
+        <Footer/>
 
     </div>
   );

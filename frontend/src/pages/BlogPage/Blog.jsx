@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import "./Blog.css";
 
@@ -263,6 +264,7 @@ const Blog = () => {
           </Button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
