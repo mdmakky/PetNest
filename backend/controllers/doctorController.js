@@ -28,7 +28,7 @@ exports.getDoctor = async (req, res) => {
         let filter = {approved: true};
         
         if (district) {
-          filter.districtName = district;
+          filter.district = district;
         }
     
         const doctors = await Doctor.find(filter) 
