@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Cart = require("../models/Cart");
 const Order = require("../models/Order");
 const Product = require("../models/Product");
-const mongoose = require("mongoose");
+const crypto = require("crypto");
 const { STORE_ID, STORE_PASSWORD, SSLCOMMERZ_SANDBOX } = require("../config/env");
 
 const store_id = STORE_ID;
@@ -78,8 +78,6 @@ exports.completeOrder = async (req, res) => {
     const { productId, quantity, totalCost } = req.body;
     const userId = req.user.id;
 
-    console.log(totalCost)
-
     const cart = await Cart.findOne({ userId });
 
     if (!cart) {
@@ -119,7 +117,10 @@ exports.completeOrder = async (req, res) => {
     product.quantity -= quantity;
     await product.save();
 
+    const orderId = `ORD-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`
+
     const order = new Order({
+      orderId,
       userId: userId,
       productId: productId,
       sellerId: product.userId,
