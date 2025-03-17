@@ -1,62 +1,63 @@
 import React, { useEffect, useState } from "react";
-import { 
-  Button, 
-  Typography, 
-  CircularProgress, 
-  Modal, 
-  TextField, 
-  IconButton 
+import {
+  Button,
+  Typography,
+  CircularProgress,
+  Modal,
+  TextField,
+  IconButton,
 } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
-import './Cart.css';
+import "./Cart.css";
 
-const CheckOutModal = ({ 
-  open, 
-  onClose, 
-  product, 
-  seller 
-}) => {
+const CheckOutModal = ({ open, onClose, product, seller }) => {
   const [quantity, setQuantity] = useState(1);
-  const [totalCost, setTotalCost] = useState(product?.price * 1 || 0);
+  const [totalCost, setTotalCost] = useState(
+    (product?.discountPrice || product?.price) * 1 || 0
+  );
 
   const handleQuantityChange = (e) => {
     const maxQuantity = product?.quantity || 1;
     const inputValue = parseInt(e.target.value);
-    
-    const qty = Math.max(1, Math.min(
-      isNaN(inputValue) ? 1 : inputValue,
-      maxQuantity
-    ));
-    
+
+    const qty = Math.max(
+      1,
+      Math.min(isNaN(inputValue) ? 1 : inputValue, maxQuantity)
+    );
+
     setQuantity(qty);
-    setTotalCost(qty * product.price);
+    const price = product.discountPrice || product.price;
+    setTotalCost(qty * price);
   };
 
   const handleConfirmOrder = async () => {
     const token = localStorage.getItem("token");
-    
+
     try {
-      const response = await fetch("http://localhost:3000/api/payment/makePayment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          amount: totalCost,
-          productName: product.productName,
-          category: product.category,
-          productId: product._id,
-        }),
-      });
-  
+      const response = await fetch(
+        "http://localhost:3000/api/payment/makePayment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            amount: totalCost,
+            productName: product.productName,
+            category: product.category,
+            productId: product._id,
+          }),
+        }
+      );
+
       const result = await response.json();
-      
+
       if (result.url) {
         sessionStorage.setItem("purchasedProductId", product._id);
         sessionStorage.setItem("purchasedQuantity", quantity);
@@ -82,14 +83,28 @@ const CheckOutModal = ({
           {product && (
             <>
               <div className="cart-product-info">
-                <img 
-                  src={product.productImage} 
-                  alt={product.productName} 
+                <img
+                  src={product.productImage}
+                  alt={product.productName}
                   className="cart-product-image"
                 />
                 <div className="cart-product-details">
                   <Typography variant="h6">{product.productName}</Typography>
-                  <Typography>Price: ৳{product.price}</Typography>
+                  <Typography>
+                    Price:{" "}
+                    {product.discountPrice ? (
+                      <>
+                        <span className="discounted-price">
+                          ৳{product.discountPrice}
+                        </span>
+                        <span className="original-price">
+                          <del>৳{product.price}</del>
+                        </span>
+                      </>
+                    ) : (
+                      <span>৳{product.price}</span>
+                    )}
+                  </Typography>
                   <Typography>Category: {product.category}</Typography>
                   <Typography>Seller: {seller?.name || "Unknown"}</Typography>
                   <Typography>Contact: {seller?.phone || "N/A"}</Typography>
@@ -103,9 +118,9 @@ const CheckOutModal = ({
                 onChange={handleQuantityChange}
                 fullWidth
                 margin="normal"
-                inputProps={{ 
+                inputProps={{
                   min: 1,
-                  max: product?.quantity || 1 
+                  max: product?.quantity || 1,
                 }}
               />
 
@@ -163,7 +178,7 @@ const Cart = () => {
         }
 
         const response = await fetch("http://localhost:3000/api/cart/getCart", {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         const data = await response.json();
@@ -181,14 +196,17 @@ const Cart = () => {
   const handleRemoveFromCart = async (productId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/cart/removeToCart", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ productId }),
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/cart/removeToCart",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ productId }),
+        }
+      );
 
       const data = await response.json();
       if (data.success) {
@@ -209,10 +227,10 @@ const Cart = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3000/api/user/getUserById/${product.userId}`, 
+        `http://localhost:3000/api/user/getUserById/${product.userId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      
+
       const data = await response.json();
       data.user ? setSeller(data.user) : toast.error("Seller info not found");
     } catch (error) {
@@ -245,9 +263,23 @@ const Cart = () => {
                     className="cart-item-image"
                   />
                   <div className="cart-item-info">
-                    <Typography variant="h6">{item.productId.productName}</Typography>
+                    <Typography variant="h6">
+                      {item.productId.productName}
+                    </Typography>
                     <Typography>Category: {item.productId.category}</Typography>
-                    <Typography>Price: ৳{item.productId.price}</Typography>
+                    Price:{" "}
+                    {item.productId.discountPrice ? (
+                      <>
+                        <span className="discounted-price">
+                          ৳{item.productId.discountPrice}
+                        </span>
+                        <span className="original-price">
+                          <del>৳{item.productId.price}</del>
+                        </span>
+                      </>
+                    ) : (
+                      <span>৳{item.productId.price}</span>
+                    )}
                     <Typography>Quantity: {item.quantity}</Typography>
                   </div>
                   <div className="cart-item-actions">
@@ -284,7 +316,7 @@ const Cart = () => {
           seller={seller}
         />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

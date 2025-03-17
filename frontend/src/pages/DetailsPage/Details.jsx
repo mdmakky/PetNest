@@ -128,7 +128,21 @@ const Details = () => {
           <div className="product-details">
             <h2>{product.productName}</h2>
             <p>Description: {product.description}</p>
-            <p>Price: Tk {product.price}</p>
+            <p>
+              Price:{" "}
+              {product.discountPrice ? (
+                <>
+                  <span className="discounted-price">
+                    {product.discountPrice} Tk 
+                  </span>
+                  <span className="original-price">
+                    ({product.price} Tk)
+                  </span>
+                </>
+              ) : (
+                <span>Tk {product.price}</span>
+              )}
+            </p>
             <p>Quantity: {product.quantity}</p>
             <p>Category: {product.category}</p>
             {product.quantity > 0 ? (
@@ -205,7 +219,7 @@ const Details = () => {
           </Button>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
