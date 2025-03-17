@@ -9,6 +9,7 @@
     grid-template-columns: 1fr;
     gap: 20px;
     padding: 20px;
+    margin: 20px; /* Add this line to add margin */
   }
   
   @media (max-width: 768px) {
@@ -30,6 +31,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    padding: 20px; /* Add this line to add padding */
   }
   
   .blog-header {
@@ -133,4 +135,3 @@
       width: 100%;
     }
   }
-  
