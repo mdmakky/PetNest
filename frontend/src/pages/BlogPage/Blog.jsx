@@ -16,6 +16,10 @@ import {
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PersonIcon from '@mui/icons-material/Person';
+import CategoryIcon from '@mui/icons-material/Category';
+import PetsIcon from '@mui/icons-material/Pets';
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
@@ -144,9 +148,11 @@ const Blog = () => {
                   />
                   <div className="writer-info">
                     <Typography variant="h6">
+                      <PersonIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
                       {blog.userId?.name || "Unknown Writer"}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
+                      <AccessTimeIcon sx={{ mr: 1, verticalAlign: 'middle', fontSize: '1rem', color: '#666' }} />
                       {new Date(blog.createdAt).toLocaleDateString()}
                     </Typography>
                   </div>
@@ -156,15 +162,16 @@ const Blog = () => {
                     {blog.title}
                   </Typography>
                   <Chip 
+                    icon={<CategoryIcon />}
                     label={blog.category} 
                     className="blog-category"
                     size="small"
                     sx={{ 
-                      backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                      color: '#3b82f6',
+                      backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                      color: '#4CAF50',
                       fontWeight: 500,
                       '&:hover': {
-                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        backgroundColor: 'rgba(76, 175, 80, 0.2)',
                       }
                     }}
                   />
@@ -303,15 +310,53 @@ const Blog = () => {
         <div className="pagination-buttons">
           <Button
             onClick={handlePreviousPage}
-            variant="contained"
+            variant="outlined"
             disabled={currentPage === 1}
+            startIcon={<PetsIcon />}
+            sx={{
+              borderRadius: '12px',
+              textTransform: 'none',
+              padding: '12px 32px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: 'Poppins, sans-serif',
+              border: '2px solid #4CAF50',
+              color: '#4CAF50',
+              minWidth: '120px',
+              height: '48px',
+              '&:hover': {
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.2)',
+              },
+            }}
           >
             Previous
           </Button>
           <Button
             onClick={handleNextPage}
-            variant="contained"
+            variant="outlined"
             disabled={currentPage * blogsPerPage >= totalBlogs}
+            endIcon={<PetsIcon />}
+            sx={{
+              borderRadius: '12px',
+              textTransform: 'none',
+              padding: '12px 32px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: 'Poppins, sans-serif',
+              border: '2px solid #4CAF50',
+              color: '#4CAF50',
+              minWidth: '120px',
+              height: '48px',
+              '&:hover': {
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.2)',
+              },
+            }}
           >
             Next
           </Button>

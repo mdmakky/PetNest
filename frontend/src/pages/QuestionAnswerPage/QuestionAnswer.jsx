@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Button, TextField, IconButton, CircularProgress } from "@mui/material";
+import { Button, TextField, IconButton, CircularProgress, Typography, Box } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import PetsIcon from '@mui/icons-material/Pets';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import "./QuestionAnswer.css";
@@ -212,6 +214,11 @@ const QuestionAnswer = () => {
             variant="contained"
             color="primary"
             onClick={handleAskQuestion}
+            endIcon={<QuestionAnswerIcon />}
+            sx={{
+              fontFamily: 'Poppins',
+              fontWeight: 500
+            }}
           >
             Ask
           </Button>
@@ -342,6 +349,11 @@ const QuestionAnswer = () => {
                     onClick={() =>
                       handleAddAnswer(question._id, answers[question._id] || "")
                     }
+                    endIcon={<QuestionAnswerIcon />}
+                    sx={{
+                      fontFamily: 'Poppins',
+                      fontWeight: 500
+                    }}
                   >
                     Give Answer
                   </Button>
@@ -356,11 +368,10 @@ const QuestionAnswer = () => {
             variant="outlined"
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
+            startIcon={<PetsIcon />}
             sx={{
-              "&:hover": {
-                backgroundColor: "transparent",
-                color: "primary.main",
-              },
+              fontFamily: 'Poppins',
+              fontWeight: 500
             }}
           >
             Previous
@@ -369,11 +380,10 @@ const QuestionAnswer = () => {
             variant="outlined"
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
+            endIcon={<PetsIcon />}
             sx={{
-              "&:hover": {
-                backgroundColor: "transparent",
-                color: "primary.main",
-              },
+              fontFamily: 'Poppins',
+              fontWeight: 500
             }}
           >
             Next
