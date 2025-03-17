@@ -8,7 +8,14 @@ import {
   Avatar,
   Typography,
   CircularProgress,
+  Chip,
+  IconButton,
+  Box,
+  Divider,
 } from "@mui/material";
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
@@ -21,8 +28,10 @@ const Blog = () => {
   const [loading, setLoading] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [totalBlogs, setTotalBlogs] = useState(0);
+  const [expandedComments, setExpandedComments] = useState({});
   const blogsPerPage = 6;
   const truncateLength = 250;
+  const initialCommentsToShow = 2;
 
   useEffect(() => {
     fetchBlogs();
@@ -112,6 +121,13 @@ const Blog = () => {
     );
   };
 
+  const toggleComments = (blogId) => {
+    setExpandedComments(prev => ({
+      ...prev,
+      [blogId]: !prev[blogId]
+    }));
+  };
+
   return (
     <div>
       <NavBar />
@@ -119,7 +135,7 @@ const Blog = () => {
         <div className="blogs-container">
           {blogs.map((blog) => (
             <Card key={blog._id} className="blog-card">
-              <CardContent>
+              <CardContent sx={{ p: 0 }}>
                 <div className="blog-header">
                   <Avatar
                     alt={blog.userId?.name || "Unknown Writer"}
@@ -133,98 +149,148 @@ const Blog = () => {
                     <Typography variant="body2" color="textSecondary">
                       {new Date(blog.createdAt).toLocaleDateString()}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {blog.userId?.email || "Unknown Email"}
-                    </Typography>
                   </div>
                 </div>
-                <Typography variant="h5" className="blog-title">
-                  {blog.title}
-                </Typography>
-                <Typography variant="body1" className="blog-category">
-                  {blog.category}
-                </Typography>
-                <Typography variant="body1" className="blog-content">
+                <Box sx={{ px: 2 }}>
+                  <Typography variant="h5" className="blog-title">
+                    {blog.title}
+                  </Typography>
+                  <Chip 
+                    label={blog.category} 
+                    className="blog-category"
+                    size="small"
+                    sx={{ 
+                      backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                      color: '#3b82f6',
+                      fontWeight: 500,
+                      '&:hover': {
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                      }
+                    }}
+                  />
+                </Box>
+                <Typography 
+                  variant="body1" 
+                  className="blog-content"
+                  component="div"
+                  sx={{
+                    '& p': { marginBottom: '1em' },
+                    '& p:last-child': { marginBottom: 0 },
+                    '& ul, & ol': { 
+                      paddingLeft: '1.5em',
+                      marginBottom: '1em'
+                    },
+                    '& li': { marginBottom: '0.5em' },
+                    '& h1, & h2, & h3, & h4, & h5, & h6': {
+                      marginTop: '1.5em',
+                      marginBottom: '0.5em',
+                      fontWeight: 600
+                    }
+                  }}
+                >
                   {blog.showFullContent
                     ? blog.content
                     : `${blog.content.slice(0, truncateLength)}...`}
                 </Typography>
-                <Button
-                  onClick={() => handleToggleContent(blog._id)}
-                  variant="outlined"
-                  sx={{
-                    '&:hover': {
-                      backgroundColor: 'transparent', 
-                      color: 'primary.main',
-                    },
-                    marginTop: '16px', 
-                  }}
-                  
-                >
-                  {blog.showFullContent ? "Show Less" : "See More"}
-                </Button>
+                <Box sx={{ px: 2, mb: 1 }}>
+                  <Button
+                    onClick={() => handleToggleContent(blog._id)}
+                    variant="text"
+                    sx={{
+                      color: '#65676b',
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      '&:hover': {
+                        backgroundColor: '#f0f2f5',
+                      },
+                    }}
+                  >
+                    {blog.showFullContent ? "See less" : "See more"}
+                  </Button>
+                </Box>
+
+                <Divider sx={{ my: 1 }} />
 
                 <div className="comments-section">
-                  <Typography variant="h6" className="comments-title">
-                    Comments
-                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                    <ChatBubbleOutlineIcon sx={{ mr: 1, color: '#65676b', fontSize: '1.25rem' }} />
+                    <Typography variant="body2" className="comments-title">
+                      Comments
+                    </Typography>
+                  </Box>
                   {blog.comments.length ? (
-                    blog.comments.map((comment) => (
-                      <div key={comment._id} className="comment-item">
-                        <Avatar
-                          alt={comment.userId?.name || "Anonymous"}
-                          src={
-                            comment.userId?.profileImage ||
-                            "default-avatar.jpg"
-                          }
-                          className="comment-avatar"
-                        />
-                        <div className="comment-info">
-                          <Typography
-                            variant="body2"
-                            className="commenter-name"
-                          >
-                            {comment.userId?.name || "Anonymous"}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            className="comment-time"
-                          >
-                            {new Date(comment.createdAt).toLocaleString()}
-                          </Typography>
-                          <Typography variant="body1" className="comment-text">
-                            {comment.commentText || "No Comment Provided"}
-                          </Typography>
-                        </div>
+                    <>
+                      <div className="comments-container">
+                        {blog.comments.slice(0, expandedComments[blog._id] ? undefined : initialCommentsToShow).map((comment) => (
+                          <div key={comment._id} className="comment-item">
+                            <Avatar
+                              alt={comment.userId?.name || "Anonymous"}
+                              src={comment.userId?.profileImage || "default-avatar.jpg"}
+                              className="comment-avatar"
+                            />
+                            <div className="comment-info">
+                              <Typography variant="body2" className="commenter-name">
+                                {comment.userId?.name || "Anonymous"}
+                              </Typography>
+                              <Typography variant="body2" color="textSecondary" className="comment-time">
+                                {new Date(comment.createdAt).toLocaleString()}
+                              </Typography>
+                              <Typography variant="body1" className="comment-text">
+                                {comment.commentText || "No Comment Provided"}
+                              </Typography>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))
+                      {blog.comments.length > initialCommentsToShow && (
+                        <Button
+                          onClick={() => toggleComments(blog._id)}
+                          variant="text"
+                          className="show-more-comments"
+                          endIcon={expandedComments[blog._id] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        >
+                          {expandedComments[blog._id] 
+                            ? "Hide comments" 
+                            : `View ${blog.comments.length - initialCommentsToShow} more comments`}
+                        </Button>
+                      )}
+                    </>
                   ) : (
-                    <Typography variant="body2" color="textSecondary">
-                      No comments yet.
+                    <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'center', py: 1 }}>
+                      No comments yet. Be the first to comment!
                     </Typography>
                   )}
 
                   <FormControl className="comment-form">
                     <TextField
-                      label="Add a Comment"
+                      placeholder="Write a comment..."
                       multiline
-                      rows={4}
+                      rows={1}
                       variant="outlined"
                       fullWidth
                       value={commentData[blog._id] || ""}
                       onChange={(e) => handleCommentChange(blog._id, e)}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          '&:hover fieldset': {
+                            borderColor: '#1877f2',
+                          },
+                        },
+                      }}
                     />
                     <Button
                       onClick={() => handleCommentSubmit(blog._id)}
                       variant="contained"
-                      color="primary"
                       disabled={loading[blog._id]}
+                      sx={{
+                        textTransform: 'none',
+                        fontWeight: 600,
+                      }}
                     >
                       {loading[blog._id] ? (
                         <CircularProgress size={24} color="white" />
                       ) : (
-                        "Post Comment"
+                        "Post"
                       )}
                     </Button>
                   </FormControl>
@@ -237,28 +303,15 @@ const Blog = () => {
         <div className="pagination-buttons">
           <Button
             onClick={handlePreviousPage}
-            variant="outlined"
+            variant="contained"
             disabled={currentPage === 1}
-            sx={{
-                '&:hover': {
-                  backgroundColor: 'transparent', 
-                  color: 'primary.main',
-                },
-              }}
           >
             Previous
           </Button>
           <Button
             onClick={handleNextPage}
-            variant="outlined"
+            variant="contained"
             disabled={currentPage * blogsPerPage >= totalBlogs}
-            sx={{
-                '&:hover': {
-                  backgroundColor: 'transparent', 
-                  color: 'primary.main',
-                },
-                marginTop: '16px',
-              }}
           >
             Next
           </Button>
