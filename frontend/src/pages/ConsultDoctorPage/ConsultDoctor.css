@@ -1,127 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .doctor-filter-container {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  gap: 20px;
+  margin: 60px 0;
+  padding: 0 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.doctor-filter-container .MuiFormControl-root {
+  flex: 0.6;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  font-family: 'Poppins', sans-serif;
+}
+
+.doctor-filter-container .MuiSelect-select {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  padding: 12px 20px;
 }
 
 .doctor-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px;
+  padding: 20px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .doctor-card {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
-  width: 350px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: all 0.3s ease;
-  text-align: left;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .doctor-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background-color: #f0f0f0;
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .doctor-photo {
   width: 100%;
-  height: 340px;
+  height: 280px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  border-radius: 24px 24px 0 0;
+  transition: transform 0.6s ease;
+  position: relative;
+}
+
+.doctor-card:hover .doctor-photo {
+  transform: scale(1.08);
+}
+
+.doctor-card-content {
+  padding: 32px;
+  background: linear-gradient(to bottom, white, #fafafa);
 }
 
 .doctor-card h6 {
-  margin: 10px 0;
-  font-weight: bold;
-  color: #333;
+  margin: 0 0 24px 0;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 1.8rem;
   text-align: center;
-  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.doctor-card h6::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px;
 }
 
 .doctor-card p {
-  color: #555;
-  margin: 5px 0;
+  color: #4a4a4a;
+  margin: 12px 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+.doctor-card p strong {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.no-doctors-message {
+  text-align: center;
+  margin: 60px auto;
+  color: #4a4a4a;
+  font-size: 1.4rem;
+  max-width: 600px;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  font-family: 'Poppins', sans-serif;
+}
+
+.doctor-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 60px 0;
+  padding: 20px;
+}
+
+.doctor-pagination button {
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+}
+
+.doctor-pagination button:not(:disabled):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+  background-color: #4CAF50;
+  color: white;
 }
 
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px;
+  min-height: 500px;
 }
 
-.doctor-pagination {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-  gap: 10px;
-}
-
-.doctor-pagination button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-}
-
-.no-doctors-message {
-  text-align: center;
-  color: #777;
-  margin-top: 20px;
+.loading-container .MuiCircularProgress-root {
+  color: #4CAF50;
 }
 
 .doctor-form-container {
   max-width: 800px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #f7f1f1;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  margin: 60px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', sans-serif;
 }
 
 .doctor-form-container h5 {
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-  color: #333;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #2c3e50;
+  text-align: center;
+  font-weight: 600;
 }
 
 .doctor-form-container form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .doctor-form-container .MuiTextField-root {
   width: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.doctor-form-container .MuiInputLabel-root {
+  font-family: 'Poppins', sans-serif;
 }
 
 .doctor-form-container input[type="file"] {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 12px;
+  border: 2px dashed #4CAF50;
+  border-radius: 12px;
   font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .doctor-image-label {
-  color: #333;
+  color: #2c3e50;
   text-align: left;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 }
 
 .selectDistrict {
-  color: #333;
+  color: #2c3e50;
+  font-family: 'Poppins', sans-serif;
 }
 
 .doctor-filter {
@@ -130,8 +215,61 @@
 
 .MuiButton-root .MuiButton-label {
   justify-content: flex-start;
+  font-family: 'Poppins', sans-serif;
 }
 
-.note{
-  color: red;
+.note {
+  color: #f44336;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.join {
+  flex: 0.4;
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  background-color: #4CAF50;
+  color: white;
+  white-space: nowrap;
+}
+
+.join:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+  background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+  .doctor-cards {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 20px;
+    gap: 30px;
+  }
+  
+  .doctor-photo {
+    height: 220px;
+  }
+
+  .doctor-card-content {
+    padding: 24px;
+  }
+
+  .doctor-card h6 {
+    font-size: 1.5rem;
+  }
+
+  .doctor-form-container {
+    margin: 40px 20px;
+    padding: 30px 20px;
+  }
+
+  .doctor-form-container h5 {
+    font-size: 1.8rem;
+  }
 }

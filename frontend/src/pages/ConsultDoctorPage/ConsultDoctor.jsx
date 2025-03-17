@@ -7,11 +7,19 @@ import {
   Typography,
   CircularProgress,
   TextField,
+  Container,
+  Box,
+  Paper,
 } from "@mui/material";
 import { toast } from "react-toastify";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import PersonIcon from '@mui/icons-material/Person';
+import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import "./ConsultDoctor.css";
 
 const ConsultDoctor = () => {
@@ -203,117 +211,54 @@ const ConsultDoctor = () => {
   };
 
   return (
-    <div>
+    <Box sx={{ minHeight: '100vh', bgcolor: '#f8f9fa' }}>
       <NavBar />
-
-      <div className="doctor-filter-container">
-        <FormControl className="doctor-filter" size="small">
-          <Select
-            value={district}
-            onChange={(e) => setDistrict(e.target.value)}
-            displayEmpty
+      <Container maxWidth="xl">
+        <Box sx={{ textAlign: 'center', mb: 6, mt: 4 }}>
+          <Typography 
+            variant="h3" 
+            component="h1" 
+            sx={{ 
+              fontWeight: 700,
+              color: '#2c3e50',
+              mb: 2,
+              fontFamily: 'Poppins, sans-serif'
+            }}
           >
-            <MenuItem value="">All District</MenuItem>
-            {districts.map((districtName) => (
-              <MenuItem key={districtName} value={districtName}>
-                {districtName}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+            Find Your Pet's Doctor
+          </Typography>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: '#666',
+              fontFamily: 'Poppins, sans-serif',
+              fontWeight: 400
+            }}
+          >
+            Connect with experienced veterinarians in your area
+          </Typography>
+        </Box>
 
-        <Button className="join" variant="contained" onClick={handleJoinClick}>
-          Join with us
-        </Button>
-      </div>
-
-      {loading ? (
-        <div className="loading-container">
-          <CircularProgress />
-        </div>
-      ) : (
-        <div className="doctor-cards">
-          {doctors.length > 0 ? (
-            doctors.map((doctor) => (
-              <div className="doctor-card" key={doctor._id}>
-                <img
-                  src={doctor.doctorImage || "/images/doctor.png"}
-                  alt={doctor.doctorName}
-                  className="doctor-photo"
-                />
-                <h6>{doctor.doctorName}</h6>
-                <p>
-                  <strong>Specialty:</strong> {doctor.speciality}
-                </p>
-                <p>
-                  <strong>Hospital:</strong> {doctor.hospital}
-                </p>
-                <p>
-                  <strong>District:</strong> {doctor.district}
-                </p>
-                <p>
-                  <strong>Address:</strong> {doctor.address}
-                </p>
-                <p>
-                  <strong>Contact:</strong> {doctor.contact}
-                </p>
-              </div>
-            ))
-          ) : (
-            <Typography variant="h6" className="no-doctors-message">
-              No doctors found in this district.
-            </Typography>
-          )}
-        </div>
-      )}
-
-      <div ref={formRef} className="doctor-form-container">
-        <Typography variant="h5">Join with us as a Doctor!</Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            name="doctorName"
-            label="Name"
-            fullWidth
-            required
-            onChange={handleFormChange}
-            value={formData.doctorName}
-          />
-          <TextField
-            name="speciality"
-            label="Speciality"
-            fullWidth
-            required
-            onChange={handleFormChange}
-            value={formData.speciality}
-          />
-          <TextField
-            name="hospital"
-            label="Hospital"
-            fullWidth
-            required
-            onChange={handleFormChange}
-            value={formData.hospital}
-          />
-          <TextField
-            name="address"
-            label="Address"
-            fullWidth
-            required
-            onChange={handleFormChange}
-            value={formData.address}
-          />
-          <FormControl fullWidth>
+        <div className="doctor-filter-container">
+          <FormControl size="small">
             <Select
-              name="district"
-              value={formData.district}
-              onChange={(e) =>
-                setFormData({ ...formData, district: e.target.value })
-              }
+              value={district}
+              onChange={(e) => setDistrict(e.target.value)}
               displayEmpty
-              required
-              sx={{ textAlign: "left" }}
+              startAdornment={<LocationOnIcon sx={{ mr: 1, color: '#4CAF50' }} />}
+              sx={{
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(0, 0, 0, 0.1)',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#4CAF50',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#4CAF50',
+                },
+              }}
             >
-              <MenuItem value="">Select Your District</MenuItem>
+              <MenuItem value="">All Districts</MenuItem>
               {districts.map((districtName) => (
                 <MenuItem key={districtName} value={districtName}>
                   {districtName}
@@ -322,66 +267,203 @@ const ConsultDoctor = () => {
             </Select>
           </FormControl>
 
-          <TextField
-            name="contact"
-            label="Contact"
-            fullWidth
-            required
-            onChange={handleFormChange}
-            value={formData.contact}
-          />
-          <FormControl fullWidth sx={{ mt: 2 }}>
-            <Typography variant="subtitle1" gutterBottom>
-              Upload Your Photo
-            </Typography>
-            <Button
-              variant="outlined"
-              component="label"
-              fullWidth
-              sx={{ textAlign: "left" }}
-            >
-              <input type="file" hidden onChange={handleImageChange} />
-              {formData.doctorImage?.name || "Choose File"}
-            </Button>
-          </FormControl>
-
-          <FormControl fullWidth sx={{ mt: 2 }}>
-            
-            <Typography variant="subtitle1" gutterBottom>
-              Upload Verification Document (PDF)
-            </Typography>
-            <Typography className="note" variant="subtitle1" gutterBottom>
-            Document can be Veterinary License, Educational Certificates, BVC Registration Certificate, Hospital/Clinic Affiliation
-            </Typography>
-           
-            <Button
-              variant="outlined"
-              component="label"
-              fullWidth
-              sx={{ textAlign: "left" }}
-            >
-              <input
-                type="file"
-                hidden
-                onChange={handleDocumentChange}
-                accept="application/pdf"
-                required
-              />
-              {formData.verificationDocument?.name || "Choose PDF File"}
-            </Button>
-          </FormControl>
-
-          <Button type="submit" variant="contained" disabled={loadingSubmit}>
-            {loadingSubmit ? (
-              <CircularProgress size={24} color="white" />
-            ) : (
-              "Submit"
-            )}
+          <Button 
+            className="join" 
+            variant="contained" 
+            onClick={handleJoinClick}
+            startIcon={<MedicalServicesIcon />}
+          >
+            Join as Doctor
           </Button>
-        </form>
-      </div>
+        </div>
+
+        {loading ? (
+          <div className="loading-container">
+            <CircularProgress size={60} />
+          </div>
+        ) : (
+          <div className="doctor-cards">
+            {doctors.length > 0 ? (
+              doctors.map((doctor) => (
+                <Paper 
+                  elevation={0} 
+                  className="doctor-card" 
+                  key={doctor._id}
+                >
+                  <img
+                    src={doctor.doctorImage || "/images/doctor.png"}
+                    alt={doctor.doctorName}
+                    className="doctor-photo"
+                  />
+                  <div className="doctor-card-content">
+                    <h6>{doctor.doctorName}</h6>
+                    <p>
+                      <MedicalServicesIcon sx={{ mr: 1, color: '#4CAF50', verticalAlign: 'middle' }} />
+                      <strong>Specialty:</strong> {doctor.speciality}
+                    </p>
+                    <p>
+                      <LocalHospitalIcon sx={{ mr: 1, color: '#4CAF50', verticalAlign: 'middle' }} />
+                      <strong>Hospital:</strong> {doctor.hospital}
+                    </p>
+                    <p>
+                      <LocationOnIcon sx={{ mr: 1, color: '#4CAF50', verticalAlign: 'middle' }} />
+                      <strong>District:</strong> {doctor.district}
+                    </p>
+                    <p>
+                      <strong>Address:</strong> {doctor.address}
+                    </p>
+                    <p>
+                      <PhoneIcon sx={{ mr: 1, color: '#4CAF50', verticalAlign: 'middle' }} />
+                      <strong>Contact:</strong> {doctor.contact}
+                    </p>
+                  </div>
+                </Paper>
+              ))
+            ) : (
+              <Paper 
+                elevation={0} 
+                className="no-doctors-message"
+              >
+                <MedicalServicesIcon sx={{ fontSize: 48, color: '#4CAF50', mb: 2 }} />
+                <Typography variant="h6">
+                  No doctors found in this district.
+                </Typography>
+              </Paper>
+            )}
+          </div>
+        )}
+
+        <div ref={formRef} className="doctor-form-container">
+          <Typography variant="h5">Join Our Veterinary Network</Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              name="doctorName"
+              label="Full Name"
+              fullWidth
+              required
+              onChange={handleFormChange}
+              value={formData.doctorName}
+            />
+            <TextField
+              name="speciality"
+              label="Speciality"
+              fullWidth
+              required
+              onChange={handleFormChange}
+              value={formData.speciality}
+            />
+            <TextField
+              name="hospital"
+              label="Hospital/Clinic Name"
+              fullWidth
+              required
+              onChange={handleFormChange}
+              value={formData.hospital}
+            />
+            <TextField
+              name="address"
+              label="Address"
+              fullWidth
+              required
+              multiline
+              rows={2}
+              onChange={handleFormChange}
+              value={formData.address}
+            />
+            <FormControl fullWidth>
+              <Select
+                name="district"
+                value={formData.district}
+                onChange={(e) =>
+                  setFormData({ ...formData, district: e.target.value })
+                }
+                displayEmpty
+                required
+                sx={{ textAlign: "left" }}
+              >
+                <MenuItem value="">Select Your District</MenuItem>
+                {districts.map((districtName) => (
+                  <MenuItem key={districtName} value={districtName}>
+                    {districtName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <TextField
+              name="contact"
+              label="Contact Number"
+              fullWidth
+              required
+              onChange={handleFormChange}
+              value={formData.contact}
+            />
+            <FormControl fullWidth sx={{ mt: 2 }}>
+              <Typography variant="subtitle1" gutterBottom className="doctor-image-label">
+                Upload Your Photo
+              </Typography>
+              <Button
+                variant="outlined"
+                component="label"
+                fullWidth
+                sx={{ textAlign: "left" }}
+              >
+                <input type="file" hidden onChange={handleImageChange} />
+                {formData.doctorImage?.name || "Choose File"}
+              </Button>
+            </FormControl>
+
+            <FormControl fullWidth sx={{ mt: 2 }}>
+              <Typography variant="subtitle1" gutterBottom className="doctor-image-label">
+                Upload Verification Document (PDF)
+              </Typography>
+              <Typography className="note" variant="subtitle1" gutterBottom>
+                Document can be Veterinary License, Educational Certificates, BVC Registration Certificate, Hospital/Clinic Affiliation
+              </Typography>
+              <Button
+                variant="outlined"
+                component="label"
+                fullWidth
+                sx={{ textAlign: "left" }}
+              >
+                <input
+                  type="file"
+                  hidden
+                  onChange={handleDocumentChange}
+                  accept="application/pdf"
+                  required
+                />
+                {formData.verificationDocument?.name || "Choose PDF File"}
+              </Button>
+            </FormControl>
+
+            <Button 
+              type="submit" 
+              variant="contained" 
+              disabled={loadingSubmit}
+              sx={{
+                mt: 3,
+                py: 1.5,
+                borderRadius: '12px',
+                textTransform: 'none',
+                fontFamily: 'Poppins, sans-serif',
+                backgroundColor: '#4CAF50',
+                '&:hover': {
+                  backgroundColor: '#45a049',
+                },
+              }}
+            >
+              {loadingSubmit ? (
+                <CircularProgress size={24} color="white" />
+              ) : (
+                "Submit Application"
+              )}
+            </Button>
+          </form>
+        </div>
+      </Container>
       <Footer />
-    </div>
+    </Box>
   );
 };
 
