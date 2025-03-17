@@ -8,30 +8,39 @@ cloudinary.config({
     api_secret: apiSecret,
 });
 
-async function uploadImageToCloudinary(fileBuffer, folderName, fileName = null, generateUniqueId = true) {
+async function uploadImageToCloudinary(
+    fileBuffer, 
+    folderName, 
+    fileName = null, 
+    generateUniqueId = true,
+    resourceType = 'image'
+  ) {
     try {
-        const uploadOptions = {
-            folder: `petnest/${folderName}`,
-        };
-
-        if (generateUniqueId && fileName) {
-            const uniqueId = uuidv4();
-            uploadOptions.public_id = `${fileName}-${uniqueId}`;
-        } else if (fileName) {
-            
-            uploadOptions.public_id = fileName;
-        }
-
-        return new Promise((resolve, reject) => {
-            const uploadStream = cloudinary.uploader.upload_stream(uploadOptions, (error, result) => {
-                if (error) return reject(error);
-                resolve(result.secure_url);
-            });
-            uploadStream.end(fileBuffer);
-        });
+      const uploadOptions = {
+        folder: `petnest/${folderName}`,
+        resource_type: resourceType
+      };
+  
+      if (generateUniqueId && fileName) {
+        const uniqueId = uuidv4();
+        uploadOptions.public_id = `${fileName}-${uniqueId}`;
+      } else if (fileName) {
+        uploadOptions.public_id = fileName;
+      }
+  
+      return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          uploadOptions, 
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result.secure_url);
+          }
+        );
+        uploadStream.end(fileBuffer);
+      });
     } catch (error) {
-        console.error('Error uploading to Cloudinary:', error);
-        throw error;
+      console.error('Cloudinary upload error:', error);
+      throw error;
     }
 }
 

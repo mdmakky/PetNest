@@ -64,8 +64,8 @@
 
 .handle-doctor-doctor-actions {
   display: flex;
-  gap: 15px;
-  margin-top: 10px;
+  flex-direction: column;
+  gap: 8px; 
 }
 
 .handle-doctor-doctor-actions button {
@@ -89,3 +89,19 @@
 .handle-doctor-decline-btn:hover {
   background-color: #62000a;
 }
+
+
+.handle-doctor-view-doc-btn {
+  background-color: #78a17a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin: 4px;
+  transition: background-color 0.3s;
+}
+
+.handle-doctor-view-doc-btn:hover {
+  background-color: #89be8c;
+}
+

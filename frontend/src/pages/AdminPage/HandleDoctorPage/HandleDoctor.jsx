@@ -147,7 +147,11 @@ const HandleDoctor = () => {
             <CircularProgress />
           </div>
         ) : doctors.length === 0 ? (
-          <Typography variant="h6" align="center" className="handle-doctor-title">
+          <Typography
+            variant="h6"
+            align="center"
+            className="handle-doctor-title"
+          >
             No pending doctors for approval.
           </Typography>
         ) : (
@@ -176,8 +180,17 @@ const HandleDoctor = () => {
                   <p>
                     <strong>Contact:</strong> {doctor.contact}
                   </p>
+                 
                 </div>
                 <div className="handle-doctor-doctor-actions">
+                <button
+                    className="handle-doctor-view-doc-btn"
+                    onClick={() =>
+                      window.open(doctor.verificationDocument, "_blank")
+                    }
+                  >
+                    View Document
+                  </button>
                   <button
                     className="handle-doctor-accept-btn"
                     onClick={() => handleApprove(doctor._id)}

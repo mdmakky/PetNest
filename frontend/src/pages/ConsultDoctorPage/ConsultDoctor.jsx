@@ -130,6 +130,28 @@ const ConsultDoctor = () => {
     setFormData({ ...formData, doctorImage: e.target.files[0] });
   };
 
+  const handleDocumentChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      if (file.type !== "application/pdf") {
+        toast.error("Please upload a PDF file");
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("File size should be less than 5MB");
+        return;
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        verificationDocument: file,
+        verificationDocumentUrl: null,
+      }));
+    }
+  };
+
   const handleJoinClick = () => {
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth" });
@@ -168,6 +190,7 @@ const ConsultDoctor = () => {
           contact: "",
           district: "",
           doctorImage: null,
+          verificationDocument: null, 
         });
       } else {
         toast.error(data.message || "Failed to submit request");
@@ -307,8 +330,47 @@ const ConsultDoctor = () => {
             onChange={handleFormChange}
             value={formData.contact}
           />
-          <label className="doctor-image-label">Upload Your Photo</label>
-          <input type="file" onChange={handleImageChange} />
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <Typography variant="subtitle1" gutterBottom>
+              Upload Your Photo
+            </Typography>
+            <Button
+              variant="outlined"
+              component="label"
+              fullWidth
+              sx={{ textAlign: "left" }}
+            >
+              <input type="file" hidden onChange={handleImageChange} />
+              {formData.doctorImage?.name || "Choose File"}
+            </Button>
+          </FormControl>
+
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            
+            <Typography variant="subtitle1" gutterBottom>
+              Upload Verification Document (PDF)
+            </Typography>
+            <Typography className="note" variant="subtitle1" gutterBottom>
+            Document can be Veterinary License, Educational Certificates, BVC Registration Certificate, Hospital/Clinic Affiliation
+            </Typography>
+           
+            <Button
+              variant="outlined"
+              component="label"
+              fullWidth
+              sx={{ textAlign: "left" }}
+            >
+              <input
+                type="file"
+                hidden
+                onChange={handleDocumentChange}
+                accept="application/pdf"
+                required
+              />
+              {formData.verificationDocument?.name || "Choose PDF File"}
+            </Button>
+          </FormControl>
+
           <Button type="submit" variant="contained" disabled={loadingSubmit}>
             {loadingSubmit ? (
               <CircularProgress size={24} color="white" />
@@ -318,7 +380,7 @@ const ConsultDoctor = () => {
           </Button>
         </form>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

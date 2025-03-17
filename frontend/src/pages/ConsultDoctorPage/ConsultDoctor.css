@@ -127,3 +127,11 @@
 .doctor-filter {
   width: 100%;
 }
+
+.MuiButton-root .MuiButton-label {
+  justify-content: flex-start;
+}
+
+.note{
+  color: red;
+}

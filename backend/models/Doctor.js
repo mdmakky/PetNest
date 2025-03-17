@@ -8,6 +8,10 @@ const doctorSchema = new mongoose.Schema({
     district: String,
     address: String,
     contact: String,
+    verificationDocument: {
+        type: String,
+        required: [true, "Verification document is required"]
+      },
     approved: {
         type: Boolean,
         default: false
