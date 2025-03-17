@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { FaComment } from "react-icons/fa";
 import SearchIcon from '@mui/icons-material/Search';
 import CategoryIcon from '@mui/icons-material/Category';
+import PetsIcon from '@mui/icons-material/Pets';
 import "./Home.css";
 import Chatbot from "../ChatBotPage/ChatBot";
 
@@ -249,7 +250,6 @@ const Home = () => {
                   <div className="product-actions">
                     <Button
                       variant="contained"
-                      color="primary"
                       disabled={product.quantity === 0}
                       onClick={
                         product.quantity > 0
@@ -258,8 +258,15 @@ const Home = () => {
                       }
                       sx={{
                         backgroundColor: '#4CAF50',
+                        textTransform: 'none',
+                        fontWeight: 600,
+                        padding: '8px 24px',
+                        borderRadius: '12px',
+                        color: 'white',
                         '&:hover': {
                           backgroundColor: '#45a049',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(76, 175, 80, 0.2)',
                         },
                       }}
                     >
@@ -270,11 +277,17 @@ const Home = () => {
                       variant="outlined"
                       onClick={() => handleDetailsClick(product._id)}
                       sx={{
-                        borderColor: '#4CAF50',
+                        border: '2px solid #4CAF50',
                         color: '#4CAF50',
+                        textTransform: 'none',
+                        fontWeight: 600,
+                        padding: '8px 24px',
+                        borderRadius: '12px',
                         '&:hover': {
-                          borderColor: '#45a049',
+                          borderColor: '#4CAF50',
                           backgroundColor: 'rgba(76, 175, 80, 0.04)',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(76, 175, 80, 0.2)',
                         },
                       }}
                     >
@@ -292,6 +305,25 @@ const Home = () => {
             variant="outlined"
             disabled={page === 1 || noResults}
             onClick={() => setPage(page - 1)}
+            startIcon={<PetsIcon />}
+            sx={{
+              borderRadius: '12px',
+              textTransform: 'none',
+              padding: '12px 32px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: 'Poppins, sans-serif',
+              border: '2px solid #4CAF50',
+              color: '#4CAF50',
+              minWidth: '120px',
+              height: '48px',
+              '&:hover': {
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.2)',
+              },
+            }}
           >
             Previous
           </Button>
@@ -299,6 +331,25 @@ const Home = () => {
             variant="outlined"
             disabled={page === totalPages || noResults}
             onClick={() => setPage(page + 1)}
+            endIcon={<PetsIcon />}
+            sx={{
+              borderRadius: '12px',
+              textTransform: 'none',
+              padding: '12px 32px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: 'Poppins, sans-serif',
+              border: '2px solid #4CAF50',
+              color: '#4CAF50',
+              minWidth: '120px',
+              height: '48px',
+              '&:hover': {
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.2)',
+              },
+            }}
           >
             Next
           </Button>
