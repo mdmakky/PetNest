@@ -1,198 +1,301 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .update-product-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f9f9f9;
-  }
-  
-  .update-product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin-top: 20px;
-  }
-  
-  .update-product-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .update-product-card:hover {
-    transform: translateY(-10px);
-  }
-  
-  .update-product-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .update-product-card h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: black;
-  }
-  
-  .update-product-card p {
-    font-size: 1rem;
-    color: #555;
-    margin: 5px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.update-product-page h2 {
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.update-product-page h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px;
+}
+
+.update-product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+}
+
+.update-product-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.update-product-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.update-product-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 24px 24px 0 0;
+  transition: transform 0.6s ease;
+}
+
+.update-product-card:hover img {
+  transform: scale(1.08);
+}
+
+.update-product-card h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 20px 0 16px 0;
+  text-align: center;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.update-product-card h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px;
+}
+
+.update-product-card p {
+  color: #4a4a4a;
+  margin: 12px 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.update-product-card p svg {
+  color: #4CAF50;
+  font-size: 1.2rem;
+}
+
+.update-product-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 20px;
+  border-top: 1px solid #eee;
+}
+
+.updateProduct-btn,
+.deleteProduct-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.updateProduct-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.deleteProduct-btn {
+  background-color: white;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+}
+
+.updateProduct-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+  background-color: #45a049;
+}
+
+.deleteProduct-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.2);
+  background-color: #dc3545;
+  color: white;
+}
+
+.updateProduct-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.updateProduct-edit-form label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.updateProduct-edit-form input,
+.updateProduct-edit-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  color: #2c3e50;
+}
+
+.updateProduct-edit-form input:focus,
+.updateProduct-edit-form textarea:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.updateProduct-edit-form textarea {
+  resize: none;
+  height: 120px;
+}
+
+.update-save-btn,
+.update-cancel-btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.update-save-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.update-cancel-btn {
+  background-color: white;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+}
+
+.update-save-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+  background-color: #45a049;
+}
+
+.update-cancel-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.2);
+  background-color: #dc3545;
+  color: white;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.discounted-price {
+  color: #4CAF50;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .update-product-page {
+    padding: 20px 10px;
   }
 
   .update-product-page h2 {
-    color: black;
-  }
-  
-  .update-product-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-  }
-  
-  .updateProduct-btn,
-  .deleteProduct-btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    width: 48%;
-  }
-  
-  .deleteProduct-btn {
-    background-color: #e74c3c;
-  }
-  
-  .updateProduct-btn:hover,
-  .deleteProduct-btn:hover {
-    background-color: #333;
-  }
-  
-  .updateProduct-edit-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 90%;
-  }
-  
-  .updateProduct-edit-form input,
-  .updateProduct-edit-form textarea {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    width: 100%;
-  }
-  
-  .updateProduct-edit-form textarea {
-    resize: vertical;
-    height: 100px;
-  }
-  
-  .update-save-btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 12px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .update-save-btn:hover {
-    background-color: #333;
-  }
-  
-  .update-cancel-btn {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 12px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .update-cancel-btn:hover {
-    background-color: #555;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
   }
 
-  .original-price {
-    text-decoration: line-through;
-    color: #666;
+  .update-product-list {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
-  
-  .discounted-price {
-    color: #54b436;
-    font-weight: bold;
+
+  .update-product-card img {
+    height: 220px;
   }
-  
-  @media (max-width: 768px) {
-    .update-product-page {
-      padding: 10px;
-    }
-  
-    .update-product-list {
-      grid-template-columns: 1fr;
-    }
-  
-    .update-product-card {
-      padding: 15px;
-    }
-  
-    .update-product-card h3 {
-      font-size: 1.3rem;
-    }
-  
-    .update-product-card p {
-      font-size: 0.9rem;
-    }
-  
-    .update-product-actions {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    .updateProduct-btn,
-    .deleteProduct-btn {
-      width: 100%;
-    }
-  
-    .update-product-edit-form input,
-    .update-product-edit-form textarea {
-      font-size: 0.9rem;
-    }
+
+  .update-product-card h3 {
+    font-size: 1.2rem;
   }
-  
-  @media (max-width: 480px) {
-    .update-product-page {
-      padding: 5px;
-    }
-  
-    .update-product-card h3 {
-      font-size: 1.1rem;
-    }
-  
-    .update-product-card p {
-      font-size: 0.85rem;
-    }
-  
-    .update-save-btn,
-    .update-cancel-btn {
-      font-size: 0.9rem;
-    }
+
+  .update-product-actions {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
   }
+
+  .updateProduct-btn,
+  .deleteProduct-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .update-product-page h2 {
+    font-size: 1.5rem;
+  }
+
+  .update-product-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .update-product-card p {
+    font-size: 0.9rem;
+  }
+}
   

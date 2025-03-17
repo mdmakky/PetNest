@@ -4,6 +4,15 @@ import Footer from "../../components/Footer/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress } from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import BadgeIcon from '@mui/icons-material/Badge';
+import CakeIcon from '@mui/icons-material/Cake';
 import "./Profile.css";
 
 const Profile = () => {
@@ -39,9 +48,10 @@ const Profile = () => {
 
         const data = await response.json();
         setUserData(data);
-        setPreviewImage(data.profileImage || "/images/user.png");
+        setPreviewImage(data.profileImage || "https://via.placeholder.com/150");
       } catch (err) {
         console.error("Error fetching user data:", err);
+        setPreviewImage("https://via.placeholder.com/150");
       }
     };
 
@@ -84,7 +94,7 @@ const Profile = () => {
 
       if (response.ok) {
         toast.success("Profile picture removed successfully!");
-        setPreviewImage("/images/user.png");
+        setPreviewImage("https://via.placeholder.com/150");
         setUserData({ ...userData, profileImage: "" });
       } else {
         toast.error(result.message || "Failed to remove profile image.");
@@ -167,6 +177,7 @@ const Profile = () => {
                 <img src={previewImage} alt="Profile" />
                 <div className="image-buttons">
                   <label className="upload-btn">
+                    <PhotoCameraIcon />
                     Upload Photo
                     <input
                       type="file"
@@ -180,45 +191,57 @@ const Profile = () => {
                     className="delete-btn"
                     onClick={handleDeleteImage}
                   >
-                    {loadingMore ? (
-                      <CircularProgress size={24} color="white" />
-                    ) : (
-                      "Delete Photo"
-                    )}
+                    <DeleteIcon />
+                    Delete Photo
+                    {loadingMore && <CircularProgress size={20} color="inherit" />}
                   </button>
                 </div>
               </div>
 
               <div className="form-fields">
-                <label>Name:</label>
+                <label>
+                  <PersonIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Name
+                </label>
                 <input
                   type="text"
                   name="name"
                   value={userData.name}
                   onChange={handleInputChange}
+                  placeholder="Enter your name"
                 />
 
-                <label>Gender:</label>
+                <label>
+                  <PersonIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Gender
+                </label>
                 <select
                   name="gender"
                   value={userData.gender}
                   onChange={handleInputChange}
                 >
-                  <option value="">Select</option>
+                  <option value="">Select gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
                 </select>
 
-                <label>Address:</label>
+                <label>
+                  <LocationOnIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Address
+                </label>
                 <input
                   type="text"
                   name="address"
                   value={userData.address}
                   onChange={handleInputChange}
+                  placeholder="Enter your address"
                 />
 
-                <label>Date of Birth:</label>
+                <label>
+                  <CakeIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Date of Birth
+                </label>
                 <input
                   type="date"
                   name="dob"
@@ -226,26 +249,37 @@ const Profile = () => {
                   onChange={handleInputChange}
                 />
 
-                <label>Phone:</label>
+                <label>
+                  <PhoneIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Phone
+                </label>
                 <input
                   type="text"
                   name="phone"
                   value={userData.phone}
                   onChange={handleInputChange}
+                  placeholder="Enter your phone number"
                 />
 
-                <label>NID:</label>
+                <label>
+                  <BadgeIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  NID
+                </label>
                 <input
                   type="text"
                   name="nid"
                   value={userData.nid || ""}
                   onChange={handleInputChange}
+                  placeholder="Enter your NID number"
                 />
 
-                <label>Email:</label>
+                <label>
+                  <EmailIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Email
+                </label>
                 <input
                   type="text"
-                  name="nid"
+                  name="email"
                   value={userData.email || ""}
                   disabled
                 />
@@ -254,7 +288,10 @@ const Profile = () => {
                   {loading ? (
                     <CircularProgress size={24} color="white" />
                   ) : (
-                    "Save Changes"
+                    <>
+                      <SaveIcon sx={{ mr: 1 }} />
+                      Save Changes
+                    </>
                   )}
                 </button>
               </div>

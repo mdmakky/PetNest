@@ -3,7 +3,15 @@ import SideBar from "../../components/SideBar/SideBar";
 import Footer from "../../components/Footer/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
+import PetsIcon from '@mui/icons-material/Pets';
+import CategoryIcon from '@mui/icons-material/Category';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import DescriptionIcon from '@mui/icons-material/Description';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
 import "./ManageAdopt.css";
 
 const ManageAdopt = () => {
@@ -120,48 +128,87 @@ const ManageAdopt = () => {
     <div>
       <SideBar />
       <div className="update-adoption-page">
-        <h2>My Adoptions</h2>
+        <Typography variant="h4" gutterBottom sx={{ 
+          color: '#2c3e50', 
+          fontWeight: 600, 
+          textAlign: 'center',
+          mb: 3,
+          position: 'relative',
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            bottom: '-10px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '100px',
+            height: '3px',
+            background: 'linear-gradient(to right, #4CAF50, #45a049)',
+            borderRadius: '2px'
+          }
+        }}>
+          <PetsIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+          My Adoptions
+        </Typography>
         <div className="update-adoption-list">
           {pets.map((adoption) => (
             <div className="update-adoption-card" key={adoption._id}>
               {editingPetId === adoption._id ? (
                 <form onSubmit={handleUpdateAdoption} className="updateAdoption-edit-form">
+                  <label>
+                    <PetsIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                    Pet Name
+                  </label>
                   <input
                     type="text"
                     name="petName"
                     value={petData.petName}
                     onChange={handleInputChange}
-                    placeholder="Pet Name"
+                    placeholder="Enter pet name"
                     required
                   />
+                  <label>
+                    <CategoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                    Category
+                  </label>
                   <input
                     type="text"
                     name="category"
                     value={petData.category}
                     onChange={handleInputChange}
-                    placeholder="Category"
+                    placeholder="Enter category"
                     required
                   />
+                  <label>
+                    <InventoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                    Quantity
+                  </label>
                   <input
                     type="number"
                     name="quantity"
                     value={petData.quantity}
                     onChange={handleInputChange}
-                    placeholder="Quantity"
+                    placeholder="Enter quantity"
                     required
                   />
+                  <label>
+                    <DescriptionIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                    Description
+                  </label>
                   <textarea
                     name="description"
                     value={petData.description}
                     onChange={handleInputChange}
-                    placeholder="Description"
+                    placeholder="Enter pet description"
                     required
                   ></textarea>
                   <button type="submit" className="updateAdoption-save-btn">
                     {isUpdating ? (
                       <CircularProgress size={24} color="inherit" />
                     ) : (
-                      "Confirm"
+                      <>
+                        <SaveIcon sx={{ mr: 1 }} />
+                        Save Changes
+                      </>
                     )}
                   </button>
                   <button
@@ -169,6 +216,7 @@ const ManageAdopt = () => {
                     className="updateAdoption-cancel-btn"
                     onClick={() => setEditingPetId(null)}
                   >
+                    <CancelIcon sx={{ mr: 1 }} />
                     Cancel
                   </button>
                 </form>
@@ -176,20 +224,31 @@ const ManageAdopt = () => {
                 <>
                   <img src={adoption.petImage || "/images/default-adoption.jpeg"} alt={adoption.petName} />
                   <h3>{adoption.petName}</h3>
-                  <p>Category: {adoption.category}</p>
-                  <p>Quantity: {adoption.quantity}</p>
-                  <p>{truncateDescription(adoption.description)}</p>
+                  <p>
+                    <CategoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                    Category: {adoption.category}
+                  </p>
+                  <p>
+                    <InventoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                    Quantity: {adoption.quantity}
+                  </p>
+                  <p>
+                    <DescriptionIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                    {truncateDescription(adoption.description)}
+                  </p>
                   <div className="update-adoption-actions">
                     <button
                       className="updateAdoption-btn"
                       onClick={() => handleEditClick(adoption)}
                     >
+                      <EditIcon sx={{ mr: 1 }} />
                       Update
                     </button>
                     <button
                       className="deleteAdoption-btn"
                       onClick={() => handleDeletePet(adoption._id)}
                     >
+                      <DeleteIcon sx={{ mr: 1 }} />
                       Remove
                     </button>
                   </div>

@@ -4,6 +4,14 @@ import Footer from "../../components/Footer/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import CategoryIcon from '@mui/icons-material/Category';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import DescriptionIcon from '@mui/icons-material/Description';
 import "./UpdateProduct.css";
 
 const UpdateProduct = () => {
@@ -139,68 +147,115 @@ const UpdateProduct = () => {
                   onSubmit={handleUpdateProduct}
                   className="updateProduct-edit-form"
                 >
-                  <input
-                    type="text"
-                    name="productName"
-                    value={productData.productName}
-                    onChange={handleInputChange}
-                    placeholder="Product Name"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="category"
-                    value={productData.category}
-                    onChange={handleInputChange}
-                    placeholder="Category"
-                    required
-                  />
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={productData.quantity}
-                    onChange={handleInputChange}
-                    placeholder="Quantity"
-                    required
-                  />
-                  <input
-                    type="number"
-                    name="price"
-                    value={productData.price}
-                    onChange={handleInputChange}
-                    placeholder="Price"
-                    required
-                  />
-                  <input
-                    type="number"
-                    name="discountPrice"
-                    value={productData.discountPrice || ""}
-                    onChange={handleInputChange}
-                    placeholder="Discount Price (optional)"
-                    min="0"
-                  />
+                  <div>
+                    <label>
+                      <InventoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                      Product Name
+                    </label>
+                    <input
+                      type="text"
+                      name="productName"
+                      value={productData.productName}
+                      onChange={handleInputChange}
+                      placeholder="Enter product name"
+                      required
+                    />
+                  </div>
 
-                  <textarea
-                    name="description"
-                    value={productData.description}
-                    onChange={handleInputChange}
-                    placeholder="Description"
-                    required
-                  ></textarea>
-                  <button type="submit" className="update-save-btn">
-                    {isUpdating ? (
-                      <CircularProgress size={24} color="inherit" />
-                    ) : (
-                      "Confirm"
-                    )}
-                  </button>
-                  <button
-                    type="button"
-                    className="update-cancel-btn"
-                    onClick={() => setEditingProductId(null)}
-                  >
-                    Cancel
-                  </button>
+                  <div>
+                    <label>
+                      <CategoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                      Category
+                    </label>
+                    <input
+                      type="text"
+                      name="category"
+                      value={productData.category}
+                      onChange={handleInputChange}
+                      placeholder="Enter category"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label>
+                      <InventoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                      Quantity
+                    </label>
+                    <input
+                      type="number"
+                      name="quantity"
+                      value={productData.quantity}
+                      onChange={handleInputChange}
+                      placeholder="Enter quantity"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label>
+                      <LocalOfferIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                      Price
+                    </label>
+                    <input
+                      type="number"
+                      name="price"
+                      value={productData.price}
+                      onChange={handleInputChange}
+                      placeholder="Enter price"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label>
+                      <LocalOfferIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                      Discount Price (optional)
+                    </label>
+                    <input
+                      type="number"
+                      name="discountPrice"
+                      value={productData.discountPrice || ""}
+                      onChange={handleInputChange}
+                      placeholder="Enter discount price"
+                      min="0"
+                    />
+                  </div>
+
+                  <div>
+                    <label>
+                      <DescriptionIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                      Description
+                    </label>
+                    <textarea
+                      name="description"
+                      value={productData.description}
+                      onChange={handleInputChange}
+                      placeholder="Enter description"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <button type="submit" className="update-save-btn">
+                      {isUpdating ? (
+                        <CircularProgress size={24} color="inherit" />
+                      ) : (
+                        <>
+                          <SaveIcon />
+                          Save Changes
+                        </>
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      className="update-cancel-btn"
+                      onClick={() => setEditingProductId(null)}
+                    >
+                      <CancelIcon />
+                      Cancel
+                    </button>
+                  </div>
                 </form>
               ) : (
                 <>
@@ -209,30 +264,48 @@ const UpdateProduct = () => {
                     alt={product.productName}
                   />
                   <h3>{product.productName}</h3>
-                  <p>Category: {product.category}</p>
-                  <p>Quantity: {product.quantity}</p>
+                  <p>
+                    <CategoryIcon />
+                    Category: {product.category}
+                  </p>
+                  <p>
+                    <InventoryIcon />
+                    Quantity: {product.quantity}
+                  </p>
                   {product.discountPrice ? (
                     <>
-                      <p className="original-price">Tk {product.price}</p>
+                      <p className="original-price">
+                        <LocalOfferIcon />
+                        Original Price: Tk {product.price}
+                      </p>
                       <p className="discounted-price">
-                        Tk {product.discountPrice}
+                        <LocalOfferIcon />
+                        Discounted Price: Tk {product.discountPrice}
                       </p>
                     </>
                   ) : (
-                    <p>Price: Tk {product.price}</p>
+                    <p>
+                      <LocalOfferIcon />
+                      Price: Tk {product.price}
+                    </p>
                   )}
-                  <p>{truncateDescription(product.description)}</p>
+                  <p>
+                    <DescriptionIcon />
+                    {truncateDescription(product.description)}
+                  </p>
                   <div className="update-product-actions">
                     <button
                       className="updateProduct-btn"
                       onClick={() => handleEditClick(product)}
                     >
+                      <EditIcon />
                       Update
                     </button>
                     <button
                       className="deleteProduct-btn"
                       onClick={() => handleDeleteProduct(product._id)}
                     >
+                      <DeleteIcon />
                       Remove
                     </button>
                   </div>

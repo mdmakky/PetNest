@@ -3,7 +3,13 @@ import SideBar from "../../components/SideBar/SideBar";
 import Footer from "../../components/Footer/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
+import PetsIcon from '@mui/icons-material/Pets';
+import CategoryIcon from '@mui/icons-material/Category';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import DescriptionIcon from '@mui/icons-material/Description';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import SaveIcon from '@mui/icons-material/Save';
 import "./GiveAdopt.css";
 
 const GiveAdopt = () => {
@@ -113,33 +119,62 @@ const GiveAdopt = () => {
       <div className="give-adopt-page">
         <div className="give-adopt-main">
           <div className="give-adopt-container">
+            <Typography variant="h4" gutterBottom sx={{ 
+              color: '#2c3e50', 
+              fontWeight: 600, 
+              textAlign: 'center',
+              mb: 3,
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: '-10px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '100px',
+                height: '3px',
+                background: 'linear-gradient(to right, #4CAF50, #45a049)',
+                borderRadius: '2px'
+              }
+            }}>
+              <PetsIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+              Give for Adoption
+            </Typography>
             <form onSubmit={handleSubmit} className="give-adopt-form">
               <div className="give-adopt-pic">
                 <img src={previewImage || "/images/pet.jpeg"} alt="Pet" />
                 <div className="image-buttons">
                   <label className="give-adopt-upload-btn">
+                    <PhotoCameraIcon sx={{ mr: 1 }} />
                     Upload Photo
                     <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        hidden
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      hidden
                     />
                   </label>
                 </div>
               </div>
 
               <div className="give-adopt-form-fields">
-                <label>Pet Name:</label>
+                <label>
+                  <PetsIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Pet Name
+                </label>
                 <input
                   type="text"
                   name="name"
                   value={petData.name}
                   onChange={handleInputChange}
+                  placeholder="Enter pet name"
                   required
                 />
 
-                <label>Category:</label>
+                <label>
+                  <CategoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Category
+                </label>
                 <select
                   name="category"
                   value={petData.category}
@@ -154,20 +189,28 @@ const GiveAdopt = () => {
                   <option value="Rabbit">Rabbit</option>
                 </select>
 
-                <label>Quantity:</label>
+                <label>
+                  <InventoryIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Quantity
+                </label>
                 <input
                   type="number"
                   name="quantity"
                   value={petData.quantity}
                   onChange={handleInputChange}
+                  placeholder="Enter quantity"
                   required
                 />
 
-                <label>Description:</label>
+                <label>
+                  <DescriptionIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                  Description
+                </label>
                 <textarea
                   name="description"
                   value={petData.description}
                   onChange={handleInputChange}
+                  placeholder="Enter pet description"
                   required
                 ></textarea>
 
@@ -177,9 +220,12 @@ const GiveAdopt = () => {
                   disabled={loading}
                 >
                   {loading ? (
-                    <CircularProgress size={24} color="white" />
+                    <CircularProgress size={24} color="inherit" />
                   ) : (
-                    "Give Adopt"
+                    <>
+                      <SaveIcon sx={{ mr: 1 }} />
+                      Give for Adoption
+                    </>
                   )}
                 </button>
               </div>

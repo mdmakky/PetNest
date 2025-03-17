@@ -4,6 +4,13 @@ import Footer from "../../components/Footer/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress } from "@mui/material";
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import SaveIcon from '@mui/icons-material/Save';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import CategoryIcon from '@mui/icons-material/Category';
+import PetsIcon from '@mui/icons-material/Pets';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import DescriptionIcon from '@mui/icons-material/Description';
 import "./SellProduct.css";
 
 const SellProduct = () => {
@@ -120,28 +127,36 @@ const SellProduct = () => {
                 <img src={previewImage || "/images/pet.jpeg"} alt="Product" />
                 <div className="image-buttons">
                   <label className="upload-product-btn">
+                    <PhotoCameraIcon />
                     Upload Photo
                     <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        hidden
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      hidden
                     />
                   </label>
                 </div>
               </div>
 
               <div className="product-form-fields">
-                <label>Product Name:</label>
+                <label>
+                  <InventoryIcon sx={{ color: '#4CAF50' }} />
+                  Product Name
+                </label>
                 <input
                   type="text"
                   name="name"
                   value={productData.name}
                   onChange={handleInputChange}
+                  placeholder="Enter product name"
                   required
                 />
 
-                <label>Category:</label>
+                <label>
+                  <CategoryIcon sx={{ color: '#4CAF50' }} />
+                  Category
+                </label>
                 <select
                   name="category"
                   value={productData.category}
@@ -156,7 +171,10 @@ const SellProduct = () => {
 
                 {productData.category === "Pet" && (
                   <>
-                    <label>Sub-Category:</label>
+                    <label>
+                      <PetsIcon sx={{ color: '#4CAF50' }} />
+                      Sub-Category
+                    </label>
                     <select
                       name="subCategory"
                       value={productData.subCategory}
@@ -176,7 +194,10 @@ const SellProduct = () => {
 
                 {productData.category === "Pet Food" && (
                   <>
-                    <label>Sub-Category:</label>
+                    <label>
+                      <PetsIcon sx={{ color: '#4CAF50' }} />
+                      Sub-Category
+                    </label>
                     <select
                       name="subCategory"
                       value={productData.subCategory}
@@ -196,7 +217,10 @@ const SellProduct = () => {
 
                 {productData.category === "Pet Accessories" && (
                   <>
-                    <label>Sub-Category:</label>
+                    <label>
+                      <PetsIcon sx={{ color: '#4CAF50' }} />
+                      Sub-Category
+                    </label>
                     <select
                       name="subCategory"
                       value={productData.subCategory}
@@ -215,29 +239,41 @@ const SellProduct = () => {
                   </>
                 )}
 
-                <label>Quantity:</label>
+                <label>
+                  <InventoryIcon sx={{ color: '#4CAF50' }} />
+                  Quantity
+                </label>
                 <input
                   type="number"
                   name="quantity"
                   value={productData.quantity}
                   onChange={handleInputChange}
+                  placeholder="Enter quantity"
                   required
                 />
 
-                <label>Price (in Tk):</label>
+                <label>
+                  <LocalOfferIcon sx={{ color: '#4CAF50' }} />
+                  Price (in Tk)
+                </label>
                 <input
                   type="number"
                   name="price"
                   value={productData.price}
                   onChange={handleInputChange}
+                  placeholder="Enter price"
                   required
                 />
 
-                <label>Description:</label>
+                <label>
+                  <DescriptionIcon sx={{ color: '#4CAF50' }} />
+                  Description
+                </label>
                 <textarea
                   name="description"
                   value={productData.description}
                   onChange={handleInputChange}
+                  placeholder="Enter product description"
                   required
                 ></textarea>
 
@@ -249,7 +285,10 @@ const SellProduct = () => {
                   {loading ? (
                     <CircularProgress size={24} color="white" />
                   ) : (
-                    "Add Product"
+                    <>
+                      <SaveIcon />
+                      Add Product
+                    </>
                   )}
                 </button>
               </div>

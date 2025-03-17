@@ -1,103 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .add-blog-page {
-    display: flex;
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
-  }
-  
-  .add-blog-main {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .add-blog-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 900px;
-  }
-  
-  .add-blog-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .blog-form-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .blog-form-fields label {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 4px;
-    color: #333;
-  }
-  
-  .blog-form-fields input,
-  .blog-form-fields select,
-  .blog-form-fields textarea {
-    width: 100%;
+  display: flex;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+}
+
+.add-blog-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.add-blog-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 900px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-blog-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.blog-h2 {
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.blog-h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px;
+}
+
+.add-blog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.blog-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blog-form-fields label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.blog-form-fields input,
+.blog-form-fields select,
+.blog-form-fields textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.blog-form-fields input:focus,
+.blog-form-fields select:focus,
+.blog-form-fields textarea:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+textarea {
+  resize: none;
+  height: 200px;
+}
+
+.blog-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.4s ease;
+  margin-top: 10px;
+  border: 2px solid #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.blog-btn:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.blog-btn:not(:disabled):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+  background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+  .add-blog-page {
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box;
   }
-  
-  .blog-form-fields input:focus,
-  .blog-form-fields select:focus,
-  .blog-form-fields textarea:focus {
-    border-color: #4caf50;
-  }
-  
-  textarea {
-    resize: none;
-    height: 100px;
-  }
-  
-  .blog-btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .blog-btn:hover {
-    background-color: #333;
+
+  .add-blog-container {
+    padding: 20px;
   }
 
   .blog-h2 {
-    color: #333;
-    font-weight: bold;
-    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
   }
-  
-  @media (max-width: 768px) {
-    .add-blog-container {
-      padding: 15px;
-      margin-left: 0;
-    }
-  
-    .blog-form-fields {
-      gap: 12px;
-    }
-  
-    .blog-btn {
-      font-size: 14px;
-      padding: 10px;
-    }
-      
+
+  .blog-form-fields {
+    gap: 16px;
   }
+
+  textarea {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-h2 {
+    font-size: 1.5rem;
+  }
+
+  .blog-form-fields label {
+    font-size: 0.9rem;
+  }
+
+  .blog-form-fields input,
+  .blog-form-fields select,
+  .blog-form-fields textarea {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+}
   

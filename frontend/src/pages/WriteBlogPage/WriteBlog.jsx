@@ -4,6 +4,10 @@ import Footer from "../../components/Footer/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress } from "@mui/material";
+import TitleIcon from '@mui/icons-material/Title';
+import CategoryIcon from '@mui/icons-material/Category';
+import DescriptionIcon from '@mui/icons-material/Description';
+import SaveIcon from '@mui/icons-material/Save';
 import "./WriteBlog.css";
 
 const Blog = () => {
@@ -68,16 +72,23 @@ const Blog = () => {
             <h2 className="blog-h2">Add New Blog</h2>
             <form onSubmit={handleSubmit} className="add-blog-form">
               <div className="blog-form-fields">
-                <label>Blog Title:</label>
+                <label>
+                  <TitleIcon sx={{ color: '#4CAF50' }} />
+                  Blog Title
+                </label>
                 <input
                   type="text"
                   name="title"
                   value={blogData.title}
                   onChange={handleInputChange}
+                  placeholder="Enter your blog title"
                   required
                 />
 
-                <label>Category:</label>
+                <label>
+                  <CategoryIcon sx={{ color: '#4CAF50' }} />
+                  Category
+                </label>
                 <select
                   name="category"
                   value={blogData.category}
@@ -112,11 +123,15 @@ const Blog = () => {
                   <option value="Food">Food</option>
                 </select>
 
-                <label>Content:</label>
+                <label>
+                  <DescriptionIcon sx={{ color: '#4CAF50' }} />
+                  Content
+                </label>
                 <textarea
                   name="content"
                   value={blogData.content}
                   onChange={handleInputChange}
+                  placeholder="Write your blog content here..."
                   required
                 ></textarea>
 
@@ -126,9 +141,12 @@ const Blog = () => {
                   disabled={loading}
                 >
                   {loading ? (
-                    <CircularProgress size={24} color="white" />
+                    <CircularProgress size={24} color="inherit" />
                   ) : (
-                    "Add Blog"
+                    <>
+                      <SaveIcon />
+                      Add Blog
+                    </>
                   )}
                 </button>
               </div>
