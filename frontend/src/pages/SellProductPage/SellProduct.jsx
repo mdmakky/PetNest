@@ -169,6 +169,7 @@ const SellProduct = () => {
                       <option value="Bird">Bird</option>
                       <option value="Fish">Fish</option>
                       <option value="Rabbit">Rabbit</option>
+                      <option value="Others">Others</option>
                     </select>
                   </>
                 )}
@@ -188,6 +189,7 @@ const SellProduct = () => {
                       <option value="Bird Seeds">Bird Seeds</option>
                       <option value="Fish Flakes">Fish Flakes</option>
                       <option value="Rabbit Pellets">Rabbit Pellets</option>
+                      <option value="Others">Others</option>
                     </select>
                   </>
                 )}
@@ -207,6 +209,8 @@ const SellProduct = () => {
                       <option value="Cage">Cage</option>
                       <option value="Aquarium">Aquarium</option>
                       <option value="Pet Bed">Pet Bed</option>
+                      <option value="Pet Toy">Pet Toy</option>
+                      <option value="Others">Others</option>
                     </select>
                   </>
                 )}
