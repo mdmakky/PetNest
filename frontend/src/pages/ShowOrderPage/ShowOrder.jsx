@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { CircularProgress, Button, Typography, Card, CardContent, Box, Avatar } from "@mui/material";
 import SideBar from "../../components/SideBar/SideBar";
 import Footer from "../../components/Footer/Footer";
+import jsPDF from 'jspdf';
 import "react-toastify/dist/ReactToastify.css";
 import "./ShowOrder.css";
 
@@ -78,6 +79,66 @@ const ShowOrder = () => {
     );
   }
 
+  const handleDownloadPaymentSlip = (order) => {
+    const doc = new jsPDF();
+    const logoUrl = '/images/logo.webp';
+    const logo = new Image();
+    logo.src = logoUrl;
+  
+    logo.onload = () => {
+      doc.addImage(logo, 'WEBP', 10, 10, 30, 30);
+
+      doc.setFontSize(22);
+      doc.setTextColor(40, 53, 147);
+      doc.text("PetNest Payment Receipt", 50, 25);
+      
+      doc.setLineWidth(0.5);
+      doc.line(10, 40, 200, 40);
+  
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+      
+      const yStart = 50;
+      let yPosition = yStart;
+      
+      doc.setFontSize(14);
+      doc.text("Customer Details:", 10, yPosition);
+      yPosition += 10;
+      doc.setFontSize(12);
+      doc.text(`Name: ${order.user.name || 'N/A'}`, 10, yPosition);
+      yPosition += 8;
+      doc.text(`Email: ${order.user.email || 'N/A'}`, 10, yPosition);
+      yPosition += 15;
+  
+      doc.setFontSize(14);
+      doc.text("Order Details:", 10, yPosition);
+      yPosition += 10;
+      doc.setFontSize(12);
+      
+      const details = [
+        `Product Name: ${order.productName}`,
+        `Category: ${order.category}`,
+        `Quantity: ${order.quantity}`,
+        `Unit Price: Tk ${(order.totalCost / order.quantity).toFixed(2)}`,
+        `Total Amount: Tk ${order.totalCost.toFixed(2)}`,
+        `Purchase Date: ${new Date(order.purchaseDate).toLocaleDateString()}`,
+        `Delivery Date: ${new Date(order.deliveryDate).toLocaleDateString()}`,
+        `Transaction ID: ${order.orderId}`
+      ];
+  
+      details.forEach((text, index) => {
+        doc.text(text, 10, yPosition + (index * 8));
+      });
+  
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text("Thank you for choosing PetNest!", 10, 280);
+      doc.text("Contact: petnestweb@gmail.com | Phone: +8801859093806", 10, 285);
+
+      doc.save(`PetNest-Payment-${order.orderId}.pdf`);
+    };
+  };
+
   return (
     <div>
       <SideBar />
@@ -124,19 +185,33 @@ const ShowOrder = () => {
                         Delivery Date: {new Date(order.deliveryDate).toLocaleDateString()}
                       </Typography>
                       {order.status !== "Cancelled" && (
-                  <Button
-                  variant="contained"
-                  color="error"
-                  onClick={() => handleCancelOrder(order._id)}
-                  sx={{
-                    marginTop: "10px",
-                    '&:hover': {
-                      backgroundColor: '#333',
-                    },
-                  }}
-                >
-                  Cancel Order
-                </Button>
+                 <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                 <Button
+                   variant="contained"
+                   color="primary"
+                   onClick={() => handleDownloadPaymentSlip(order)}
+                   sx={{
+                     backgroundColor: '#4CAF50',
+                     '&:hover': {
+                       backgroundColor: '#45a049',
+                     },
+                   }}
+                 >
+                   Download Payment Slip
+                 </Button>
+                 <Button
+                   variant="contained"
+                   color="error"
+                   onClick={() => handleCancelOrder(order._id)}
+                   sx={{
+                     '&:hover': {
+                       backgroundColor: '#333',
+                     },
+                   }}
+                 >
+                   Cancel Order
+                 </Button>
+               </Box>
                       )}
                     </CardContent>
                   </Card>

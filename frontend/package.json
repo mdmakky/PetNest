@@ -17,6 +17,7 @@
     "axios": "^1.8.3",
     "dompurify": "^3.2.4",
     "font-awesome": "^4.7.0",
+    "jspdf": "^3.0.0",
     "marked": "^15.0.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -107,7 +107,10 @@ exports.completeOrder = async (req, res) => {
     cart.items = updatedCartItems; 
     await cart.save();
 
-    const product = await Product.findOne({ _id: productId });
+    const product = await Product.findById(productId).populate('userId');
+    if (!product || !product.userId) {
+      return res.status(404).json({ success: false, message: "Product or seller not found" });
+    }
 
     if (!product) {
       return res.status(404).json({
@@ -135,17 +138,19 @@ exports.completeOrder = async (req, res) => {
     await order.save();
 
     const payment = new Payment({
+      userId: userId,
       productName: product.productName,
       category: product.category,
+      price: product.price,
+      quantity: quantity,
+      totalAmount: totalCost,
       sellerName: product.userId.name,
       customerName: customer.name,
-      transactionId: orderId, 
-      amount: totalCost,
-      quantity: quantity,
-      price: totalCost / quantity
+      transactionId: orderId
     });
 
     await payment.save();
+
 
     res.json({
       success: true,

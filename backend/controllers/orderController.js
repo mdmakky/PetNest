@@ -4,10 +4,15 @@ exports.getOrder = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const orders = await Order.find({ userId }).populate({
-      path: "productId",
-      select: "productName category productImage",
-    });
+    const orders = await Order.find({ userId })
+      .populate({
+        path: "productId",
+        select: "productName category productImage",
+      })
+      .populate({
+        path: "userId",
+        select: "name email"
+      });
 
     if (!orders) {
       return res.status(404).json({ message: "No orders found" });
@@ -15,6 +20,7 @@ exports.getOrder = async (req, res) => {
 
     const orderDetails = orders.map((order) => ({
       _id: order._id,
+      orderId: order.orderId,
       productName: order.productId.productName,
       category: order.productId.category,
       productImage: order.productId.productImage,
@@ -23,6 +29,10 @@ exports.getOrder = async (req, res) => {
       purchaseDate: order.purchaseDate,
       deliveryDate: order.deliveryDate,
       status: order.status,
+      user: {
+        name: order.userId.name,
+        email: order.userId.email
+      }
     }));
 
     res.json({ orders: orderDetails });
@@ -31,7 +41,6 @@ exports.getOrder = async (req, res) => {
     res.status(500).json({ message: "Error fetching orders" });
   }
 };
-
 
 exports.cancelOrder = async (req, res) => {
     const { orderId } = req.params;
