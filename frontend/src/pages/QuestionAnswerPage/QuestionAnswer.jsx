@@ -6,6 +6,8 @@ import PetsIcon from '@mui/icons-material/Pets';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./QuestionAnswer.css";
 
 const QuestionAnswer = () => {
@@ -34,6 +36,10 @@ const QuestionAnswer = () => {
   };
   const handleAskQuestion = async () => {
     if (!newQuestion.trim()) return;
+    if (!localStorage.getItem("token")) {
+      toast.error("Please login first");
+      return;
+    }
     try {
       const response = await fetch("http://localhost:3000/api/qa/addQuestion", {
         method: "POST",
@@ -54,6 +60,10 @@ const QuestionAnswer = () => {
     }
   };
   const handleAddAnswer = async (questionId, answerText) => {
+    if (!localStorage.getItem("token")) {
+      toast.error("Please login first");
+      return;
+    }
     if (!answerText.trim()) return;
     try {
       const response = await fetch(
@@ -79,6 +89,10 @@ const QuestionAnswer = () => {
   };
 
   const handleLike = async (questionId, answerId) => {
+    if (!localStorage.getItem("token")) {
+      toast.error("Please login first");
+      return;
+    }
     const updatedAnswers = questions.map((question) =>
       question._id === questionId
         ? {
@@ -132,6 +146,10 @@ const QuestionAnswer = () => {
   };
 
   const handleDislike = async (questionId, answerId) => {
+    if (!localStorage.getItem("token")) {
+      toast.error("Please login first");
+      return;
+    }
     const updatedAnswers = questions.map((question) =>
       question._id === questionId
         ? {
@@ -209,6 +227,7 @@ const QuestionAnswer = () => {
             variant="outlined"
             value={newQuestion}
             onChange={(e) => setNewQuestion(e.target.value)}
+            required
           />
           <Button
             variant="contained"
@@ -342,6 +361,7 @@ const QuestionAnswer = () => {
                     onChange={(e) =>
                       setAnswers({ ...answers, [question._id]: e.target.value })
                     }
+                    required
                   />
                   <Button
                     variant="contained"

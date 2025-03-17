@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Cart = require("../models/Cart");
 const Order = require("../models/Order");
 const Product = require("../models/Product");
+const Payment = require("../models/Payment");
 const crypto = require("crypto");
 const { STORE_ID, STORE_PASSWORD, SSLCOMMERZ_SANDBOX } = require("../config/env");
 
@@ -79,6 +80,7 @@ exports.completeOrder = async (req, res) => {
     const userId = req.user.id;
 
     const cart = await Cart.findOne({ userId });
+    const customer = await User.findById(userId);
 
     if (!cart) {
       return res.status(404).json({ success: false, message: "Cart not found" });
@@ -131,6 +133,19 @@ exports.completeOrder = async (req, res) => {
     });
 
     await order.save();
+
+    const payment = new Payment({
+      productName: product.productName,
+      category: product.category,
+      sellerName: product.userId.name,
+      customerName: customer.name,
+      transactionId: orderId, 
+      amount: totalCost,
+      quantity: quantity,
+      price: totalCost / quantity
+    });
+
+    await payment.save();
 
     res.json({
       success: true,
