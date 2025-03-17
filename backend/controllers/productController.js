@@ -38,7 +38,37 @@ exports.getProduct = async (req, res) => {
 
     const skip = (page - 1) * limit;
 
-    const products = await Product.find(query).skip(skip).limit(parseInt(limit));
+    const aggregationPipeline = [
+      { $match: query },
+      {
+        $addFields: {
+          hasDiscount: { $cond: [{ $gt: ["$discountPrice", null] }, 1, 0] },
+          discountPercentage: {
+            $cond: [
+              { $gt: ["$discountPrice", null] },
+              {
+                $multiply: [
+                  { $divide: [{ $subtract: ["$price", "$discountPrice"] }, "$price"] },
+                  100
+                ]
+              },
+              0
+            ]
+          }
+        }
+      },
+      {
+        $sort: {
+          hasDiscount: -1,       
+          discountPercentage: -1,
+          createdAt: -1          
+        }
+      },
+      { $skip: skip },
+      { $limit: parseInt(limit) }
+    ];
+
+    const products = await Product.aggregate(aggregationPipeline);
     const totalProducts = await Product.countDocuments(query);
 
     return res.status(200).json({
