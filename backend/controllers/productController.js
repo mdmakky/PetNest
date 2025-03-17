@@ -141,9 +141,16 @@ exports.addProduct = [
 ];
 
 exports.updateProduct = async (req, res) => {
-  const { productId, productName, category, quantity, price, description } = req.body;
+  const { productId, productName, discountPrice, category, quantity, price, description } = req.body;
 
   try {
+
+    if (discountPrice && price && discountPrice >= price) {
+      return res.status(400).json({
+        success: false,
+        message: "Discount price must be less than regular price"
+      });
+    }
 
     if (!req.user) {
       return res.status(401).json({ success: false, message: "User not authenticated" });
@@ -174,6 +181,9 @@ exports.updateProduct = async (req, res) => {
     product.quantity = quantity || product.quantity;
     product.price = price || product.price;
     product.description = description || product.description;
+    if (discountPrice !== undefined) {
+      product.discountPrice = discountPrice || null;
+    }
 
     await product.save();
 

@@ -22,11 +22,14 @@ const UpdateProduct = () => {
     const fetchProducts = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:3000/api/product/getUserProduct", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://localhost:3000/api/product/getUserProduct",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const result = await response.json();
         if (result.success) {
           setProducts(result.products);
@@ -57,21 +60,26 @@ const UpdateProduct = () => {
     setIsUpdating(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/product/updateProduct", {
-        method: "POST", 
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...productData, productId: editingProductId }),
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/product/updateProduct",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...productData, productId: editingProductId }),
+        }
+      );
 
       const result = await response.json();
       if (result.success) {
         toast.success("Product updated successfully.");
-        setProducts(products.map((product) =>
-          product._id === editingProductId ? result.product : product
-        ));
+        setProducts(
+          products.map((product) =>
+            product._id === editingProductId ? result.product : product
+          )
+        );
         setEditingProductId(null);
       } else {
         toast.error(result.message);
@@ -80,20 +88,23 @@ const UpdateProduct = () => {
       console.error("Error updating product:", error);
       toast.error("Failed to update product.");
     }
-    setIsUpdating(false); 
+    setIsUpdating(false);
   };
 
   const handleDeleteProduct = async (productId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/product/deleteProduct", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ productId }),
-      });
+      const response = await fetch(
+        "http://localhost:3000/api/product/deleteProduct",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ productId }),
+        }
+      );
       const result = await response.json();
       if (result.success) {
         toast.success("Product deleted successfully.");
@@ -124,7 +135,10 @@ const UpdateProduct = () => {
           {products.map((product) => (
             <div className="update-product-card" key={product._id}>
               {editingProductId === product._id ? (
-                <form onSubmit={handleUpdateProduct} className="updateProduct-edit-form">
+                <form
+                  onSubmit={handleUpdateProduct}
+                  className="updateProduct-edit-form"
+                >
                   <input
                     type="text"
                     name="productName"
@@ -157,6 +171,15 @@ const UpdateProduct = () => {
                     placeholder="Price"
                     required
                   />
+                  <input
+                    type="number"
+                    name="discountPrice"
+                    value={productData.discountPrice || ""}
+                    onChange={handleInputChange}
+                    placeholder="Discount Price (optional)"
+                    min="0"
+                  />
+
                   <textarea
                     name="description"
                     value={productData.description}
@@ -181,11 +204,23 @@ const UpdateProduct = () => {
                 </form>
               ) : (
                 <>
-                  <img src={product.productImage || "/images/default-product.jpeg"} alt={product.productName} />
+                  <img
+                    src={product.productImage || "/images/default-product.jpeg"}
+                    alt={product.productName}
+                  />
                   <h3>{product.productName}</h3>
                   <p>Category: {product.category}</p>
                   <p>Quantity: {product.quantity}</p>
-                  <p>Price: Tk {product.price}</p>
+                  {product.discountPrice ? (
+                    <>
+                      <p className="original-price">Tk {product.price}</p>
+                      <p className="discounted-price">
+                        Tk {product.discountPrice}
+                      </p>
+                    </>
+                  ) : (
+                    <p>Price: Tk {product.price}</p>
+                  )}
                   <p>{truncateDescription(product.description)}</p>
                   <div className="update-product-actions">
                     <button
@@ -207,7 +242,7 @@ const UpdateProduct = () => {
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

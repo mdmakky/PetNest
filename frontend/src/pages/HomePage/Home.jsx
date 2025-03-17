@@ -18,7 +18,6 @@ import { FaComment } from "react-icons/fa";
 import "./Home.css";
 import Chatbot from "../ChatBotPage/ChatBot";
 
-
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +26,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [noResults, setNoResults] = useState(false);
-  const [showChatbot, setShowChatbot] = useState(false); 
+  const [showChatbot, setShowChatbot] = useState(false);
   const navigate = useNavigate();
 
   const fetchProducts = async () => {
@@ -152,13 +151,35 @@ const Home = () => {
         <div className="product-grid">
           {products.map((product) => (
             <div className="product-card" key={product._id}>
+              {product.discountPrice && (
+                <div className="discount-badge">
+                  {Math.round(
+                    ((product.price - product.discountPrice) / product.price) *
+                      100
+                  )}
+                  % OFF
+                </div>
+              )}
+
               <img
                 src={product.productImage}
                 alt={product.productName}
                 className="product-image"
               />
               <h3>Name: {product.productName}</h3>
-              <p>Price: {product.price} Tk</p>
+              <p>
+                Price:{" "}
+                {product.discountPrice ? (
+                  <>
+                    <span className="discounted-price">
+                      {product.discountPrice} Tk
+                    </span>
+                    <span className="original-price">({product.price} Tk)</span>
+                  </>
+                ) : (
+                  <span>{product.price} Tk</span>
+                )}
+              </p>
 
               <p
                 className={`product-status ${
@@ -172,7 +193,7 @@ const Home = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  disabled={product.quantity === 0} 
+                  disabled={product.quantity === 0}
                   onClick={
                     product.quantity > 0
                       ? () => handleAddToCart(product._id)
@@ -186,9 +207,9 @@ const Home = () => {
                   variant="outlined"
                   onClick={() => handleDetailsClick(product._id)}
                   sx={{
-                    '&:hover': {
-                      backgroundColor: 'transparent', 
-                      color: 'primary.main',
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                      color: "primary.main",
                     },
                   }}
                 >
@@ -206,9 +227,9 @@ const Home = () => {
           disabled={page === 1 || noResults}
           onClick={() => setPage(page - 1)}
           sx={{
-            '&:hover': {
-              backgroundColor: 'transparent', 
-              color: 'primary.main',
+            "&:hover": {
+              backgroundColor: "transparent",
+              color: "primary.main",
             },
           }}
         >
@@ -219,9 +240,9 @@ const Home = () => {
           disabled={page === totalPages || noResults}
           onClick={() => setPage(page + 1)}
           sx={{
-            '&:hover': {
-              backgroundColor: 'transparent', 
-              color: 'primary.main',
+            "&:hover": {
+              backgroundColor: "transparent",
+              color: "primary.main",
             },
           }}
         >
@@ -238,11 +259,10 @@ const Home = () => {
           <FaComment size={30} />
         </div>
       </div>
-      
+
       {showChatbot && <Chatbot onClose={() => setShowChatbot(false)} />}
 
-        <Footer/>
-
+      <Footer />
     </div>
   );
 };

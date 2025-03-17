@@ -129,6 +129,16 @@
   .update-cancel-btn:hover {
     background-color: #555;
   }
+
+  .original-price {
+    text-decoration: line-through;
+    color: #666;
+  }
+  
+  .discounted-price {
+    color: #54b436;
+    font-weight: bold;
+  }
   
   @media (max-width: 768px) {
     .update-product-page {
