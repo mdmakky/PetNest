@@ -24,10 +24,9 @@ import "./Cart.css";
 
 const CheckOutModal = ({ open, onClose, product, seller }) => {
   const [quantity, setQuantity] = useState(1);
-  const [totalCost, setTotalCost] = useState(
-    (product?.discountPrice || product?.price) * 1 || 0
-  );
-
+  const initialPrice = product?.discountPrice ?? product?.price ?? 0;
+  const [totalCost, setTotalCost] = useState(initialPrice * 1);
+  
   const handleQuantityChange = (e) => {
     const maxQuantity = product?.quantity || 1;
     const inputValue = parseInt(e.target.value);
