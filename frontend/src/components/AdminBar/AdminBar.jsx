@@ -45,7 +45,7 @@ const AdminBar = () => {
             Home
           </Link>
 
-          <Link
+          {/* <Link
             to="/adminHome"
             className={`menu-link ${
               location.pathname === "/adminHome" ? "active" : ""
@@ -53,7 +53,7 @@ const AdminBar = () => {
             onClick={() => setMenuOpen(false)}
           >
             Dashboard
-          </Link>
+          </Link> */}
 
           <Link
             to="/handleBlog"
@@ -97,9 +97,9 @@ const AdminBar = () => {
           </Link>
 
           <Link
-            to="/handleUser"
+            to="/adminUser"
             className={`menu-link ${
-              location.pathname === "/handleUser" ? "active" : ""
+              location.pathname === "/adminUser" ? "active" : ""
             }`}
             onClick={() => setMenuOpen(false)}
           >

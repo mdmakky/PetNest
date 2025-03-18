@@ -20,6 +20,7 @@ const adminDoctorRoutes = require("./routes/AdminRoutes/adminDoctorRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const adminOrderRoutes = require("./routes/AdminRoutes/adminOrderRoutes");
 const adminPaymentDetailsRoutes = require("./routes/AdminRoutes/adminPaymentDetailsRoutes");
+const adminUserRoutes = require("./routes/AdminRoutes/adminUserRoutes");
 
 require("dotenv").config();
 
@@ -54,6 +55,7 @@ app.use("/api/admin/adminDoctor", adminDoctorRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/admin/adminOrder", adminOrderRoutes);
 app.use("/api/admin/adminPaymentDetails", adminPaymentDetailsRoutes);
+app.use("/api/admin/adminUser", adminUserRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

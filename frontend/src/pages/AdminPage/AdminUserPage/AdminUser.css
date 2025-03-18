@@ -1,0 +1,115 @@
+.admin-user-container {
+    background-color: #f5f6fa;
+    min-height: 100vh;
+}
+
+.user-management-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.user-management-title {
+    color: #2c3e50;
+    font-weight: 700 !important;
+    margin-bottom: 2rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #4a90e2;
+}
+
+.user-table {
+    border-radius: 15px !important;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table-header {
+    background-color: #4a90e2 !important;
+}
+
+.header-cell {
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    border-bottom: none !important;
+}
+
+.table-row:hover {
+    background-color: #f8f9fa !important;
+}
+
+.body-cell {
+    font-size: 0.95rem !important;
+    color: #34495e !important;
+    border-bottom: 1px solid #ecf0f1 !important;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    display: inline-block;
+}
+
+.verified {
+    background-color: #27ae60;
+    color: white;
+}
+
+.not-verified {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.complete {
+    background-color: #2980b9;
+    color: white;
+}
+
+.incomplete {
+    background-color: #f39c12;
+    color: white;
+}
+
+.delete-button {
+    transition: transform 0.2s ease !important;
+}
+
+.delete-button:hover {
+    transform: scale(1.1);
+    background-color: rgba(231, 76, 60, 0.1) !important;
+}
+
+.delete-icon {
+    color: #e74c3c !important;
+}
+
+@media (max-width: 768px) {
+    .user-management-container {
+        padding: 1rem;
+    }
+    
+    .user-table {
+        border-radius: 10px !important;
+    }
+    
+    .header-cell {
+        font-size: 0.9rem !important;
+    }
+    
+    .body-cell {
+        font-size: 0.85rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-management-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .status-badge {
+        padding: 3px 8px;
+        font-size: 0.8rem;
+    }
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress } from "@mui/material";
@@ -8,6 +9,7 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,14 +40,13 @@ const AdminLogin = () => {
         });
       } else if (result.success) {
         localStorage.setItem('token', result.token);
-        localStorage.setItem('userId', result.userId); 
+        localStorage.setItem('userId', result.userId);
+        navigate("/handleOrder")
 
         toast.success(result.message, {
           position: "top-right",
           autoClose: 3000,
-          onClose: () => {
-            window.location.href = result.redirectUrl;
-          },
+         
         });
       } else {
         toast.error(result.message, {

@@ -28,6 +28,7 @@ import HandleDoctor from "./pages/AdminPage/HandleDoctorPage/HandleDoctor";
 import PaymentSuccess from "./pages/PaymentSuccessPage/PaymentSuccess";
 import HandleOrder from "./pages/AdminPage/HandleOrderPage/HandleOrder";
 import AdminPaymentDetails from "./pages/AdminPage/AdminPaymentDetailsPage/AdminPaymentDetails";
+import AdminUser from "./pages/AdminPage/AdminUserPage/AdminUser";
 
 const RouterConfig = () => {
   return (
@@ -61,6 +62,7 @@ const RouterConfig = () => {
         <Route path="/paymentSuccess" element={<PaymentSuccess />} />
         <Route path="/handleOrder" element={<HandleOrder />} />
         <Route path="/adminPaymentDetails" element={<AdminPaymentDetails />} />
+        <Route path="/adminUser" element={<AdminUser />} />
       </Routes>
     </Router>
   );
