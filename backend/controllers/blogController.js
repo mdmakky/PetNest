@@ -93,3 +93,39 @@ exports.addComment = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.myBlogs = async (req, res) => {
+  try {
+    if (!req.user?.id) {
+      return res.status(401).json({ success: false, message: "Please log in first." });
+    }
+    
+    const userId = req.user.id;
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
+
+    const blogs = await Blog.find({ userId, accept: true })
+      .populate('userId', 'name profileImage')
+      .populate('comments.userId', 'name email profileImage')
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await Blog.countDocuments({ userId, accept: true });
+    
+    res.json({ 
+      success: true,
+      blogs,
+      total
+    });
+  } catch (error) {
+    console.error("Error fetching my blogs:", error);  
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error',
+      error: error.message
+    });
+  }
+};
