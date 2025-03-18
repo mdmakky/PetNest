@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import AdminBar from "../../../components/AdminBar/AdminBar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CircularProgress, Button } from "@mui/material";
+import { CircularProgress, Button, Typography } from "@mui/material";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import Swal from "sweetalert2";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import "./HandleBlog.css";
 
 const HandleBlog = () => {
@@ -151,9 +153,13 @@ const HandleBlog = () => {
     <div>
       <AdminBar />
       <div className="admin-blog-page">
+        <Typography variant="h4" className="admin-blog-title">
+          Pending Blog Approvals
+        </Typography>
+
         {loading ? (
           <div className="loading-container">
-            <CircularProgress size={40} color="primary" />
+            <CircularProgress />
           </div>
         ) : blogs.length === 0 ? (
           <div className="no-blogs-message">
@@ -210,12 +216,25 @@ const HandleBlog = () => {
             onClick={handlePreviousPage}
             variant="outlined"
             disabled={currentPage === 1}
+            startIcon={<NavigateBeforeIcon />}
             sx={{
-              "&:hover": {
-                backgroundColor: "transparent",
-                color: "primary.main",
+              borderRadius: '12px',
+              textTransform: 'none',
+              padding: '12px 32px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: 'Poppins, sans-serif',
+              border: '2px solid #4CAF50',
+              color: '#4CAF50',
+              minWidth: '120px',
+              height: '48px',
+              backgroundColor: 'transparent',
+              '&:hover': {
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.2)',
               },
-              marginTop: "16px",
             }}
           >
             Previous
@@ -224,12 +243,25 @@ const HandleBlog = () => {
             onClick={handleNextPage}
             variant="outlined"
             disabled={currentPage * blogsPerPage >= totalBlogs}
+            endIcon={<NavigateNextIcon />}
             sx={{
-              "&:hover": {
-                backgroundColor: "transparent",
-                color: "primary.main",
+              borderRadius: '12px',
+              textTransform: 'none',
+              padding: '12px 32px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: 'Poppins, sans-serif',
+              border: '2px solid #4CAF50',
+              color: '#4CAF50',
+              minWidth: '120px',
+              height: '48px',
+              backgroundColor: 'transparent',
+              '&:hover': {
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.2)',
               },
-              marginTop: "16px",
             }}
           >
             Next

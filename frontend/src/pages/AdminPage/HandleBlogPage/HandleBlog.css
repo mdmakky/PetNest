@@ -1,102 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .admin-blog-page {
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.admin-blog-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.admin-blog-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px;
 }
 
 .handleBlog-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 30px;
+  gap: 24px;
   margin-top: 20px;
 }
 
 .handleBlog-card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.handleBlog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .handleBlog-card h3 {
-  font-size: 1.6rem;
-  margin-bottom: 10px;
-  color: #333;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #4CAF50;
 }
 
 .handleBlog-card p {
-  margin: 5px 0;
-  font-size: 1rem;
-  color: #333;
+  color: #4a4a4a;
+  margin: 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.handleBlog-card p strong {
+  min-width: 80px;
+  color: #2c3e50;
+  font-weight: 500;
 }
 
 .blog-content {
-  margin: 15px 0;
-  font-size: 1rem;
+  margin: 20px 0;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4a4a4a;
 }
 
 .handleBlog-btn {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
 }
 
 .handleBlog-card button {
-  padding: 10px 15px;
-  font-size: 1rem;
-  margin: 5px;
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  width: 50%;
+  transition: all 0.3s ease;
 }
 
 .handleBlog-accept-btn {
-  background-color: #28a745;
-  color: #ffffff;
+  background-color: #4CAF50;
+  color: white;
 }
 
 .handleBlog-accept-btn:hover {
-  background-color: #276c36;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+  background-color: #45a049;
 }
 
 .handleBlog-decline-btn {
-  background-color: #dc3545;
-  color: #ffffff;
+  background-color: white;
+  color: #dc3545;
+  border: 2px solid #dc3545;
 }
 
 .handleBlog-decline-btn:hover {
-  background-color: #62000a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+  background-color: #dc3545;
+  color: white;
 }
 
-  
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 60vh;
 }
 
 .no-blogs-message {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #888;
-    margin-top: 20px;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #4a4a4a;
+  margin-top: 40px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
+.handleBlog-pagination-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px 0;
+  padding: 20px;
+}
+
+.handleBlog-pagination-buttons button {
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  min-width: 120px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: transparent;
+}
+
+.handleBlog-pagination-buttons button:not(:disabled):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+  background-color: #4CAF50;
+  color: white;
+}
+
+.handleBlog-pagination-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 @media (max-width: 768px) {
+  .admin-blog-page {
+    padding: 16px;
+  }
+
+  .admin-blog-title {
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+  }
+
   .handleBlog-list {
-    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .handleBlog-card {
+    padding: 20px;
+  }
+
+  .handleBlog-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .handleBlog-card p {
+    font-size: 0.9rem;
+  }
+
+  .blog-content {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+
+  .handleBlog-btn {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .handleBlog-card button {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 100px;
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .handleBlog-pagination-buttons button {
+    min-width: 100px;
+    height: 44px;
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 480px) {
-  .handleBlog-list {
-    grid-template-columns: 1fr;
+  .admin-blog-page {
+    padding: 12px;
+  }
+
+  .admin-blog-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
   }
 
   .handleBlog-card {
-    padding: 15px;
+    padding: 16px;
   }
 
+  .handleBlog-card h3 {
+    font-size: 1.1rem;
+  }
 
+  .handleBlog-card p {
+    font-size: 0.85rem;
+  }
+
+  .blog-content {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .handleBlog-btn {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .handleBlog-card button {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .handleBlog-pagination-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .handleBlog-pagination-buttons button {
+    width: 100%;
+    min-width: unset;
+  }
 }
