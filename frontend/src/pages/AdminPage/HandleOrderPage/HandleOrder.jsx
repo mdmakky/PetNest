@@ -85,7 +85,7 @@ const HandleOrder = () => {
   const OrderCard = ({ order }) => (
     <div className="admin-order-card">
       <div className="admin-order-header">
-        <h3>Order {order?.orderId|| ''}</h3>
+        <h3 className="orderHead">Order {order?.orderId|| ''}</h3>
         <span className={`status-badge ${order?.status?.toLowerCase() || ''}`}>
           {order?.status || 'N/A'}
         </span>
