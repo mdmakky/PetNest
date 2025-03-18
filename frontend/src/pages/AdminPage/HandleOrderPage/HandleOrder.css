@@ -1,111 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .admin-orders-container {
-  padding: 2rem;
+  padding: 40px 20px;
   max-width: 1800px;
   margin: 0 auto;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
 }
 
 .admin-order-head {
   text-align: center;
-  margin-bottom: 2rem;
-  color: #2c3e50;
+  margin-bottom: 60px;
+  color: #000000;
+  font-size: 2rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.admin-order-head::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 2px;
 }
 
 .admin-orders-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 30px;
+  margin-top: 40px;
 }
 
 .admin-order-column {
-  background: #f5f6fa;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: white;
+  color: #000000;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.admin-order-column:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .admin-order-column h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #34495e;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #ddd;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #000000;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #eee;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .admin-order-card {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.admin-order-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .admin-order-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.admin-order-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  word-break: break-all;
+}
+
+.admin-order-header h3 svg {
+  color: #4CAF50;
 }
 
 .status-badge {
-  padding: 0.3rem 0.6rem;
+  padding: 6px 12px;
   border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .status-badge.pending {
-  background: #f39c12;
-  color: white;
+  background-color: #fff3e0;
+  color: #f57c00;
 }
+
 .status-badge.shipped {
-  background: #3498db;
-  color: white;
+  background-color: #e3f2fd;
+  color: #1976d2;
 }
+
 .status-badge.delivered {
-  background: #2ecc71;
-  color: white;
+  background-color: #e8f5e9;
+  color: #2e7d32;
 }
+
 .status-badge.cancelled {
-  background: #e74c3c;
-  color: white;
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.admin-order-details {
+  width: 100%;
+  overflow: hidden;
 }
 
 .admin-order-details p {
-  margin: 0.5rem 0;
-  color: #7f8c8d;
-  font-size: 0.9rem;
+  margin: 12px 0;
+  color: #4a4a4a;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  word-break: break-word;
+}
+
+.admin-order-details p svg {
+  color: #4CAF50;
+  font-size: 1.2rem;
 }
 
 .admin-order-actions {
-  margin-top: 1rem;
+  margin-top: 20px;
   display: flex;
-  gap: 0.5rem;
+  gap: 12px;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .admin-btn {
+  flex: 1;
+  min-width: 150px;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
   cursor: pointer;
-  font-weight: bold;
-  transition: opacity 0.3s;
-}
-
-.admin-btn:hover {
-  opacity: 0.9;
+  white-space: nowrap;
 }
 
 .admin-btn.shipped {
-  background: #3498db;
+  background-color: #1976d2;
   color: white;
 }
+
 .admin-btn.delivered {
-  background: #2ecc71;
+  background-color: #4CAF50;
   color: white;
 }
+
 .admin-btn.cancelled {
-  background: #e74c3c;
+  background-color: white;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+}
+
+.admin-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.admin-btn.shipped:hover {
+  background-color: #1565c0;
+}
+
+.admin-btn.delivered:hover {
+  background-color: #45a049;
+}
+
+.admin-btn.cancelled:hover {
+  background-color: #dc3545;
   color: white;
 }
 
@@ -113,16 +237,74 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 60vh;
 }
 
 @media (max-width: 768px) {
+  .admin-orders-container {
+    padding: 20px 10px;
+  }
+
+  .admin-order-head {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
   .admin-orders-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .admin-order-column {
-    margin-bottom: 2rem;
+    padding: 20px;
+  }
+
+  .admin-order-card {
+    padding: 16px;
+  }
+
+  .admin-order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .status-badge {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-order-actions {
+    flex-direction: column;
+  }
+
+  .admin-btn {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .admin-order-header h3 {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-order-head {
+    font-size: 1.5rem;
+  }
+
+  .admin-order-column h2 {
+    font-size: 1.2rem;
+  }
+
+  .admin-order-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .admin-order-details p {
+    font-size: 0.9rem;
   }
 }
 

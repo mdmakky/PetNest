@@ -6,6 +6,16 @@ import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
 import "./HandleDoctor.css";
 import AdminBar from "../../../components/AdminBar/AdminBar";
+import PersonIcon from '@mui/icons-material/Person';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import DescriptionIcon from '@mui/icons-material/Description';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 const HandleDoctor = () => {
   const [doctors, setDoctors] = useState([]);
@@ -164,43 +174,53 @@ const HandleDoctor = () => {
                   className="handle-doctor-doctor-image"
                 />
                 <div className="handle-doctor-doctor-info">
-                  <h3>{doctor.doctorName}</h3>
+                  <h3>
+                    <PersonIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+                    {doctor.doctorName}
+                  </h3>
                   <p>
+                    <LocalHospitalIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
                     <strong>Speciality:</strong> {doctor.speciality}
                   </p>
                   <p>
+                    <LocalHospitalIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
                     <strong>Hospital:</strong> {doctor.hospital}
                   </p>
                   <p>
+                    <LocationOnIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
                     <strong>District:</strong> {doctor.district}
                   </p>
                   <p>
+                    <LocationOnIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
                     <strong>Address:</strong> {doctor.address}
                   </p>
                   <p>
+                    <PhoneIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
                     <strong>Contact:</strong> {doctor.contact}
                   </p>
-                 
                 </div>
                 <div className="handle-doctor-doctor-actions">
-                <button
+                  <button
                     className="handle-doctor-view-doc-btn"
                     onClick={() =>
                       window.open(doctor.verificationDocument, "_blank")
                     }
                   >
+                    <VisibilityIcon />
                     View Document
                   </button>
                   <button
                     className="handle-doctor-accept-btn"
                     onClick={() => handleApprove(doctor._id)}
                   >
+                    <CheckCircleIcon />
                     Approve
                   </button>
                   <button
                     className="handle-doctor-decline-btn"
                     onClick={() => handleDecline(doctor._id)}
                   >
+                    <CancelIcon />
                     Decline
                   </button>
                 </div>
@@ -214,12 +234,25 @@ const HandleDoctor = () => {
             onClick={handlePreviousPage}
             variant="outlined"
             disabled={currentPage === 1}
+            startIcon={<NavigateBeforeIcon />}
             sx={{
-              "&:hover": {
-                backgroundColor: "transparent",
-                color: "primary.main",
+              borderRadius: '12px',
+              textTransform: 'none',
+              padding: '12px 32px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: 'Poppins, sans-serif',
+              border: '2px solid #4CAF50',
+              color: '#4CAF50',
+              minWidth: '120px',
+              height: '48px',
+              backgroundColor: 'transparent',
+              '&:hover': {
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.2)',
               },
-              marginTop: "16px",
             }}
           >
             Previous
@@ -228,12 +261,25 @@ const HandleDoctor = () => {
             onClick={handleNextPage}
             variant="outlined"
             disabled={currentPage * doctorPerPage >= totalDoctors}
+            endIcon={<NavigateNextIcon />}
             sx={{
-              "&:hover": {
-                backgroundColor: "transparent",
-                color: "primary.main",
+              borderRadius: '12px',
+              textTransform: 'none',
+              padding: '12px 32px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              fontFamily: 'Poppins, sans-serif',
+              border: '2px solid #4CAF50',
+              color: '#4CAF50',
+              minWidth: '120px',
+              height: '48px',
+              backgroundColor: 'transparent',
+              '&:hover': {
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 20px rgba(76, 175, 80, 0.2)',
               },
-              marginTop: "16px",
             }}
           >
             Next
