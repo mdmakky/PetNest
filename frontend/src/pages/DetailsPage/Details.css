@@ -4,11 +4,9 @@
   min-height: 100vh;
   background-color: #f8f9fa;
   font-family: 'Poppins', sans-serif;
-  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-top: 80px;
   padding-bottom: 80px;
 }
 

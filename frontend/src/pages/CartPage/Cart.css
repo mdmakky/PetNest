@@ -2,7 +2,7 @@
 
 .cart-container {
   max-width: 1200px;
-  margin: 80px auto 60px;
+  margin: 20px auto 60px;
   padding: 20px;
   font-family: 'Poppins', sans-serif;
 }
@@ -393,4 +393,8 @@
   .cart-product-details h6 {
     font-size: 1.1rem;
   }
+}
+
+.totalCostCart {
+  color: #2c3e50;
 }

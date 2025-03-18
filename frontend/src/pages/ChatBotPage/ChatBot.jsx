@@ -52,6 +52,13 @@ const Chatbot = ({ onClose }) => {
       setLoading(false);
     }
   };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && userMessage.trim() !== "") {
+      handleSendMessage();
+    }
+  };
+
   const formatMessage = (messageText) => {
     return { __html: marked(messageText) };
   };
@@ -60,26 +67,21 @@ const Chatbot = ({ onClose }) => {
     <div className="chatbot-container">
       <div className="chatbot-header">
         <div className="chatbox-tag">
-        <Typography variant="h5"> Meowster - Your Pet Assistant 🐱</Typography>
+          <Typography variant="h5">Meowster - Your Pet Assistant 🐱</Typography>
         </div>
         <div className="chatbox-tag-btn">
-        <IconButton onClick={onClose} className="chatbox-close-button" disableRipple>
-          <IoClose size={30} />
-        </IconButton>
+          <IconButton onClick={onClose} className="chatbox-close-button" disableRipple>
+            <IoClose size={30} />
+          </IconButton>
         </div>
       </div>
       <div className="chatbot-messages">
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`chat-message ${
-              message.isBot ? "bot-message" : "user-message"
-            }`}
+            className={`chat-message ${message.isBot ? "bot-message" : "user-message"}`}
           >
-            <Typography
-              variant="body2"
-              dangerouslySetInnerHTML={formatMessage(message.text)}
-            />
+            <Typography variant="body2" dangerouslySetInnerHTML={formatMessage(message.text)} />
           </div>
         ))}
         {loading && (
@@ -97,14 +99,11 @@ const Chatbot = ({ onClose }) => {
             size="small"
             value={userMessage}
             onChange={(e) => setUserMessage(e.target.value)}
+            onKeyDown={handleKeyDown}  
           />
         </div>
         <div className="chatbot-btn">
-          <IconButton
-            color="primary"
-            onClick={handleSendMessage}
-            disabled={!userMessage || loading}
-          >
+          <IconButton color="primary" onClick={handleSendMessage} disabled={!userMessage || loading}>
             <IoIosSend size={24} />
           </IconButton>
         </div>

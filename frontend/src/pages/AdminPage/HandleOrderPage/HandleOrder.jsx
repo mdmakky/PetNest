@@ -99,7 +99,7 @@ const HandleOrder = () => {
         <p>Product: {order?.productId?.productName || 'N/A'}</p>
         <p>Category: {order?.productId?.category || 'N/A'}</p>
         <p>Quantity: {order?.quantity || 0}</p>
-        <p>Total: ${order?.totalCost?.toFixed(2) || 0.00}</p>
+        <p>Total: ৳{order?.totalCost?.toFixed(2) || 0.00}</p>
         <p>Order Date: {order?.purchaseDate ? new Date(order.purchaseDate).toLocaleDateString() : 'N/A'}</p>
         <p>Delivery Due: {order?.deliveryDate ? new Date(order.deliveryDate).toLocaleDateString() : 'N/A'}</p>
       </div>

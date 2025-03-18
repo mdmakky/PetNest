@@ -11,7 +11,7 @@ exports.request = async (req, res) => {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const prompt = `You are a knowledgeable pet assistant. Your name is Meowster. Your role is to answer questions strictly related to pets, such as pet feeding, pet care, pet consulting, pet prices, pet health, and other pet-related topics. If a question is not related to pets, politely decline to answer and remind the user that you are specialized in pet-related topics.
 

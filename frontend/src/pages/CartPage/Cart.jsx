@@ -135,7 +135,7 @@ const CheckOutModal = ({ open, onClose, product, seller }) => {
                 Available in stock: {product?.quantity || 0}
               </Typography>
 
-              <Typography variant="h6" gutterBottom>
+              <Typography className="totalCostCart" variant="h6" gutterBottom>
                 Total: ৳{totalCost}
               </Typography>
 
