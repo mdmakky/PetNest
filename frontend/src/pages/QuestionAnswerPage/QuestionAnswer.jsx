@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Button, TextField, IconButton, CircularProgress, Typography, Box } from "@mui/material";
+import { Button, TextField, IconButton, CircularProgress, Typography, Box, Switch, FormControlLabel } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import PetsIcon from '@mui/icons-material/Pets';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import PetsIcon from "@mui/icons-material/Pets";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { toast } from "react-toastify";
@@ -15,25 +15,55 @@ const QuestionAnswer = () => {
   const [newQuestion, setNewQuestion] = useState("");
   const [answers, setAnswers] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [showMyQuestions, setShowMyQuestions] = useState(false);
   const [loading, setLoading] = useState(false);
   const questionsPerPage = 10;
 
   useEffect(() => {
     fetchQuestions();
-  }, [currentPage]);
+  }, [currentPage, showMyQuestions]);
 
   useEffect(() => {
     fetchQuestions();
-  }, [currentPage]);
+  }, [currentPage, showMyQuestions]);
+
   const fetchQuestions = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/qa/getQuestions");
+      setLoading(true);
+      const token = localStorage.getItem("token");
+
+      if (showMyQuestions && !token) {
+        toast.error("You must be logged in to view your questions.");
+        setLoading(false);
+        return;
+      }
+      const url = showMyQuestions
+        ? `http://localhost:3000/api/qa/getMyQuestions`
+        : "http://localhost:3000/api/qa/getQuestions";
+  
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
       const data = await response.json();
-      setQuestions(data);
+      setQuestions(Array.isArray(data) ? data : []); 
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching questions:", error);
+      setQuestions([]); 
+      setLoading(false);
     }
   };
+  
+
   const handleAskQuestion = async () => {
     if (!newQuestion.trim()) return;
     if (!localStorage.getItem("token")) {
@@ -221,6 +251,17 @@ const QuestionAnswer = () => {
       <NavBar />
       <div className="qa-page">
         <div className="ask-question-section">
+        <FormControlLabel
+          control={
+            <Switch
+              checked={showMyQuestions}
+              onChange={() => setShowMyQuestions(!showMyQuestions)}
+              color="primary"
+            />
+          }
+          label={showMyQuestions ? "My Questions" : "All Questions"}
+          className="toggleLable"
+        />
           <TextField
             fullWidth
             label="Any Question?"

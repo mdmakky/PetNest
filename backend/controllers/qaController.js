@@ -116,5 +116,18 @@ exports.dislike = async (req, res) => {
   }
 };
 
-  
-  
+exports.getMyQuestions = async (req, res) => {
+  try {
+    const userId = req.user.id; 
+
+    const myQuestions = await QA.find({ userId })
+      .populate('userId', 'name profileImage')
+      .populate('answers.userId', 'name profileImage')
+      .sort({ createdAt: -1 });
+
+    res.json(myQuestions);
+  } catch (error) {
+    console.error('Error fetching user questions:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

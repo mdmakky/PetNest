@@ -83,7 +83,7 @@
 }
 
 .question-container {
-  background-color: #e8f5e9; /* Light green background for questions */
+  background-color: #e8f5e9; 
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 25px;
@@ -116,7 +116,7 @@
 }
 
 .answers-list {
-  border-top: 1px solid #bbb; /* Darker border for separation */
+  border-top: 1px solid #bbb; 
   padding-top: 15px;
   display: flex;
   flex-direction: column;
@@ -124,8 +124,8 @@
 }
 
 .answer-container {
-  background-color: #fff; /* White background for answers */
-  border: 1px solid #ddd; /* Light border for answers */
+  background-color: #fff; 
+  border: 1px solid #ddd; 
   border-radius: 8px;
   padding: 15px;
   display: flex;
@@ -169,8 +169,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 50%; /* Make the add answer section smaller */
-  margin-left: 0; /* Shift the add answer section to the left */
+  max-width: 50%; 
+  margin-left: 0; 
 }
 
 .add-answer-section button {
@@ -247,6 +247,12 @@
   .add-answer-section {
     flex-direction: column;
     gap: 15px;
-    max-width: 100%; /* Ensure the add answer section is full width on smaller screens */
+    max-width: 100%; 
   }
+}
+
+.toggleLable {
+  color: #333;
+  font-weight: bold;
+  font-size: larger;
 }

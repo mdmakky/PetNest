@@ -5,6 +5,7 @@ const authenticateJWT = require('../utils/authentication');
 
 
 router.get("/getQuestions",  qaController.getQuestions);
+router.get("/getMyQuestions", authenticateJWT, qaController.getMyQuestions);
 router.post("/addQuestion", authenticateJWT, qaController.addQuestion);
 router.post("/:questionId/answers", authenticateJWT, qaController.addAnswer)
 router.post("/:questionId/:answerId/like", authenticateJWT, qaController.like)
