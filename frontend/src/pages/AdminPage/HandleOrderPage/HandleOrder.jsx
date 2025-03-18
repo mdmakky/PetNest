@@ -5,6 +5,11 @@ import { CircularProgress } from "@mui/material";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import AdminBar from "../../../components/AdminBar/AdminBar";
+import PersonIcon from '@mui/icons-material/Person';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import "./HandleOrder.css";
 
 const HandleOrder = () => {
@@ -145,28 +150,40 @@ const HandleOrder = () => {
         <h1 className="admin-order-head">Order Management</h1>
         <div className="admin-orders-grid">
           <div className="admin-order-column">
-            <h2>Pending Orders ({groupOrdersByStatus("Pending").length})</h2>
+            <h2>
+              <ShoppingCartIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+              Pending Orders ({groupOrdersByStatus("Pending").length})
+            </h2>
             {groupOrdersByStatus("Pending").map((order) => (
               <OrderCard key={order._id} order={order} />
             ))}
           </div>
 
           <div className="admin-order-column">
-            <h2>Shipped Orders ({groupOrdersByStatus("Shipped").length})</h2>
+            <h2>
+              <LocalShippingIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+              Shipped Orders ({groupOrdersByStatus("Shipped").length})
+            </h2>
             {groupOrdersByStatus("Shipped").map((order) => (
               <OrderCard key={order._id} order={order} />
             ))}
           </div>
 
           <div className="admin-order-column">
-            <h2>Delivered Orders ({groupOrdersByStatus("Delivered").length})</h2>
+            <h2>
+              <CheckCircleIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+              Delivered Orders ({groupOrdersByStatus("Delivered").length})
+            </h2>
             {groupOrdersByStatus("Delivered").map((order) => (
               <OrderCard key={order._id} order={order} />
             ))}
           </div>
 
           <div className="admin-order-column">
-            <h2>Cancelled Orders ({groupOrdersByStatus("Cancelled").length})</h2>
+            <h2>
+              <CancelIcon sx={{ mr: 1, verticalAlign: 'middle', color: '#4CAF50' }} />
+              Cancelled Orders ({groupOrdersByStatus("Cancelled").length})
+            </h2>
             {groupOrdersByStatus("Cancelled").map((order) => (
               <OrderCard key={order._id} order={order} />
             ))}

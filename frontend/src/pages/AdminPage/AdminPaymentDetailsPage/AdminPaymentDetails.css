@@ -1,7 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 .admin-payment-container {
     background-color: #f8f9fa;
     min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+  }
+  
+
+  .admin-payment-title {
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 12px;
+  }
+  
+
+  .admin-payment-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    border-radius: 2px;
   }
   
 
@@ -9,42 +36,69 @@
     position: sticky;
     top: 0;
     z-index: 1;
+    background-color: #f8f9fa;
+  }
+  
+
+  .styled-table-header .MuiTableCell-head {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    padding: 16px;
   }
   
 
   .MuiTableRow-hover:hover {
     background-color: #f5f5f5 !important;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .responsive-text {
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
+    font-family: 'Poppins', sans-serif;
+    color: #2c3e50;
   }
   
 
   .amount-cell {
     font-weight: 600;
     color: #2e7d32;
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
   }
   
   .unit-price {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: #666;
+    font-family: 'Poppins', sans-serif;
   }
   
 
   .date-cell {
     min-width: 120px;
+    font-family: 'Poppins', sans-serif;
   }
   
 
   @media (max-width: 600px) {
-    .mobile-hidden {
-      display: none;
+    .admin-payment-container {
+      padding: 12px;
+    }
+  
+    .admin-payment-title {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+  
+    .table-container {
+      border-radius: 12px;
     }
   
     .MuiTableCell-root {
@@ -52,12 +106,8 @@
     }
   
     .responsive-text {
-      font-size: 0.8rem;
-      max-width: 150px;
-    }
-  
-    .MuiTypography-h4 {
-      font-size: 1.5rem !important;
+      font-size: 0.85rem;
+      max-width: 120px;
     }
   }
   
@@ -65,16 +115,26 @@
   .no-records {
     padding: 2rem;
     text-align: center;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    margin-top: 2rem;
+  }
+  
+
+  .no-records h6 {
+    color: #666;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
   }
   
 
   .table-container {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
     overflow: hidden;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.08);
   }
   
   
@@ -85,41 +145,70 @@
  
   .status-badge {
     display: inline-block;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
   }
   
   
   .clickable-cell {
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    color: #4CAF50;
   }
   
   .clickable-cell:hover {
-    background-color: #e3f2fd;
+    color: #45a049;
   }
   
   @media (max-width: 960px) {
+    .admin-payment-container {
+      padding: 16px;
+    }
+  
+    .admin-payment-title {
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+    }
+  
     .styled-container {
       padding: 1rem !important;
+    }
+  
+    .mobile-hidden {
+      display: none;
+    }
+  
+    .MuiTableCell-root {
+      padding: 12px 8px;
+    }
+  
+    .responsive-text {
+      font-size: 0.9rem;
+      max-width: 150px;
+    }
+  
+    .amount-cell {
+      font-size: 1rem;
     }
   }
   
   
   .transaction-id {
     font-family: 'Roboto Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #666;
+    background: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 4px;
   }
   
  
   .loading-spinner {
     display: flex;
     justify-content: center;
-    padding: 2rem 0;
-  }
-  .admin-payment-title{
-    color: #666;
+    align-items: center;
+    min-height: 60vh;
   }

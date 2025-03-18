@@ -202,9 +202,7 @@ const HandleDoctor = () => {
                 <div className="handle-doctor-doctor-actions">
                   <button
                     className="handle-doctor-view-doc-btn"
-                    onClick={() =>
-                      window.open(doctor.verificationDocument, "_blank")
-                    }
+                    onClick={() => window.open(doctor.verificationDocument, "_blank")}
                   >
                     <VisibilityIcon />
                     View Document

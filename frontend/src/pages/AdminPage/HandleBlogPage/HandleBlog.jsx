@@ -9,6 +9,12 @@ import DOMPurify from "dompurify";
 import Swal from "sweetalert2";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import CategoryIcon from '@mui/icons-material/Category';
+import PersonIcon from '@mui/icons-material/Person';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import "./HandleBlog.css";
 
 const HandleBlog = () => {
@@ -171,17 +177,21 @@ const HandleBlog = () => {
               <div key={blog._id} className="handleBlog-card">
                 <h3>{blog.title}</h3>
                 <p>
+                  <CategoryIcon sx={{ color: '#4CAF50', fontSize: '1.2rem' }} />
                   <strong>Category:</strong>{" "}
                   <span className="category">{blog.category}</span>
                 </p>
                 <p>
+                  <PersonIcon sx={{ color: '#4CAF50', fontSize: '1.2rem' }} />
                   <strong>Author:</strong> {blog.userId?.name} (
                   {blog.userId.email})
                 </p>
                 <p>
+                  <LocationOnIcon sx={{ color: '#4CAF50', fontSize: '1.2rem' }} />
                   <strong>Address:</strong> {blog.userId?.address}
                 </p>
                 <p>
+                  <AccessTimeIcon sx={{ color: '#4CAF50', fontSize: '1.2rem' }} />
                   <strong>Posted on:</strong>{" "}
                   {new Date(blog.createdAt).toLocaleString()}
                 </p>
@@ -197,12 +207,14 @@ const HandleBlog = () => {
                     onClick={() => handleApprove(blog._id)}
                     className="handleBlog-accept-btn"
                   >
+                    <CheckCircleIcon />
                     Approve
                   </button>
                   <button
                     onClick={() => handleDecline(blog._id)}
                     className="handleBlog-decline-btn"
                   >
+                    <CancelIcon />
                     Decline
                   </button>
                 </div>

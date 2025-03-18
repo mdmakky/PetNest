@@ -124,29 +124,33 @@
 
 .handle-doctor-doctor-actions {
   display: flex;
-  flex-direction: row;
-  gap: 12px;
-  width: 100%;
-  margin-top: 20px;
-  padding-top: 20px;
+  flex-direction: column;
+  gap: 8px;
+  width: 30%;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid #eee;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .handle-doctor-view-doc-btn,
 .handle-doctor-accept-btn,
 .handle-doctor-decline-btn {
-  flex: 1;
-  padding: 10px;
+  width: 100%;
+  padding: 8px 16px;
   border-radius: 8px;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  height: 36px;
 }
 
 .handle-doctor-view-doc-btn {
@@ -162,24 +166,24 @@
 .handle-doctor-decline-btn {
   background-color: white;
   color: #dc3545;
-  border: 2px solid #dc3545;
+  border: 1.5px solid #dc3545;
 }
 
 .handle-doctor-view-doc-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
   background-color: #45a049;
 }
 
 .handle-doctor-accept-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
   background-color: #1565c0;
 }
 
 .handle-doctor-decline-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2);
   background-color: #dc3545;
   color: white;
 }
@@ -266,17 +270,15 @@
   }
 
   .handle-doctor-doctor-actions {
-    flex-wrap: wrap;
-    gap: 8px;
+    width: 50%;
   }
 
   .handle-doctor-view-doc-btn,
   .handle-doctor-accept-btn,
   .handle-doctor-decline-btn {
-    flex: 1 1 calc(50% - 4px);
-    min-width: 100px;
-    padding: 8px;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    height: 32px;
   }
 }
 
@@ -308,16 +310,15 @@
   }
 
   .handle-doctor-doctor-actions {
-    flex-direction: column;
-    gap: 8px;
+    width: 60%;
   }
 
   .handle-doctor-view-doc-btn,
   .handle-doctor-accept-btn,
   .handle-doctor-decline-btn {
-    width: 100%;
-    padding: 8px;
-    font-size: 0.9rem;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    height: 30px;
   }
 }
 

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 .admin-blog-page {
-  padding: 20px;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
   background-color: #f8f9fa;
@@ -11,12 +11,13 @@
 
 .admin-blog-title {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   color: #2c3e50;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
   position: relative;
-  padding-bottom: 12px;
+  padding-bottom: 16px;
+  letter-spacing: -0.5px;
 }
 
 .admin-blog-title::after {
@@ -34,81 +35,95 @@
 .handleBlog-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  margin-top: 20px;
+  gap: 30px;
+  margin-top: 30px;
 }
 
 .handleBlog-card {
   background: white;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .handleBlog-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
 .handleBlog-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #2c3e50;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
   border-bottom: 2px solid #4CAF50;
+  letter-spacing: -0.3px;
 }
 
 .handleBlog-card p {
   color: #4a4a4a;
-  margin: 10px 0;
-  font-size: 0.95rem;
+  margin: 12px 0;
+  font-size: 1rem;
   line-height: 1.6;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  font-weight: 400;
 }
 
 .handleBlog-card p strong {
-  min-width: 80px;
+  min-width: 100px;
   color: #2c3e50;
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+.category {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
 .blog-content {
-  margin: 20px 0;
-  padding: 16px;
+  margin: 25px 0;
+  padding: 20px;
   background-color: #f8f9fa;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  border-radius: 12px;
+  font-size: 1rem;
+  line-height: 1.7;
   color: #4a4a4a;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .handleBlog-btn {
   display: flex;
   flex-direction: row;
-  gap: 12px;
-  margin-top: 20px;
-  padding-top: 20px;
+  gap: 15px;
+  margin-top: 25px;
+  padding-top: 25px;
   border-top: 1px solid #eee;
 }
 
 .handleBlog-card button {
   flex: 1;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 12px;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
 }
 
 .handleBlog-accept-btn {
@@ -118,7 +133,7 @@
 
 .handleBlog-accept-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
   background-color: #45a049;
 }
 
@@ -130,7 +145,7 @@
 
 .handleBlog-decline-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.2);
   background-color: #dc3545;
   color: white;
 }
@@ -147,17 +162,18 @@
   font-size: 1.4rem;
   color: #4a4a4a;
   margin-top: 40px;
-  padding: 20px;
+  padding: 30px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  font-weight: 500;
 }
 
 .handleBlog-pagination-buttons {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin: 40px 0;
+  margin: 50px 0;
   padding: 20px;
 }
 
@@ -194,16 +210,62 @@
 
 @media (max-width: 768px) {
   .admin-blog-page {
-    padding: 16px;
+    padding: 30px 16px;
   }
 
   .admin-blog-title {
-    font-size: 1.6rem;
-    margin-bottom: 24px;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
   }
 
   .handleBlog-list {
-    gap: 16px;
+    gap: 20px;
+  }
+
+  .handleBlog-card {
+    padding: 24px;
+  }
+
+  .handleBlog-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .handleBlog-card p {
+    font-size: 0.95rem;
+  }
+
+  .blog-content {
+    font-size: 0.95rem;
+    padding: 16px;
+  }
+
+  .handleBlog-btn {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .handleBlog-card button {
+    flex: 1 1 calc(50% - 5px);
+    min-width: 120px;
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .handleBlog-pagination-buttons button {
+    min-width: 110px;
+    height: 44px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-blog-page {
+    padding: 20px 12px;
+  }
+
+  .admin-blog-title {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
   }
 
   .handleBlog-card {
@@ -220,64 +282,18 @@
 
   .blog-content {
     font-size: 0.9rem;
-    padding: 12px;
-  }
-
-  .handleBlog-btn {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .handleBlog-card button {
-    flex: 1 1 calc(50% - 4px);
-    min-width: 100px;
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-
-  .handleBlog-pagination-buttons button {
-    min-width: 100px;
-    height: 44px;
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .admin-blog-page {
-    padding: 12px;
-  }
-
-  .admin-blog-title {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-  }
-
-  .handleBlog-card {
-    padding: 16px;
-  }
-
-  .handleBlog-card h3 {
-    font-size: 1.1rem;
-  }
-
-  .handleBlog-card p {
-    font-size: 0.85rem;
-  }
-
-  .blog-content {
-    font-size: 0.85rem;
-    padding: 10px;
+    padding: 14px;
   }
 
   .handleBlog-btn {
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
   }
 
   .handleBlog-card button {
     width: 100%;
-    padding: 8px;
-    font-size: 0.9rem;
+    padding: 10px;
+    font-size: 0.95rem;
   }
 
   .handleBlog-pagination-buttons {
