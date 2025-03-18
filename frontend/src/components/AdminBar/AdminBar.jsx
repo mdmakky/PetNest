@@ -85,6 +85,17 @@ const AdminBar = () => {
             Order List
           </Link>
 
+
+          <Link
+            to="/adminPaymentDetails"
+            className={`menu-link ${
+              location.pathname === "/adminPaymentDetails" ? "active" : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Payment Details
+          </Link>
+
           <Link
             to="/handleUser"
             className={`menu-link ${

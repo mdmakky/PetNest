@@ -94,47 +94,38 @@ const ShowOrder = () => {
     const margin = 20;
     const contentWidth = pageWidth - (margin * 2);
     
-    // Add gradient background
     doc.setFillColor(76, 175, 80);
     doc.rect(0, 0, pageWidth, 40, 'F');
     
-    // Add logo
     const logoUrl = '/images/logo.webp';
     const logo = new Image();
     logo.src = logoUrl;
   
     logo.onload = () => {
-      // Add logo
       doc.addImage(logo, 'WEBP', margin, 10, 30, 30);
 
-      // Header text
       doc.setFontSize(24);
       doc.setTextColor(255, 255, 255);
       doc.setFont('Poppins', 'bold');
       doc.text("PetNest", margin + 40, 25);
       
-      // Subtitle
       doc.setFontSize(14);
       doc.setTextColor(255, 255, 255);
       doc.setFont('Poppins', 'normal');
       doc.text("Payment Receipt", margin + 40, 35);
 
-      // Content background
       doc.setFillColor(255, 255, 255);
       doc.rect(margin, 45, contentWidth, pageHeight - 65, 'F');
       
-      // Order ID
       doc.setFontSize(16);
       doc.setTextColor(76, 175, 80);
       doc.setFont('Poppins', 'bold');
       doc.text(`Order ID: ${order.orderId}`, margin, 60);
       
-      // Divider line
       doc.setDrawColor(76, 175, 80);
       doc.setLineWidth(0.5);
       doc.line(margin, 65, pageWidth - margin, 65);
-      
-      // Customer Details Section
+
       doc.setFontSize(14);
       doc.setTextColor(44, 62, 80);
       doc.setFont('Poppins', 'bold');
@@ -146,7 +137,6 @@ const ShowOrder = () => {
       doc.text(`Name: ${order.user.name || 'N/A'}`, margin, 90);
       doc.text(`Email: ${order.user.email || 'N/A'}`, margin, 97);
       
-      // Order Details Section
       doc.setFontSize(14);
       doc.setTextColor(44, 62, 80);
       doc.setFont('Poppins', 'bold');
@@ -173,7 +163,6 @@ const ShowOrder = () => {
         yPosition += 7;
       });
       
-      // Total Amount Box
       doc.setFillColor(76, 175, 80);
       doc.rect(margin, yPosition + 5, contentWidth, 20, 'F');
       doc.setFontSize(16);
@@ -181,14 +170,12 @@ const ShowOrder = () => {
       doc.setFont('Poppins', 'bold');
       doc.text(`Total Amount: Tk ${order.totalCost.toFixed(2)}`, margin + 10, yPosition + 15);
       
-      // Footer
       doc.setFontSize(10);
       doc.setTextColor(100, 100, 100);
       doc.setFont('Poppins', 'normal');
       doc.text("Thank you for choosing PetNest!", margin, pageHeight - 20);
       doc.text("Contact: petnestweb@gmail.com | Phone: +8801859093806", margin, pageHeight - 15);
 
-      // Save the PDF
       doc.save(`PetNest-Payment-${order.orderId}.pdf`);
     };
   };

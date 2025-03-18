@@ -1,0 +1,125 @@
+
+.admin-payment-container {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  }
+  
+
+  .styled-table-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+
+  .MuiTableRow-hover:hover {
+    background-color: #f5f5f5 !important;
+    transition: background-color 0.3s ease;
+  }
+
+  .responsive-text {
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+  
+
+  .amount-cell {
+    font-weight: 600;
+    color: #2e7d32;
+  }
+  
+  .unit-price {
+    font-size: 0.75rem;
+    color: #666;
+  }
+  
+
+  .date-cell {
+    min-width: 120px;
+  }
+  
+
+  @media (max-width: 600px) {
+    .mobile-hidden {
+      display: none;
+    }
+  
+    .MuiTableCell-root {
+      padding: 8px;
+    }
+  
+    .responsive-text {
+      font-size: 0.8rem;
+      max-width: 150px;
+    }
+  
+    .MuiTypography-h4 {
+      font-size: 1.5rem !important;
+    }
+  }
+  
+
+  .no-records {
+    padding: 2rem;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+
+  .table-container {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  
+  .MuiTableBody-root .MuiTableRow-root:nth-of-type(odd) {
+    background-color: #fafafa;
+  }
+  
+ 
+  .status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  
+  .clickable-cell {
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .clickable-cell:hover {
+    background-color: #e3f2fd;
+  }
+  
+  @media (max-width: 960px) {
+    .styled-container {
+      padding: 1rem !important;
+    }
+  }
+  
+  
+  .transaction-id {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+ 
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+  .admin-payment-title{
+    color: #666;
+  }
